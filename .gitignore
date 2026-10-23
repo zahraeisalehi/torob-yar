@@ -1,0 +1,16 @@
+node_modules/
+.next/
+data/raw/
+data/app.sqlite
+data/app.sqlite.gz
+data/rw/
+.env*.local
+e2e/screenshots/
+node_modules/
+.next/
+data/raw/
+data/app.sqlite
+data/app.sqlite.gz
+data/rw/
+.env*.local
+e2e/screenshots/
