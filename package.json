@@ -13,7 +13,9 @@
     "build:db": "tsx scripts/build-db.ts",
     "build:fixtures": "tsx scripts/build-fixtures.ts",
     "doctor": "tsx scripts/doctor.ts",
-    "smoke": "tsx scripts/smoke.ts"
+    "smoke": "tsx scripts/smoke.ts",
+    "predev": "node scripts/copy-assets.mjs",
+    "prebuild": "node scripts/copy-assets.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.77",

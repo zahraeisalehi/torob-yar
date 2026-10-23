@@ -46,3 +46,22 @@ export function tokenize(s: string): string[] {
     .map((t) => t.replace(/^[.+-]+|[.+-]+$/g, ''))
     .filter((t) => t.length > 0);
 }
+
+/**
+ * Persian digits for running text, but keep digits that belong to Latin model names
+ * ("Galaxy S25 FE 5G", "Exynos 2400", "Partybox 520") so they stay readable.
+ */
+export function faText(s: string): string {
+  let prevLatin = false;
+  return s
+    .split(/(\s+)/)
+    .map((t) => {
+      if (!t || /^\s+$/.test(t)) return t;
+      const latin = /[A-Za-z]/.test(t);
+      const bareNum = /^[0-9.,/×x-]+$/.test(t);
+      const keep = latin || (prevLatin && bareNum);
+      prevLatin = keep;
+      return keep ? t : toFaDigits(t);
+    })
+    .join('');
+}

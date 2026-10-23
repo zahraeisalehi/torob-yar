@@ -1,10 +1,20 @@
 import type { Product } from '../data/types';
 import type { SearchFilters, SpecDiffRow } from './blocks';
-import { normalizeFa, toAsciiDigits } from '../domain/normalize';
+import { faText, normalizeFa, toAsciiDigits } from '../domain/normalize';
 import { formatPercent, formatToman, toFaDigits } from '../domain/format';
 
+export function cleanSpec(v: string): string {
+  return v
+    .replace(/\s*,\s*\|\s*,?\s*/g, ' | ')
+    .replace(/(\s*[,،|]\s*)+$/g, '')
+    .replace(/\s+,/g, ',')
+    .trim();
+}
+
 export function freshLabel(p: Product): string {
-  return `قیمت‌ها: ${formatPercent(p.freshShare)} این هفته`;
+  if (p.freshShare >= 0.3 || p.freshShare30 === undefined) return `قیمت‌ها: ${formatPercent(p.freshShare)} این هفته`;
+  if (p.freshShare30 > 0) return `قیمت‌ها: ${formatPercent(p.freshShare30)} این ماه`;
+  return 'قیمت‌ها: قدیمی‌تر از یک ماه';
 }
 
 export function applyFilters(products: Product[], f: SearchFilters): Product[] {
@@ -29,7 +39,8 @@ function familyKey(p: Product): string {
 
 /** Deterministic pick: popular + fresh, one per model family. */
 export function defaultPick(products: Product[], n = 3): Product[] {
-  const sorted = [...products].sort((a, b) => b.shopCount * (0.5 + b.freshShare) - a.shopCount * (0.5 + a.freshShare));
+  const fresh = (p: Product) => 0.5 + Math.max(p.freshShare, (p.freshShare30 ?? 0) * 0.7);
+  const sorted = [...products].sort((a, b) => b.shopCount * fresh(b) - a.shopCount * fresh(a));
   const out: Product[] = [];
   const fams = new Set<string>();
   for (const p of sorted) {
@@ -71,7 +82,7 @@ export function buildSpecDiff(products: Product[], preferKeys: string[] = []): S
         if (valid.filter((x) => x.n === best.n).length === 1) bestIndex = best.i;
       }
     }
-    rows.push({ key, values: values.map((v) => (v ? toFaDigits(v) : v)), bestIndex });
+    rows.push({ key, values: values.map((v) => (v ? faText(cleanSpec(v)) : v)), bestIndex });
     if (rows.length >= 6) break;
   }
   // price row always helps the comparison
@@ -88,10 +99,13 @@ export function templateWhy(p: Product, needs: string[], all: Product[]): string
   const facts: string[] = [];
   const cheapest = all.every((o) => o.minPrice >= p.minPrice);
   const widest = all.every((o) => o.shopCount <= p.shopCount);
-  const spec = p.keySpecs.slice(0, 2).map((s) => `${s.key} ${s.value}`);
+  const spec = p.keySpecs
+    .filter((s) => s.value.length <= 30)
+    .slice(0, 2)
+    .map((s) => `${s.key} ${cleanSpec(s.value)}`);
   if (cheapest) facts.push('ارزان‌ترین گزینه‌ی این جمع');
   if (widest) facts.push(`در ${toFaDigits(p.shopCount)} فروشگاه موجوده و راحت پیدا می‌شه`);
-  if (!facts.length && spec.length) facts.push(toFaDigits(spec.join('، ')));
+  if (!facts.length && spec.length) facts.push(faText(spec.join('، ')));
   if (!facts.length) facts.push(`از ${formatToman(p.minPrice)} در ${toFaDigits(p.shopCount)} فروشگاه`);
   const need = needs.filter(Boolean).at(-1);
   return need ? `برای ${need} مناسبه؛ ${facts.join(' و ')}.` : `${facts.join(' و ')}.`;

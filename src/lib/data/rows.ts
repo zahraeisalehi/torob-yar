@@ -56,6 +56,7 @@ export type ProductRow = {
   max_price: number;
   shop_count: number;
   fresh_share: number;
+  fresh_share_30?: number;
 };
 
 export function productFromRow(r: ProductRow): Product {
@@ -71,6 +72,7 @@ export function productFromRow(r: ProductRow): Product {
     maxPrice: r.max_price,
     shopCount: r.shop_count,
     freshShare: Math.round(r.fresh_share * 100) / 100,
+    freshShare30: Math.round((r.fresh_share_30 ?? r.fresh_share) * 100) / 100,
   };
 }
 

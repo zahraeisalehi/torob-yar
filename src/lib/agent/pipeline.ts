@@ -4,7 +4,7 @@ import type { Product } from '../data/types';
 import { env } from '../env';
 import { normalizeFa } from '../domain/normalize';
 import { formatToman } from '../domain/format';
-import { modelTokens, parseBudget, wantsInstallment } from '../domain/query';
+import { contentTokens, modelTokens, parseBudget, wantsInstallment } from '../domain/query';
 import {
   InterpretSchema,
   PickSchema,
@@ -71,6 +71,18 @@ function genericQuestion(n: number, candidates: Product[]): Pending {
       { label: 'فرقی نمی‌کنه', need: '', filters: {} },
     ],
   };
+}
+
+/** Keep the dominant category of the most relevant hits so popular accessories don't crowd out the real thing. */
+function focusCategory(list: Product[]): Product[] {
+  if (list.length < 3) return list;
+  const counts = new Map<string, number>();
+  for (const p of list.slice(0, 5)) counts.set(p.category, (counts.get(p.category) ?? 0) + 1);
+  const [top, n] = [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
+  if (n < 2 && list[0].category !== top) return list;
+  const lead = n >= 2 ? top : list[0].category;
+  const focused = list.filter((p) => p.category === lead);
+  return focused.length >= 2 ? focused : list;
 }
 
 function merge(a: SearchFilters, b: SearchFilters): SearchFilters {
@@ -206,8 +218,23 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
       category: f.category,
       limit: 40,
     });
-    return applyFilters(res, { include: f.include, exclude: f.exclude });
+    return focusCategory(applyFilters(res, { include: f.include, exclude: f.exclude }));
   };
+
+  // A request for something we don't carry (e.g. shoes): say so instead of asking questions.
+  if (!state.lastProductIds.length && state.questionsAsked === 0 && !scenario) {
+    const head = contentTokens(last)[0];
+    const probe = await findCandidates({});
+    const headHit = head ? probe.some((p) => normalizeFa(`${p.title} ${p.category}`).includes(head)) : probe.length > 0;
+    if (!probe.length || !headHit) {
+      blocks.push({
+        type: 'text',
+        text: `«${last.trim().slice(0, 40)}» رو توی فروشگاه‌های ثبت‌شده پیدا نکردم. کاتالوگ ما بیشتر لوازم الکترونیکی و برقیه؛ مثلاً یکی از این‌ها:`,
+      });
+      blocks.push({ type: 'suggestions', items: scripted().examples });
+      return { blocks, state: { ...state, searchText: undefined }, mode: usedLive ? 'live' : 'scripted' };
+    }
+  }
 
   if (ask) {
     let pending: Pending | null = null;

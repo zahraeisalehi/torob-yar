@@ -40,6 +40,8 @@ export type Product = {
   maxPrice: number;
   shopCount: number;
   freshShare: number;
+  /** share of offers updated in the last 30 days */
+  freshShare30?: number;
 };
 
 export type Offer = {

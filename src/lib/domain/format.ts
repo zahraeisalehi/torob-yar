@@ -74,3 +74,5 @@ export function floorLabel(floor: number | null): string | null {
   if (floor % 1) return `نیم‌طبقه ${toFaDigits(Math.floor(floor))}`;
   return `طبقه ${toFaDigits(floor)}`;
 }
+
+export { faText } from './normalize';

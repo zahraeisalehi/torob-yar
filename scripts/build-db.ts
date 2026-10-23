@@ -55,6 +55,19 @@ const isoOf = (v: string | undefined) => {
   // unknown dates are treated as very old (stale) rather than dropped
   return new Date(Number.isFinite(t) ? t : Date.UTC(2020, 0, 1)).toISOString().slice(0, 19) + 'Z';
 };
+/** warranty arrives as JSON ({period_months, provider, description}) or plain text */
+function formatWarranty(w: string | null): string | null {
+  if (!w) return null;
+  if (!w.trim().startsWith('{')) return w.trim().slice(0, 80) || null;
+  try {
+    const j = JSON.parse(w) as { period_months?: number | null; provider?: string | null; description?: string | null };
+    const parts = [j.period_months ? `${j.period_months} ماه` : null, 'گارانتی', j.provider || null].filter(Boolean).join(' ');
+    const out = [j.period_months || j.provider ? parts : null, j.description || null].filter(Boolean).join(' — ');
+    return out ? out.slice(0, 80) : null;
+  } catch {
+    return null;
+  }
+}
 const id8 = (s: string) => crypto.createHash('sha1').update(s).digest('hex').slice(0, 10);
 const median = (xs: number[]) => {
   const a = [...xs].sort((x, y) => x - y);
@@ -118,7 +131,7 @@ async function main() {
       complex_id TEXT, floor REAL, unit TEXT, parse_confidence TEXT, installment INT, torob_pay INT,
       providers_json TEXT, hours_json TEXT, phone TEXT, categories_json TEXT, fast_delivery INT);
     CREATE TABLE products(rid INTEGER PRIMARY KEY, id TEXT UNIQUE, title TEXT, brand TEXT, category TEXT,
-      images_json TEXT, key_specs_json TEXT, min_price INT, max_price INT, shop_count INT, fresh_share REAL);
+      images_json TEXT, key_specs_json TEXT, min_price INT, max_price INT, shop_count INT, fresh_share REAL, fresh_share_30 REAL);
     -- offers reference products/shops by integer rowid to keep the image small (DATA.md §9); API ids are rebuilt.
     CREATE TABLE offers(rid INTEGER PRIMARY KEY, product_rid INT, shop_rid INT, price INT, last_changed_at TEXT,
       seller_title TEXT, warranty TEXT, description TEXT, is_outlier INT);
@@ -214,7 +227,7 @@ async function main() {
   for (const [pid, ps] of prices) medians.set(pid, median(ps.filter((p) => p >= 1000)));
 
   // ---------- offers pass 2: insert + stats ----------
-  type Stat = { min: number; max: number; shops: Set<string>; fresh: number; n: number };
+  type Stat = { min: number; max: number; shops: Set<string>; fresh: number; fresh30: number; n: number };
   const stats = new Map<string, Stat>();
   let dropped = 0;
   let total = 0;
@@ -231,16 +244,18 @@ async function main() {
     insO.run(
       ridOf(r.product_id), shopRid.get(r.shop_id), Math.round(p), isoOf(r.last_price_changed_at),
       normalizeBasic(r.seller_title ?? '').slice(0, 90),
-      nul(r.warranty), desc ? desc.slice(0, 200) : null, outlier,
+      formatWarranty(nul(r.warranty)), desc ? desc.slice(0, 200) : null, outlier,
     );
     if (outlier) continue;
     let s = stats.get(r.product_id);
-    if (!s) stats.set(r.product_id, (s = { min: p, max: p, shops: new Set(), fresh: 0, n: 0 }));
+    if (!s) stats.set(r.product_id, (s = { min: p, max: p, shops: new Set(), fresh: 0, fresh30: 0, n: 0 }));
     s.min = Math.min(s.min, p);
     s.max = Math.max(s.max, p);
     s.shops.add(r.shop_id);
     s.n++;
-    if (NOW - Date.parse(isoOf(r.last_price_changed_at)) <= 7 * DAY) s.fresh++;
+    const age = NOW - Date.parse(isoOf(r.last_price_changed_at));
+    if (age <= 7 * DAY) s.fresh++;
+    if (age <= 30 * DAY) s.fresh30++;
   }
   db.exec('COMMIT');
   db.exec('CREATE INDEX offers_product ON offers(product_rid)');
@@ -288,7 +303,7 @@ async function main() {
   }
 
   // ---------- products pass 2: insert ----------
-  const insP = db.prepare('INSERT INTO products(rid,id,title,brand,category,images_json,key_specs_json,min_price,max_price,shop_count,fresh_share) VALUES (?,?,?,?,?,?,?,?,?,?,?)');
+  const insP = db.prepare('INSERT INTO products(rid,id,title,brand,category,images_json,key_specs_json,min_price,max_price,shop_count,fresh_share,fresh_share_30) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
   const insF = db.prepare('INSERT INTO products_fts(rowid, text) VALUES (?,?)');
   let nP = 0;
   let derived = 0;
@@ -311,14 +326,19 @@ async function main() {
     const key = want
       .map((k) => {
         const s = specs.find((x) => x.key === k);
-        return s && !/^نامشخص/.test(String(s.value)) ? { key: k, value: String(s.value).slice(0, 60) } : null;
+        const v = String(s?.value ?? '')
+          .replace(/\s*,\s*\|\s*,?\s*/g, ' | ')
+          .replace(/(\s*[,،|]\s*)+$/g, '')
+          .replace(/\s+,/g, ',')
+          .trim();
+        return v && !/^نامشخص/.test(v) ? { key: k, value: v.slice(0, 60) } : null;
       })
       .filter(Boolean);
     // store image paths without the common host prefix; the data layer re-adds it
     const images = json<string[]>(r.image_urls, []).slice(0, 3).map((u) => u.replace(IMG_PREFIX, ''));
     const res = insP.run(
       productRid.get(r.product_id), r.product_id, title, brand, r.category_name, JSON.stringify(images), JSON.stringify(key), Math.round(st.min),
-      Math.round(st.max), st.shops.size, st.n ? st.fresh / st.n : 0,
+      Math.round(st.max), st.shops.size, st.n ? st.fresh / st.n : 0, st.n ? st.fresh30 / st.n : 0,
     );
     insF.run(res.lastInsertRowid, normalizeFa(`${title} ${brand ?? ''} ${r.category_name}`));
     nP++;
