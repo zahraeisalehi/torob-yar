@@ -44,4 +44,5 @@ Format: date · decision · why · how to undo.
 - 2026-10-23 · **The whole text column of the pinned product is a tap target** (back to comparison), not just the title/image/«تغییر».
 - 2026-10-23 · **Out-of-stock notice also shows inside the shop detail**, right under the seller's answer · the presenter is looking at the detail when the reply lands.
 - 2026-10-23 · **`scripts/walk-demo.mjs`** walks docs/DEMO_SCRIPT.md at 1440×900 (fake mic, Date pinned to Saturday noon, owner in a separate context) · repeatable proof the script matches the app; also runs against the live URL.
+- 2026-10-23 · **Deploy target `torob-yar-app`, still blocked**: `torob-yar` is owned by another account; `torob-yar-app` creation is refused for balance (`hasSucceedPayment: false` on `azsalehi06`). I did not try other accounts or buy anything. Fallback: local Docker image + `npm run demo` for the recording.
 

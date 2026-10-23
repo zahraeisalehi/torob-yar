@@ -1,6 +1,6 @@
 #!/bin/sh
 # Preflight + liara deploy. Fails loudly on any error.
-#   APP=torob-yar sh deploy/deploy.sh            # full preflight
+#   sh deploy/deploy.sh                          # full preflight; app name from liara.json (torob-yar-app)
 #   SKIP_DOCKER=1 sh deploy/deploy.sh            # skip the local docker smoke build
 set -eu
 cd "$(dirname "$0")/.."

@@ -1,9 +1,11 @@
 # RUNBOOK — Torob-yar on Liara
 
-> **Status (2026-10-23):** not deployed yet. `liara app create` fails with **"Not enough balance. Please charge your account."** (account `azsalehi06`).
-> Everything else is ready. Charge the account, then run the commands below in order; the whole thing takes ~10 minutes.
+> **Status (2026-10-23, re-checked after the reported top-up):** still not deployed. On account **`azsalehi06`** (the only account the CLI is logged in to):
+> - `liara app list` → no apps; `liara app create -a torob-yar …` → **"The app already exists"** (the name belongs to another Liara account).
+> - `liara app create -a torob-yar-app` → **"Not enough balance. Please charge your account."** for `standard-base-g2` and `medium-g2`; the account API reports `hasSucceedPayment: false`, so no payment has reached this account.
+> - If the top-up went to a different Liara account, log in to it (`liara login`, or `liara account add` + `liara account use`) and run the commands below. Otherwise charge `azsalehi06`. It takes ~10 minutes.
 
-App name: **`torob-yar-app`** (`torob-yar` is taken on Liara). Network: **`torob-yar-net`** (already created). URL after deploy: `https://torob-yar-app.liara.run`.
+App name: **`torob-yar-app`** (`torob-yar` is owned by another Liara account, so `https://torob-yar.liara.run` can't be ours). Network: **`torob-yar-net`** (already created). URL after deploy: `https://torob-yar-app.liara.run`.
 
 ## First-time setup (in order)
 
