@@ -1,0 +1,99 @@
+{
+  "examples": ["گوشی سامسونگ S25 FE", "هندزفری بی‌سیم زیر ۵ میلیون", "اسپیکر جی‌بی‌ال", "شارژر اپل ۲۰ وات"],
+  "scenarios": [
+    {
+      "id": "phone",
+      "keywords": ["گوشی", "موبایل", "سامسونگ", "شیائومی", "تلفن همراه", "samsung", "galaxy", "گلکسی", "xiaomi", "redmi", "ردمی", "s25", "a57", "a56", "a17", "a07"],
+      "specific": "s25|s26|a0\\d|a1\\d|a3\\d|a5\\d|note ?\\d+|redmi a\\d",
+      "searchText": "گوشی موبایل",
+      "q1": {
+        "question": "بیشتر برای چی می‌خوایش؟ عکاسی و بازی یا کارهای روزمره؟",
+        "replies": [
+          { "label": "عکاسی و بازی", "need": "عکاسی و بازی", "filters": { "minPrice": 100000000 } },
+          { "label": "کارهای روزمره", "need": "کارهای روزمره", "filters": { "maxPrice": 100000000 } },
+          { "label": "یه گوشی اقتصادی", "need": "قیمت اقتصادی", "filters": { "maxPrice": 60000000 } },
+          { "label": "فقط سامسونگ باشه", "need": "برند سامسونگ", "filters": { "include": ["سامسونگ"] } }
+        ]
+      },
+      "q2": {
+        "question": "تا چه قیمتی راحتی؟",
+        "replies": [
+          { "label": "زیر ۶۰ میلیون", "need": "بودجه زیر ۶۰ میلیون", "filters": { "maxPrice": 60000000 } },
+          { "label": "۶۰ تا ۱۵۰ میلیون", "need": "بودجه ۶۰ تا ۱۵۰ میلیون", "filters": { "minPrice": 60000000, "maxPrice": 150000000 } },
+          { "label": "بالای ۱۵۰ میلیون", "need": "گوشی پرچم‌دار", "filters": { "minPrice": 150000000 } },
+          { "label": "مهم نیست", "need": "", "filters": {} }
+        ]
+      }
+    },
+    {
+      "id": "earbuds",
+      "keywords": ["هندزفری", "هدفون", "هدست", "ایرپاد", "ایربادز", "airpods", "earbuds", "بلوتوثی", "گردنی"],
+      "specific": "r50i|r60i|t13|k20i|v20i|buds ?\\d|liberty|ایرپاد ?(پرو|\\d)|life u2i",
+      "searchText": "هدفون بی سیم هندزفری",
+      "q1": {
+        "question": "بیشتر برای ورزش میخوای یا تماس و موسیقی روزمره؟",
+        "replies": [
+          { "label": "ورزش", "need": "ورزش و تحرک", "filters": { "include": ["گردنی", "sport", "ورزشی", "life"] } },
+          { "label": "تماس و موسیقی روزمره", "need": "تماس و موسیقی روزمره", "filters": { "exclude": ["گردنی"] } },
+          { "label": "حذف نویز مهمه", "need": "حذف نویز", "filters": { "include": ["nc", "anc", "نویز"] } },
+          { "label": "فرقی نمی‌کنه", "need": "", "filters": {} }
+        ]
+      },
+      "q2": {
+        "question": "تا چه قیمتی راحتی؟",
+        "replies": [
+          { "label": "زیر ۳ میلیون", "need": "بودجه زیر ۳ میلیون", "filters": { "maxPrice": 3000000 } },
+          { "label": "زیر ۵ میلیون", "need": "بودجه زیر ۵ میلیون", "filters": { "maxPrice": 5000000 } },
+          { "label": "۵ تا ۲۰ میلیون", "need": "بودجه ۵ تا ۲۰ میلیون", "filters": { "minPrice": 5000000, "maxPrice": 20000000 } },
+          { "label": "مهم نیست", "need": "", "filters": {} }
+        ]
+      }
+    },
+    {
+      "id": "jbl",
+      "keywords": ["اسپیکر", "بلندگو", "جی بی ال", "jbl", "پارتی باکس", "partybox", "flip", "charge", "boombox"],
+      "specific": "flip ?\\d|charge ?\\d|go ?\\d|clip ?\\d|partybox ?\\d+|party box ?\\d+|boom ?box|stage 320|ultimate",
+      "searchText": "اسپیکر جی بی ال",
+      "q1": {
+        "question": "اسپیکر رو بیشتر کجا استفاده می‌کنی؟ همراه خودت یا مهمونی و خونه؟",
+        "replies": [
+          { "label": "همراه خودم و سفر", "need": "قابل حمل و سبک", "filters": { "include": ["قابل حمل", "go", "clip", "flip", "charge"] } },
+          { "label": "مهمونی و خونه", "need": "صدای بلند برای مهمونی", "filters": { "include": ["partybox", "party box", "boom", "stage"] } },
+          { "label": "هر دو", "need": "", "filters": {} }
+        ]
+      },
+      "q2": {
+        "question": "تا چه قیمتی راحتی؟",
+        "replies": [
+          { "label": "زیر ۲۰ میلیون", "need": "بودجه زیر ۲۰ میلیون", "filters": { "maxPrice": 20000000 } },
+          { "label": "۲۰ تا ۱۰۰ میلیون", "need": "بودجه ۲۰ تا ۱۰۰ میلیون", "filters": { "minPrice": 20000000, "maxPrice": 100000000 } },
+          { "label": "بالای ۱۰۰ میلیون", "need": "بهترین کیفیت صدا", "filters": { "minPrice": 100000000 } },
+          { "label": "مهم نیست", "need": "", "filters": {} }
+        ]
+      }
+    },
+    {
+      "id": "charger",
+      "keywords": ["شارژر", "آداپتور", "کلگی", "شارژ"],
+      "specific": "20 ?وات|۲۰ ?وات|20w|ta200|120 ?وات",
+      "searchText": "شارژر",
+      "q1": {
+        "question": "شارژر رو برای چه گوشی‌ای می‌خوای؟",
+        "replies": [
+          { "label": "آیفون", "need": "سازگار با آیفون", "filters": { "include": ["اپل"] } },
+          { "label": "سامسونگ", "need": "سازگار با سامسونگ", "filters": { "include": ["سامسونگ"] } },
+          { "label": "شیائومی", "need": "سازگار با شیائومی", "filters": { "include": ["شیائومی"] } },
+          { "label": "فرقی نمی‌کنه", "need": "", "filters": {} }
+        ]
+      },
+      "q2": {
+        "question": "سه‌پین می‌خوای یا دوپین؟",
+        "replies": [
+          { "label": "سه‌پین", "need": "دوشاخه سه‌پین", "filters": { "include": ["سه پین"] } },
+          { "label": "دوپین", "need": "دوشاخه دوپین", "filters": { "include": ["دو پین"] } },
+          { "label": "فرقی نمی‌کنه", "need": "", "filters": {} }
+        ]
+      }
+    }
+  ]
+}

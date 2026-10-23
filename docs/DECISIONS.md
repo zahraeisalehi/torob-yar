@@ -1,0 +1,14 @@
+# Decisions log
+
+Format: date · decision · why · how to undo.
+
+- 2026-10-23 · **Next.js 16.4 (latest stable from create-next-app)**, `cacheComponents`/`partialPrefetching` turned **off** · classic dynamic route handlers are simpler and the shell is one client page · re-enable in `next.config.ts` and follow `node_modules/next/dist/docs/01-app/02-guides/migrating-to-cache-components.md`.
+- 2026-10-23 · **No `@mapbox/mapbox-gl-rtl-text`** · MapLibre GL 6.15 draws RTL/Arabic-script text natively and marks `setRTLTextPlugin` deprecated; the 1.0 plugin is a WASM module not meant for MapLibre · reinstall and call `setRTLTextPlugin` in `MapView` if labels ever render broken.
+- 2026-10-23 · **shadcn/ui primitives hand-written** (cva + tailwind-merge, `src/components/ui`) instead of running the shadcn CLI · CLI is interactive/network-bound; we need only a few primitives and they must use logical (RTL-safe) classes anyway · run `npx shadcn add <x>` later if more are needed.
+- 2026-10-23 · **SQLite schema slimmed to meet the size budget**: offers reference products/shops by integer rowid, offer ids are synthesised (`of_<rowid>`), FTS5 is contentless (`content=''`), image URLs stored without the `https://image.torob.com/base/images/` prefix, dates stored as `YYYY-MM-DDTHH:MM:SSZ`, descriptions ≤200 chars · first build was 256 MB / 80 MB gz, now 147.6 MB / 46 MB gz · revert in `scripts/build-db.ts`.
+- 2026-10-23 · **Products with no sane offer are dropped** from `app.sqlite` (225,903 → 218,118) · they can never be bought in person · keep them by removing the `if (!st) continue` in pass 2.
+- 2026-10-23 · **One offer per shop** in `getOffers` (cheapest when a shop lists a product twice) · one pin per shop on the map, cleaner ranking · drop the dedupe in `lib/data/sqlite.ts` / `build-fixtures.ts`.
+- 2026-10-23 · **Key specs ranking** = coverage × distinct-values, ×3 for shopper-relevant keys (RAM, storage, camera, battery, ANC, power…), ×0.15 for cosmetic keys (colour, size, weight, dates) · the plain "differ most" rule picked colour/dimensions · tweak `SPEC_BOOST`/`SPEC_DULL` in `build-db.ts`.
+- 2026-10-23 · `ChatState` carries `pending` (the question just asked + how each quick reply maps to filters), `scenario`, `needs`, `searchText` on top of the spec fields · lets scripted and live modes share one pipeline and lets `why` lines cite the user's answers.
+- 2026-10-23 · Added a `suggestions` UIBlock (example chips) for unknown/empty requests, plus `/api/ask-shop` (answer-from-data) and `/api/overrides` (shop-owner "closed today" visible to users) · both needed by UI_SPEC §4.1/§5 flows.
+- 2026-10-23 · Liara rule conflict: `docs/vendor/liara.md` says app create/deploy/env need explicit confirmation, but `CLAUDE.md` + `prompts/00-autopilot.md` explicitly authorise running the Liara CLI autonomously with a named plan · following the newer autonomous instructions; never deleting anything and staying on the named plan.
