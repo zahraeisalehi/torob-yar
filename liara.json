@@ -1,6 +1,6 @@
 {
   "platform": "docker",
-  "app": "torob-yar",
+  "app": "torob-yar-app",
   "port": 3000,
   "build": {
     "location": "iran"

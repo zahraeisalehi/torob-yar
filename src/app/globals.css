@@ -391,3 +391,17 @@ body {
     display: none;
   }
 }
+.mall-entrance span {
+  display: inline-block;
+  font: 600 12px 'Vazirmatn Variable', Tahoma, sans-serif;
+  color: #fff;
+  background: var(--info);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgb(47 124 246 / 0.4);
+  white-space: nowrap;
+}
+.mall-entrance span::before {
+  content: '▲ ';
+  font-size: 9px;
+}

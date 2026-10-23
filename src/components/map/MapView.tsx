@@ -398,6 +398,7 @@ export default function MapView({ step, shopId, padding, onPinClick, onMallShop 
   }, [highlight]);
 
   // ---------- 3D mall ----------
+  const entrance = useRef<maplibregl.Marker | null>(null);
   const savedCam = useRef<{ center: maplibregl.LngLat; zoom: number; pitch: number; bearing: number } | null>(null);
   useEffect(() => {
     const map = mapRef.current;
@@ -411,6 +412,15 @@ export default function MapView({ step, shopId, padding, onPinClick, onMallShop 
           if (l.type === 'fill-extrusion' && !l.id.startsWith(MALL_PREFIX)) map.setLayoutProperty(l.id, 'visibility', 'none');
         addMallLayers(map, cubes, mall.isolate);
         renderPins();
+        // entrance marker on the south edge of the schematic (approximate, like the layout itself)
+        entrance.current?.remove();
+        const south = Math.min(...cubes.flatMap((c) => c.ring.map((p) => p[1])));
+        const el = document.createElement('div');
+        el.className = 'mall-entrance';
+        el.innerHTML = '<span>ورودی · شما اینجایید</span>';
+        entrance.current = new maplibregl.Marker({ element: el, anchor: 'top' })
+          .setLngLat([mall.data!.centroid.lon, south - 0.00004])
+          .addTo(map);
         map.flyTo({
           center: [mall.data!.centroid.lon, mall.data!.centroid.lat],
           zoom: 18.5,
@@ -422,6 +432,10 @@ export default function MapView({ step, shopId, padding, onPinClick, onMallShop 
       };
       if (map.isStyleLoaded()) go();
       else map.once('idle', go);
+    }
+    if (!mall) {
+      entrance.current?.remove();
+      entrance.current = null;
     }
     if (!mall && savedCam.current) {
       removeMallLayers(map);
