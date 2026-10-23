@@ -164,7 +164,7 @@ export function ProductCardPinned({ p, onChange, compact }: { p: Product; onChan
           <h2 className={cn('line-clamp-2 font-semibold text-ink', compact ? 'text-[13.5px] leading-6' : 'text-[15px] leading-7')}>{faText(p.title)}</h2>
         </button>
         <SpecChips p={p} n={compact ? 2 : 3} className="max-h-6 overflow-hidden" />
-        <div className={cn('truncate text-ink-2', compact ? 'text-[12px]' : 'text-[13px]')}>
+        <div className={cn('text-ink-2', compact ? 'truncate text-[12px]' : 'text-[13px] leading-6')}>
           از {formatRange(p.minPrice, p.maxPrice)} · در {toFaDigits(p.shopCount)} فروشگاه
         </div>
       </div>

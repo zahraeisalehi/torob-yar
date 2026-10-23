@@ -132,7 +132,7 @@ export function ShopsPanel({ onOpenShop, peekShopId }: { onOpenShop: (shopId: st
         <ShopCard o={peek} inq={inquiries[peek.shopId]} override={overrides[peek.shopId]} showReason highlighted onOpen={() => onOpenShop(peek.shopId)} />
       )}
       <LocationExplainer />
-      <AgentNotices onOpenShop={onOpenShop} />
+      <AgentNotices onOpenShop={onOpenShop} max={desktop ? 2 : 1} />
       <div className="flex items-center justify-between gap-2">
         <LocationChip />
         {status === 'ready' && (

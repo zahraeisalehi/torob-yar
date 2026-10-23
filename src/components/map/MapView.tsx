@@ -184,7 +184,8 @@ export default function MapView({ step, shopId, padding, onPinClick, onMallShop 
     const { step: st, shopId: sid } = propsRef.current;
     const u = useLocation.getState();
     const offers = visibleRef.current;
-    const showShops = st !== 'chat';
+    const inMall = !!useMapStore.getState().mall;
+    const showShops = st !== 'chat' && !inMall;
     (map.getSource('rings') as GeoJSONSource).setData({
       type: 'FeatureCollection',
       features: showShops
@@ -219,7 +220,8 @@ export default function MapView({ step, shopId, padding, onPinClick, onMallShop 
     const map = mapRef.current;
     if (!map) return;
     const u = useLocation.getState();
-    const show = propsRef.current.step !== 'chat';
+    // in the mall schematic the entrance marker says «شما اینجایید»; hide the street-level dot
+    const show = propsRef.current.step !== 'chat' && !useMapStore.getState().mall;
     if (!show) {
       userMarker.current?.remove();
       userMarker.current = null;
@@ -244,7 +246,7 @@ export default function MapView({ step, shopId, padding, onPinClick, onMallShop 
     if (!map) return;
     for (const m of labelMarkers.current) m.remove();
     labelMarkers.current = [];
-    if (propsRef.current.step === 'chat') return;
+    if (propsRef.current.step === 'chat' || useMapStore.getState().mall) return;
     const u = useLocation.getState();
     const mk = (text: string, lngLat: [number, number], cls: string) => {
       const el = document.createElement('div');
