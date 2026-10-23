@@ -24,6 +24,7 @@ Deploying is ~10 minutes once the account is charged. Follow `docs/RUNBOOK.md` �
 1. **Liara deploy: account balance.** Charge the account, then run the RUNBOOK first-time setup. Smoke and live e2e are scripted (`npm run smoke -- --url …`, `BASE_URL=… npm run test:e2e`).
 2. **Speech-to-text: BoxAPI key has no transcription model** (403 `model_not_allowed` for every audio model). The mic UI is complete: waveform, timer, cancel, and auto-send after 1.5 s. It currently uses the browser's `webkitSpeechRecognition` (Chrome/Android, fa-IR), then a toast and typing. Setting `STT_MODEL` with a capable key turns on the server path with no code changes.
 3. Only `gpt-5.4-mini` is allowed for this key, so `LLM_FALLBACK_MODEL` is empty. If the model fails, the server falls back to the scripted path.
+5. Pushing to the `origin` remote failed (https://github.com/me/torob-yar.git, which looks like a placeholder; no credentials). All work is committed locally on `main`.
 4. Lighthouse was not measured in a real browser run. The map and the 3D layer are dynamically imported and only mount after the first message, so `/` ships no map code.
 
 ### Known issues / deviations from UI_SPEC
