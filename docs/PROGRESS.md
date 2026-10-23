@@ -15,7 +15,7 @@ Deploying is ~10 minutes once the account is charged. Follow `docs/RUNBOOK.md` �
 | `npm run lint` | ✓ (0 errors; warnings are React-Compiler purity hints, see DECISIONS) |
 | `npm run test:unit` | ✓ 33 tests (address parsing ×18, hours, freshness, budget parsing, formatting, geo placeholder, ranking) |
 | `npm run test:e2e` | ✓ 12/12: 6 flows × {mobile 390×844, desktop 1440×900}. Screenshots in `e2e/screenshots/{mobile,desktop}/` |
-| Docker image (`docker build .`) + smoke against it | see "Docker / smoke" below |
+| Docker image (`docker build .`, 442 MB) + smoke against it | ✓ 7/7 (SQLite + live LLM), e2e 12/12 against the container in fixtures mode, inquiries survive a restart |
 | `npm run doctor` | chat ✓ (gpt-5.4-mini, ~4–5 s), JSON mode ✓, tool calling ✓, temperature ✗ (reasoning model), STT ✗ (key not allowed any transcription model), map style ✓ |
 
 **Demo-day steps:** README "Demo-day script" plus RUNBOOK "Demo-day checklist".
@@ -91,5 +91,18 @@ Skeletons shaped like the final cards plus mascot thinking dots. Inline retry. N
 ### Deploy (Prompt 2): blocked on balance
 Dockerfile (multi-stage, node:22-bookworm-slim, toolchain only in deps), `deploy/entrypoint.sh` (JSON startup line), `.liaraignore` (uploads the gz, skips raw data), `liara.json` (docker, port 3000, disk `data` → `/app/data-rw`, healthCheck), `deploy/deploy.sh` (preflight + `liara deploy`), `scripts/smoke.ts`, `docs/RUNBOOK.md`.
 
-## Docker / smoke
-(filled in below after the local image run)
+## Docker / smoke (local production image, 2026-10-23)
+Startup line: `{"msg":"startup","dataSource":"sqlite","llmMode":"auto","sqliteBytes":144924672,"rwDir":"/app/data-rw","rwWritable":true,...}`
+
+| Step | ✓ | ms |
+|---|---|---|
+| GET /api/health | ✓ | 228 |
+| POST /api/chat (S25 FE, live LLM) | ✓ | 7343 |
+| GET /api/products/:id/offers | ✓ | 17 |
+| GET /api/complex/:id | ✓ | 12 |
+| inquiry round trip (AUTO_REPLY) | ✓ | 6096 |
+| POST /api/transcribe | ✓ (503 → disabled, browser-speech fallback) | 29 |
+| GET / (rtl) | ✓ | 223 |
+
+- Restart persistence: 1 inquiry before `docker restart`, 1 after (volume mounted at /app/data-rw, standing in for the Liara disk).
+- Env-only switch: the same image with `DATA_SOURCE=fixtures LLM_MODE=scripted` passes `BASE_URL=http://localhost:3998 npm run test:e2e` → **12/12**.
