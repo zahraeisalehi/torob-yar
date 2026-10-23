@@ -18,3 +18,4 @@ next-env.d.ts
 .vercel
 deploy/.tmp/
 public/vendor/
+data/rw-e2e/

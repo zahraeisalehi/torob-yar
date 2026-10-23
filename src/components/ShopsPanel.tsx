@@ -70,16 +70,16 @@ export function ShopsPanel({ onOpenShop, peekShopId }: { onOpenShop: (shopId: st
   const peek = peekShopId ? visible.find((o) => o.shopId === peekShopId) : null;
 
   if (closedFlow) {
-    const alternatives = all
-      .filter((o) => o.shopId !== closedFlow && o.open === true && !o.outOfStock)
-      .sort((a, b) => a.distanceM - b.distanceM)
-      .slice(0, 3);
+    const openNow = all.filter((o) => o.shopId !== closedFlow && o.open === true && !o.outOfStock).sort((a, b) => a.distanceM - b.distanceM);
+    // at night nothing is open: fall back to the nearest shops with when they open next
+    const nightMode = openNow.length === 0;
+    const alternatives = (nightMode ? all.filter((o) => o.shopId !== closedFlow && !o.outOfStock).sort((a, b) => a.distanceM - b.distanceM) : openNow).slice(0, 3);
     return (
       <div className="space-y-3" data-testid="closed-flow">
         <AgentNotices onOpenShop={onOpenShop} />
         <div className="rounded-2xl bg-warn-wash p-3 text-[14px] leading-7 text-ink">
           <DoorOpen className="me-1 inline size-4 text-warn" />
-          متأسفیم! نزدیک‌ترین فروشگاه‌های باز با همین کالا:
+          {nightMode ? 'متأسفیم! الان فروشگاه بازِ دیگری با این کالا پیدا نشد؛ نزدیک‌ترین‌ها و زمان باز شدنشان:' : 'متأسفیم! نزدیک‌ترین فروشگاه‌های باز با همین کالا:'}
         </div>
         {alternatives.length ? (
           alternatives.map((o, i) => (

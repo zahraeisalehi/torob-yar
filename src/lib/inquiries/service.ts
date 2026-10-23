@@ -89,8 +89,8 @@ async function advance(i: Inquiry): Promise<Inquiry> {
   return i;
 }
 
-export async function getInquiries(ids: string[]): Promise<InquiryDTO[]> {
-  const list = store().many(ids.slice(0, 50));
+export async function getInquiries(ids: string[], max = 50): Promise<InquiryDTO[]> {
+  const list = store().many(ids.slice(0, max));
   const out: InquiryDTO[] = [];
   for (const i of list) out.push(toDTO(await advance(i)));
   return out;

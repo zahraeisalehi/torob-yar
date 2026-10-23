@@ -38,7 +38,8 @@ export function ChatThread({ choosing, onChoose }: { choosing: string | null; on
   useEffect(() => {
     const el = scroller.current;
     if (!el || !restored.current) return;
-    const last = el.querySelector('[data-chat-item]:last-of-type') as HTMLElement | null;
+    const all = el.querySelectorAll<HTMLElement>('[data-chat-item]');
+    const last = all.length ? all[all.length - 1] : null;
     if (loading) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
     else if (last) el.scrollTo({ top: Math.max(0, last.offsetTop - 12), behavior: 'smooth' });
   }, [items.length, loading]);

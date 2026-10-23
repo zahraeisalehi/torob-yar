@@ -1,5 +1,6 @@
 import { env } from '@/lib/env';
 import { store } from '@/lib/inquiries/db';
+import { getInquiries } from '@/lib/inquiries/service';
 import { shopToken } from '@/lib/inquiries/token';
 import { getSource } from '@/lib/data/source';
 import { bad, json } from '@/lib/http';
@@ -10,6 +11,8 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   if (!env.demoIndex) return bad('غیرفعال', 404);
   const src = getSource();
+  // resolve due auto-replies first so the index only lists inquiries that really wait for a human
+  await getInquiries(store().pendingIds(), 200);
   const rows = store().pendingShops();
   const shops = await Promise.all(
     rows.map(async (r) => {

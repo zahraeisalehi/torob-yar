@@ -19,6 +19,7 @@ function categoryIcon(category: string) {
 
 export function ProductImage({ src, alt, category, className }: { src?: string; alt: string; category: string; className?: string }) {
   const [failed, setFailed] = useState(!src);
+  const [loaded, setLoaded] = useState(false);
   const Icon = categoryIcon(category);
   if (failed)
     return (
@@ -35,7 +36,8 @@ export function ProductImage({ src, alt, category, className }: { src?: string; 
       decoding="async"
       referrerPolicy="no-referrer"
       onError={() => setFailed(true)}
-      className={cn('bg-white object-contain', className)}
+      onLoad={() => setLoaded(true)}
+      className={cn('object-contain transition-opacity', loaded ? 'bg-white opacity-100' : 'skeleton opacity-90', className)}
     />
   );
 }

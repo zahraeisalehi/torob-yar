@@ -12,6 +12,7 @@ export interface InquiryStore {
   findPending(shopId: string, productId: string): Inquiry | null;
   byShop(shopId: string): Inquiry[];
   pendingShops(): { shopId: string; n: number }[];
+  pendingIds(): string[];
   insert(i: Inquiry): void;
   update(i: Inquiry): void;
   getOverride(shopId: string): ShopOverride | null;
@@ -66,6 +67,8 @@ function sqliteStore(): InquiryStore {
       db
         .prepare<[], { shopId: string; n: number }>(`SELECT shop_id AS shopId, count(*) AS n FROM inquiries WHERE status != 'replied' GROUP BY shop_id ORDER BY max(created_at) DESC LIMIT 50`)
         .all(),
+    pendingIds: () =>
+      db.prepare<[], { id: string }>(`SELECT id FROM inquiries WHERE status != 'replied' ORDER BY created_at DESC LIMIT 200`).all().map((r) => r.id),
     insert: (i) => up.run(i),
     update: (i) => up.run(i),
     getOverride: (shopId) => {
@@ -101,6 +104,7 @@ function memoryStore(): InquiryStore {
       for (const i of inq.values()) if (i.status !== 'replied') m.set(i.shopId, (m.get(i.shopId) ?? 0) + 1);
       return [...m.entries()].map(([shopId, n]) => ({ shopId, n }));
     },
+    pendingIds: () => [...inq.values()].filter((i) => i.status !== 'replied').map((i) => i.id),
     insert: (i) => void inq.set(i.id, i),
     update: (i) => void inq.set(i.id, i),
     getOverride: (s) => ov.get(s) ?? null,
