@@ -41,6 +41,7 @@ npm run build && npm start # standalone production server
 | `STT_MODEL` | — | Transcription model. Empty disables server STT; the UI then uses browser speech or typing. |
 | `GEO_PROVIDER` | `placeholder` | Seeded, deterministic ETA/route/landmarks (Neshan later) |
 | `AUTO_REPLY` | `1` | A bot answers inquiries after 4–15 s. Set `0` on demo day. |
+| `AUTO_REPLY_SKIP_QUESTIONS` | `0` | `1` = the bot never answers an inquiry that carries a user question (answer it at `/shop`); the automatic top-3 still resolve. Used by `npm run demo`. |
 | `AUTO_REPLY_MIN_S` / `_MAX_S` | `4` / `15` | Bot reply delay window |
 | `INQUIRY_TIMEOUT_S` | `60` | "Seller hasn't replied" after this long (manual mode) |
 | `SHOP_TOKEN_SECRET` | dev value | HMAC for shop inbox links; also the `/api/admin/reset?key=` |
@@ -63,6 +64,10 @@ Next.js route handlers (minimal; same JSON shapes as the fixtures)
  ├─ inquiries: SQLite on DATA_RW_DIR (memory fallback), lazy auto-reply, HMAC shop tokens
  └─ geo/provider: GeoProvider → placeholder (mulberry32, seeded by inputs)
 ```
+
+## Recording mode
+
+`npm run demo` builds if needed, resets inquiries and overrides, starts the production server on :3000 (sqlite, live LLM if a key is set, `AUTO_REPLY_SKIP_QUESTIONS=1`) and warms up the LLM. The step-by-step recording script with the chosen demo shop is in `docs/DEMO_SCRIPT.md`.
 
 ## Demo-day script (two phones)
 

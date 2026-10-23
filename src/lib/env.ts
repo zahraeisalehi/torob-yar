@@ -14,6 +14,7 @@ const schema = z.object({
   STT_MODEL: z.string().default('gpt-4o-mini-transcribe'),
   GEO_PROVIDER: z.enum(['placeholder', 'neshan']).default('placeholder'),
   AUTO_REPLY: z.string().default('1'),
+  AUTO_REPLY_SKIP_QUESTIONS: z.string().default('0'),
   AUTO_REPLY_MIN_S: z.coerce.number().default(4),
   AUTO_REPLY_MAX_S: z.coerce.number().default(15),
   INQUIRY_TIMEOUT_S: z.coerce.number().default(60),
@@ -31,6 +32,8 @@ const e = parsed.success ? parsed.data : schema.parse({});
 export const env = {
   ...e,
   autoReply: e.AUTO_REPLY === '1' || e.AUTO_REPLY === 'true',
+  /** demo recording: the bot leaves inquiries that carry a user question for a human at /shop */
+  autoReplySkipQuestions: e.AUTO_REPLY_SKIP_QUESTIONS === '1' || e.AUTO_REPLY_SKIP_QUESTIONS === 'true',
   demoIndex: e.DEMO_INDEX === '1' || e.DEMO_INDEX === 'true',
   /** effective LLM mode: auto → live only when a key exists */
   llmLive: e.LLM_MODE === 'live' || (e.LLM_MODE === 'auto' && !!e.BOXAPI_API_KEY),

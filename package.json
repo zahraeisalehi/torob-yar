@@ -15,7 +15,8 @@
     "doctor": "tsx scripts/doctor.ts",
     "smoke": "tsx scripts/smoke.ts",
     "predev": "node scripts/copy-assets.mjs",
-    "prebuild": "node scripts/copy-assets.mjs"
+    "prebuild": "node scripts/copy-assets.mjs",
+    "demo": "sh scripts/demo.sh"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.77",

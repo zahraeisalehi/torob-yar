@@ -19,6 +19,7 @@ Deploying is ~10 minutes once the account is charged. Follow `docs/RUNBOOK.md` �
 | `npm run doctor` | chat ✓ (gpt-5.4-mini, ~4–5 s), JSON mode ✓, tool calling ✓, temperature ✗ (reasoning model), STT ✗ (key not allowed any transcription model), map style ✓ |
 
 **Demo-day steps:** README "Demo-day script" plus RUNBOOK "Demo-day checklist".
+**Recording:** `npm run demo` + `docs/DEMO_SCRIPT.md` (walked end to end with Playwright at 1440×900 on 2026-10-23).
 
 ### Blocked / follow-ups
 1. **Liara deploy: account balance.** Charge the account, then run the RUNBOOK first-time setup. Smoke and live e2e are scripted (`npm run smoke -- --url …`, `BASE_URL=… npm run test:e2e`).
@@ -33,6 +34,8 @@ Deploying is ~10 minutes once the account is charged. Follow `docs/RUNBOOK.md` �
 - Mobile bottom sheet (vaul): the list scrolls only at the 92% snap point. At 22% and 55%, dragging moves the sheet, which is vaul's model.
 - The shop list dedupes to one offer (the cheapest) per shop.
 - `/shop/[id]` hours editing supports a single shift for "today".
+- **Desktop «استعلام از فروشگاه» popover overflows the viewport at 1440×900.** It is placed at `anchor.bottom + 8` with no flip or clamp (`Popover` in `CriteriaBar.tsx`), and the button can't scroll above y≈662, so the send button lands at y≈1065. Not fixed (the recording task said no UI changes). Workaround in DEMO_SCRIPT step 7 (Tab ×4, Enter).
+- `/shop` banner still says AUTO_REPLY is on in recording mode (it doesn't know about `AUTO_REPLY_SKIP_QUESTIONS`).
 
 ---
 

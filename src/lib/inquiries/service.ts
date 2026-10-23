@@ -65,6 +65,8 @@ async function botAnswer(i: Inquiry): Promise<string | null> {
 /** Lazy auto-reply: resolves due inquiries on read. No background jobs. */
 async function advance(i: Inquiry): Promise<Inquiry> {
   if (i.status === 'replied' || !i.autoReplyDueAt) return i;
+  // AUTO_REPLY_SKIP_QUESTIONS: questions are answered manually; the pending due time also keeps it from timing out
+  if (env.autoReplySkipQuestions && i.question) return i;
   const now = Date.now();
   const seenDue = i.createdAt + Math.max(1200, (i.autoReplyDueAt - i.createdAt) * 0.45);
   let changed = false;
