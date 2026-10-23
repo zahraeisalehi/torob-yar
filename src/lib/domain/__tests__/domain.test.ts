@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { openInfo, todayLabel, willBeOpenAt, tehranClock } from '../hours';
 import { freshnessOf } from '../freshness';
-import { parseBudget, buildFtsQuery, contentTokens } from '../query';
+import { parseBudget, buildFtsQuery, contentTokens, typeTokens } from '../query';
 import { formatToman, formatRange, relativeFa } from '../format';
 import { faText } from '../normalize';
 import { etaSync, routeSync } from '../../geo/placeholder';
@@ -71,6 +71,14 @@ describe('query + format', () => {
   });
   it('keeps Latin model numbers', () => {
     expect(faText('گوشی سامسونگ S25 FE 5G | حافظه 256')).toBe('گوشی سامسونگ S25 FE 5G | حافظه ۲۵۶');
+  });
+});
+
+describe('bare product type', () => {
+  it('ignores generic attributes like بی‌سیم', () => {
+    expect(typeTokens('یه هندزفری بی‌سیم می‌خوام')).toEqual(['هندزفری']);
+    expect(typeTokens('هندزفری میخوام')).toEqual(['هندزفری']);
+    expect(typeTokens('گوشی سامسونگ S25 FE').length).toBeGreaterThan(2);
   });
 });
 

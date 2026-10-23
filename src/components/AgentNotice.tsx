@@ -1,7 +1,7 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CheckCircle2, AlertTriangle, PackageX, MessageCircle, X, TrendingDown, TrendingUp, Info, DoorClosed } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { cn } from '@/lib/cn';
 import { useShops, type Notice } from '@/lib/store/shops';
 import { formatToman } from '@/lib/domain/format';
@@ -17,8 +17,20 @@ const STYLE: Record<Notice['kind'], { cls: string; Icon: typeof Info }> = {
   closed: { cls: 'border-warn/30 bg-warn-wash', Icon: DoorClosed },
 };
 
-export function AgentNotices({ onOpenShop, max = 2 }: { onOpenShop: (shopId: string) => void; max?: number }) {
-  const notices = useShops((s) => s.notices);
+export function AgentNotices({
+  onOpenShop,
+  max = 2,
+  shopId,
+  kinds,
+}: {
+  onOpenShop: (shopId: string) => void;
+  max?: number;
+  /** only notices about this shop (shop detail) */
+  shopId?: string;
+  kinds?: Notice['kind'][];
+}) {
+  const all = useShops((s) => s.notices);
+  const notices = useMemo(() => all.filter((n) => (!shopId || n.shopId === shopId) && (!kinds || kinds.includes(n.kind))), [all, shopId, kinds]);
   const dismiss = useShops((s) => s.dismissNotice);
   // auto-hide routine confirmations after a while; keep problems until dismissed
   useEffect(() => {

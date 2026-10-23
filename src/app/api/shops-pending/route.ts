@@ -20,5 +20,5 @@ export async function GET() {
       return { shopId: r.shopId, name: s?.name ?? r.shopId, address: s?.address ?? '', pending: r.n, token: shopToken(r.shopId) };
     }),
   );
-  return json({ shops, autoReply: env.autoReply });
+  return json({ shops, autoReply: env.autoReply, skipQuestions: env.autoReplySkipQuestions });
 }

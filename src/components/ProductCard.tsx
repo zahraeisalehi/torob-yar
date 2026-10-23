@@ -159,7 +159,8 @@ export function ProductCardPinned({ p, onChange, compact }: { p: Product; onChan
           className={cn('rounded-2xl border border-line p-1', compact ? 'size-[72px]' : 'size-[104px]')}
         />
       </button>
-      <div className="min-w-0 flex-1 space-y-1">
+      {/* the whole text column is a tap target (the title button keeps keyboard access) */}
+      <div className="min-w-0 flex-1 cursor-pointer space-y-1" onClick={(e) => !(e.target as HTMLElement).closest('button') && onChange()}>
         <button onClick={onChange} className="block w-full text-start">
           <h2 className={cn('line-clamp-2 font-semibold text-ink', compact ? 'text-[13.5px] leading-6' : 'text-[15px] leading-7')}>{faText(p.title)}</h2>
         </button>

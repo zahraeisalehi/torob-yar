@@ -241,7 +241,7 @@ export function PromptPill({
                 clearAuto();
                 setText(e.target.value);
               }}
-              onFocus={clearAuto}
+              // not onFocus: the textarea remounts with autoFocus after recording, which would cancel the auto-send
               onPointerDown={clearAuto}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {

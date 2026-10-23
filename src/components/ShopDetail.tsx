@@ -33,7 +33,10 @@ import { Button } from './ui/button';
 import { Approx, FreshnessBadge, HoursBadge, StockBadge } from './Badges';
 import { stockOf } from './ShopCard';
 import { Popover } from './CriteriaBar';
+import { AgentNotices } from './AgentNotice';
 import { Mascot, ThinkingDots } from './Mascot';
+
+const OOS_ONLY: 'out_of_stock'[] = ['out_of_stock'];
 
 export function ShopDetail({
   shopId,
@@ -252,6 +255,8 @@ function Detail({
         )}
       </section>
 
+      {/* the agent's «تموم کرده؛ نزدیک‌ترین جایگزین…» for this shop, right under the inquiry answer */}
+      <AgentNotices onOpenShop={onOpenShop} shopId={o.shopId} kinds={OOS_ONLY} max={1} />
       {/* 4. hours */}
       <HoursSection o={o} override={override} closingSoon={!!closingSoon} closedBeforeEta={closedBeforeEta} />
 

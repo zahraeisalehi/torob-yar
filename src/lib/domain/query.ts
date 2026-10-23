@@ -77,6 +77,14 @@ export function contentTokens(text: string): string[] {
     .filter((t) => t.length > 1 && !STOP.has(t));
 }
 
+/** Generic attributes that don't make a request specific («هندزفری بی‌سیم» is still a bare product type). */
+const GENERIC_ATTR = new Set('بی سیم بیسیم بلوتوث بلوتوثی سیمی wireless bluetooth اصل اورجینال اصلی نو جدید'.split(' '));
+
+/** Content tokens minus generic attributes; ≤2 means "just a product type" (ask one question first). */
+export function typeTokens(text: string): string[] {
+  return contentTokens(text).filter((t) => !GENERIC_ATTR.has(t));
+}
+
 /** FTS5 MATCH expression: content tokens OR'ed with prefix matching, plus synonym phrases. */
 export function buildFtsQuery(text: string): string | null {
   const norm = ' ' + normalizeFa(stripBudget(text)) + ' ';

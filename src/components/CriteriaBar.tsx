@@ -192,14 +192,32 @@ export function Popover({
   children: React.ReactNode;
 }) {
   const desktop = useIsDesktop();
-  const [pos, setPos] = useState<{ top: number; right: number } | null>(null);
+  const [pos, setPos] = useState<{ top: number; right: number; up: boolean } | null>(null);
   const [mounted, setMounted] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
   useEffect(() => setMounted(true), []);
+  // desktop: open below the anchor; flip above when it doesn't fit; otherwise clamp into the viewport (panel scrolls)
   useLayoutEffect(() => {
-    if (!open || !desktop || !anchor.current) return;
-    const r = anchor.current.getBoundingClientRect();
-    setPos({ top: r.bottom + 8, right: Math.max(8, window.innerWidth - r.right) });
-  }, [open, desktop, anchor]);
+    if (!open || !desktop) return;
+    const place = () => {
+      if (!anchor.current) return;
+      const r = anchor.current.getBoundingClientRect();
+      const h = panelRef.current?.offsetHeight ?? 0;
+      const vh = window.innerHeight;
+      const right = Math.max(8, window.innerWidth - r.right);
+      if (r.bottom + 8 + h <= vh - 8) setPos({ top: r.bottom + 8, right, up: false });
+      else if (r.top - 8 - h >= 8) setPos({ top: r.top - 8 - h, right, up: true });
+      else setPos({ top: Math.max(8, vh - 8 - h), right, up: true });
+    };
+    place();
+    const ro = new ResizeObserver(place);
+    if (panelRef.current) ro.observe(panelRef.current);
+    window.addEventListener('resize', place);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', place);
+    };
+  }, [open, desktop, anchor, mounted]);
   useEffect(() => {
     if (!open) return;
     const k = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -223,15 +241,18 @@ export function Popover({
             key="panel"
             role="dialog"
             aria-label={title}
-            initial={desktop ? { opacity: 0, y: -6 } : { y: '100%' }}
+            ref={panelRef}
+            initial={desktop ? { opacity: 0, y: pos?.up ? 6 : -6 } : { y: '100%' }}
             animate={desktop ? { opacity: 1, y: 0 } : { y: 0 }}
-            exit={desktop ? { opacity: 0, y: -6 } : { y: '100%' }}
+            exit={desktop ? { opacity: 0, y: pos?.up ? 6 : -6 } : { y: '100%' }}
             transition={{ type: 'spring', stiffness: 420, damping: 36 }}
             className={cn(
               'fixed z-[61] bg-canvas p-4 shadow-pop',
-              desktop ? 'w-[320px] rounded-2xl border border-line' : 'inset-x-0 bottom-0 rounded-t-[24px] pb-[max(16px,env(safe-area-inset-bottom))]',
+              'max-h-[calc(100dvh-16px)] overflow-y-auto',
+              desktop ? 'w-[320px] rounded-2xl border border-line' : 'inset-x-0 bottom-0 max-h-[88dvh] rounded-t-[24px] pb-[max(16px,env(safe-area-inset-bottom))]',
             )}
-            style={desktop && pos ? { top: pos.top, right: pos.right } : undefined}
+            // hidden until measured so the first frame doesn't flash in the wrong place
+            style={desktop ? (pos ? { top: pos.top, right: pos.right } : { top: 0, right: 0, visibility: 'hidden' }) : undefined}
           >
             {!desktop && <div className="mx-auto mb-3 h-1.5 w-10 rounded-full bg-line-strong" />}
             <div className="mb-3 flex items-center justify-between">

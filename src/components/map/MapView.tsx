@@ -407,12 +407,18 @@ export default function MapView({ step, shopId, padding, onPinClick, onMallShop 
     if (!map) return;
     if (mall?.status === 'ready' && mall.data) {
       const cubes = mall.cubes ?? layoutCubes(mall.data);
-      if (!mall.cubes) useMapStore.getState().patchMall({ cubes, floors: floorsOf(cubes) });
+      if (!mall.cubes) {
+        // open on the target shop's floor (its chip is selected; «همه» is one tap away)
+        const t = cubes.find((c) => c.role === 'target' && c.floorKnown);
+        const targetFloor = t ? t.floor : null;
+        useMapStore.getState().patchMall({ cubes, floors: floorsOf(cubes), ...(mall.isolate === null && targetFloor !== null ? { isolate: targetFloor } : {}) });
+      }
       const go = () => {
         savedCam.current ??= { center: map.getCenter(), zoom: map.getZoom(), pitch: map.getPitch(), bearing: map.getBearing() };
         for (const l of map.getStyle()?.layers ?? [])
           if (l.type === 'fill-extrusion' && !l.id.startsWith(MALL_PREFIX)) map.setLayoutProperty(l.id, 'visibility', 'none');
-        addMallLayers(map, cubes, mall.isolate);
+        // read the live value: the auto-selected floor was patched in after this closure was created
+        addMallLayers(map, cubes, useMapStore.getState().mall?.isolate ?? null);
         renderPins();
         // entrance marker on the south edge of the schematic (approximate, like the layout itself)
         entrance.current?.remove();

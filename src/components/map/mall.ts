@@ -117,7 +117,8 @@ export function addMallLayers(map: MLMap, cubes: Cube[], isolate: number | null)
 }
 
 function opacityFor(kind: 'seller' | 'other', floor: number, isolate: number | null) {
-  if (isolate !== null && floor !== isolate) return 0.08;
+  // an isolated floor must read at a glance: its units solid, every other floor almost gone
+  if (isolate !== null) return floor !== isolate ? 0.04 : kind === 'seller' ? 0.9 : 0.4;
   return kind === 'seller' ? 0.85 : 0.15;
 }
 

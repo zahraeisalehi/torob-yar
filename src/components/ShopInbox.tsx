@@ -25,7 +25,7 @@ async function post(url: string, body: unknown) {
 }
 
 export function ShopIndex() {
-  const [data, setData] = useState<{ shops: { shopId: string; name: string; address: string; pending: number; token: string }[]; autoReply: boolean } | null>(null);
+  const [data, setData] = useState<{ shops: { shopId: string; name: string; address: string; pending: number; token: string }[]; autoReply: boolean; skipQuestions?: boolean } | null>(null);
   const [err, setErr] = useState<string | null>(null);
   useEffect(() => {
     let alive = true;
@@ -51,8 +51,14 @@ export function ShopIndex() {
         </div>
       </div>
       {data?.autoReply && (
-        <p className="mt-4 rounded-xl bg-warn-wash px-3 py-2 text-[13px] text-ink-2">
-          پاسخ خودکار (AUTO_REPLY) روشن است؛ ربات بعد از چند ثانیه جواب می‌دهد. برای پاسخ دستی، در اپ کاربر آدرس را با <b dir="ltr">?manual=1</b> باز کن یا AUTO_REPLY=0 کن.
+        <p className="mt-4 rounded-xl bg-warn-wash px-3 py-2 text-[13px] text-ink-2" data-testid="auto-reply-banner">
+          {data.skipQuestions ? (
+            <>ربات فقط استعلام‌های خودکار قیمت و موجودی را جواب می‌دهد. استعلام‌هایی که سؤال مشتری دارند همین‌جا و دستی جواب داده می‌شوند.</>
+          ) : (
+            <>
+              پاسخ خودکار (AUTO_REPLY) روشن است؛ ربات بعد از چند ثانیه جواب می‌دهد. برای پاسخ دستی، در اپ کاربر آدرس را با <b dir="ltr">?manual=1</b> باز کن یا AUTO_REPLY=0 کن.
+            </>
+          )}
         </p>
       )}
       {err === '404' && <p className="mt-6 text-muted">فهرست دمو غیرفعال است (DEMO_INDEX=0).</p>}
@@ -260,13 +266,11 @@ function InquiryCard({ inq, q, onDone }: { inq: InboxItem; q: string; onDone: ()
   const [keypad, setKeypad] = useState(false);
   const [busy, setBusy] = useState(false);
   const send = async (outcome: 'confirm' | 'new_price' | 'out_of_stock', newPrice?: number) => {
-    if (inq.question && !answer.trim() && outcome !== 'out_of_stock') {
-      toast('لطفاً به سؤال مشتری هم یک جواب کوتاه بده.');
-      return;
-    }
+    // a question never blocks the big buttons: empty answer → short default for this outcome
+    const text = answer.trim() || (inq.question ? (outcome === 'out_of_stock' ? 'متأسفانه تموم کردیم.' : suggestions(inq.question)[0]) : '');
     setBusy(true);
     try {
-      await post(`/api/inquiries/${inq.id}/reply${q}`, { outcome, newPrice, answer: answer.trim() || null });
+      await post(`/api/inquiries/${inq.id}/reply${q}`, { outcome, newPrice, answer: text || null });
       toast.success('پاسخ برای مشتری فرستاده شد');
       onDone();
     } catch (e) {
@@ -314,7 +318,7 @@ function InquiryCard({ inq, q, onDone }: { inq: InboxItem; q: string; onDone: ()
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
             maxLength={200}
-            placeholder="جواب کوتاه…"
+            placeholder="جواب کوتاه (اختیاری)…"
             className="h-11 w-full rounded-xl border border-line bg-canvas px-3 text-[15px] outline-none"
             aria-label="پاسخ به سؤال مشتری"
             data-testid="inbox-answer"

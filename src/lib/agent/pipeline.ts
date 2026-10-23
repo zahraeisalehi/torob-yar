@@ -4,7 +4,7 @@ import type { Product } from '../data/types';
 import { env } from '../env';
 import { normalizeFa } from '../domain/normalize';
 import { formatToman } from '../domain/format';
-import { contentTokens, modelTokens, parseBudget, wantsInstallment } from '../domain/query';
+import { contentTokens, modelTokens, parseBudget, typeTokens, wantsInstallment } from '../domain/query';
 import {
   PickSchema,
   TurnSchema,
@@ -38,9 +38,10 @@ function genericQuestion(n: number, candidates: Product[]): Pending {
     const prices = candidates.map((p) => p.minPrice).sort((a, b) => a - b);
     const lo = prices[Math.floor(prices.length / 3)];
     const hi = prices[Math.floor((prices.length * 2) / 3)];
+    // friendly anchors: 1, 1.5, 2, 3, 4, 5, 7 × 10^k («زیر ۵ میلیون», not «زیر ۴٫۷ میلیون»)
     const round = (x: number) => {
-      const mag = 10 ** Math.max(0, Math.floor(Math.log10(x)) - 1);
-      return Math.ceil(x / mag) * mag;
+      const mag = 10 ** Math.floor(Math.log10(Math.max(1, x)));
+      return ([1, 1.5, 2, 3, 4, 5, 7, 10].find((n) => n * mag >= x) ?? 10) * mag;
     };
     const a = round(lo);
     const b = round(Math.max(hi, a * 1.5));
@@ -48,7 +49,8 @@ function genericQuestion(n: number, candidates: Product[]): Pending {
       question: 'تا چه قیمتی راحتی؟',
       replies: [
         { label: `زیر ${formatToman(a)}`, need: `بودجه زیر ${formatToman(a)}`, filters: { maxPrice: a } },
-        { label: `${formatToman(a, { unit: false })} تا ${formatToman(b)}`, need: 'بودجه متوسط', filters: { minPrice: a, maxPrice: b } },
+        // «تا چه قیمتی؟» is answered with ceilings, so cheaper good options stay in the middle tier
+        { label: `زیر ${formatToman(b)}`, need: `بودجه زیر ${formatToman(b)}`, filters: { maxPrice: b } },
         { label: `بالای ${formatToman(b)}`, need: 'کیفیت بالاتر', filters: { minPrice: b } },
         { label: 'مهم نیست', need: '', filters: {} },
       ],
@@ -174,7 +176,7 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
         : state.lastProductIds.length || state.questionsAsked >= 1 || specific
           ? 'must_show'
           : // a bare product type ("هندزفری میخوام") always gets one question first (UI_SPEC §2.3 example)
-            contentTokens(last).length <= 2 && !budget.maxPrice && !budget.minPrice
+            typeTokens(last).length <= 2 && !budget.maxPrice && !budget.minPrice
             ? 'must_ask'
             : 'free';
 
@@ -239,9 +241,13 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
   };
   let candidates = await gather();
 
+  // «دقیق‌ترش کن» with no budget yet → the budget question (server rule; budget is the most useful refinement)
+  const budgetKnown = !!(state.filters.maxPrice || state.filters.minPrice || req.criteria.budget.max || req.criteria.budget.min);
+  const refineToBudget = isRefine && !budgetKnown && candidates.length >= 3;
+
   // ---- one combined LLM call: ask one question, or pick + explain (live mode) ----
   let turn: Turn | null = null;
-  if (env.llmLive) {
+  if (env.llmLive && !refineToBudget) {
     const rulesNote = `قاعده‌ی سرور: ${rule}${isRefine ? ' (کاربر گفت «دقیق‌ترش کن»؛ سؤالی تازه بپرس که با قبلی فرق کند)' : ''}`;
     turn = await llmJson(
       'turn',
@@ -274,7 +280,9 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
   if (ask) {
     let pending: Pending;
     const q = turn?.action === 'ask' && turn.question && (turn.replies?.length ?? 0) >= 2 ? turn : null;
-    if (q && !req.messages.some((m) => m.role === 'assistant' && m.text.includes(q.question!))) {
+    if (refineToBudget) {
+      pending = genericQuestion(0, candidates);
+    } else if (q && !req.messages.some((m) => m.role === 'assistant' && m.text.includes(q.question!))) {
       pending = { question: q.question!, replies: q.replies!.slice(0, 4).map((r) => ({ label: r, need: r, filters: { ...parseBudget(r) } })) };
     } else if (scenario) {
       pending = toPending(state.questionsAsked === 0 && !isRefine ? scenario.q1 : scenario.q2);
