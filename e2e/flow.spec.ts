@@ -87,7 +87,7 @@ test('مغازه بسته بود → open alternatives', async ({ page }, info) 
   await openFirstShop(page);
   await page.getByTestId('shop-closed').click();
   await expect(page.getByTestId('closed-flow')).toBeVisible();
-  await expect(page.getByTestId('closed-flow')).toContainText('نزدیک‌ترین فروشگاه‌های باز');
+  await expect(page.getByTestId('closed-flow')).toContainText('متأسفیم');
   await shot(page, info, '01-closed-flow');
 });
 

@@ -1,0 +1,18 @@
+# Liara reads this instead of .gitignore. app.sqlite.gz MUST be uploaded (it's gitignored).
+node_modules
+.next
+.git
+data/raw
+data/app.sqlite
+data/rw
+data/rw-e2e
+e2e/screenshots
+test-results
+playwright-report
+.env
+.env.local
+.env.*.local
+deploy/.tmp
+public/vendor
+docs/design
+scripts/fixtures/*.wav

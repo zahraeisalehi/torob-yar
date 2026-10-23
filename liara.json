@@ -1,0 +1,21 @@
+{
+  "platform": "docker",
+  "app": "torob-yar",
+  "port": 3000,
+  "build": {
+    "location": "iran"
+  },
+  "disks": [
+    {
+      "name": "data",
+      "mountTo": "/app/data-rw"
+    }
+  ],
+  "healthCheck": {
+    "command": "node -e \"fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\"",
+    "interval": 30000,
+    "timeout": 10000,
+    "retries": 3,
+    "startPeriod": 20000
+  }
+}
