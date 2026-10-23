@@ -1,0 +1,111 @@
+{
+  "at": "2026-10-23T19:01:36.112Z",
+  "recommended": "auto",
+  "rows": [
+    {
+      "check": "DATA_SOURCE",
+      "ok": true,
+      "detail": "fixtures"
+    },
+    {
+      "check": "fixtures",
+      "ok": true,
+      "detail": "7 files"
+    },
+    {
+      "check": "app.sqlite",
+      "ok": true,
+      "detail": "shops 6476, products 218118, offers 315094, 144.9 MB"
+    },
+    {
+      "check": "FTS5 search",
+      "ok": true,
+      "detail": "9336 hits for «گوشی»"
+    },
+    {
+      "check": "app.sqlite.gz",
+      "ok": true,
+      "detail": "46.0 MB"
+    },
+    {
+      "check": "DATA_RW_DIR writable",
+      "ok": true,
+      "detail": "./data/rw"
+    },
+    {
+      "check": "BOXAPI_API_KEY",
+      "ok": true,
+      "detail": "set (55 chars)"
+    },
+    {
+      "check": "chat (gpt-5.4-mini)",
+      "ok": true,
+      "detail": "4765 ms → «سلام»"
+    },
+    {
+      "check": "response_format json_object",
+      "ok": true,
+      "detail": "HTTP 200, 4199 ms"
+    },
+    {
+      "check": "temperature passthrough",
+      "ok": false,
+      "detail": "HTTP 400 {\"error\":{\"message\":\"Unsupported parameter: 'max_tokens' is not supported with t"
+    },
+    {
+      "check": "tool calling",
+      "ok": true,
+      "detail": "HTTP 200, tool_calls=true"
+    },
+    {
+      "check": "latency (2 calls)",
+      "ok": true,
+      "detail": "3762 ms, 3891 ms"
+    },
+    {
+      "check": "sample audio",
+      "ok": true,
+      "detail": "tone only (no TTS installed)"
+    },
+    {
+      "check": "STT gpt-4o-mini-transcribe .webm",
+      "ok": false,
+      "detail": "HTTP 403, 2542 ms {\"error\":{\"message\":\"This API key is not allowed to use the requested model.\",\"type\":\"proxy_error\",\"code\":\"model_not_all"
+    },
+    {
+      "check": "STT gpt-4o-mini-transcribe .mp4",
+      "ok": false,
+      "detail": "HTTP 403, 2252 ms {\"error\":{\"message\":\"This API key is not allowed to use the requested model.\",\"type\":\"proxy_error\",\"code\":\"model_not_all"
+    },
+    {
+      "check": "STT gpt-4o-transcribe .webm",
+      "ok": false,
+      "detail": "HTTP 403, 2867 ms {\"error\":{\"message\":\"This API key is not allowed to use the requested model.\",\"type\":\"proxy_error\",\"code\":\"model_not_all"
+    },
+    {
+      "check": "STT gpt-4o-transcribe .mp4",
+      "ok": false,
+      "detail": "HTTP 403, 2867 ms {\"error\":{\"message\":\"This API key is not allowed to use the requested model.\",\"type\":\"proxy_error\",\"code\":\"model_not_all"
+    },
+    {
+      "check": "STT whisper-1 .webm",
+      "ok": false,
+      "detail": "HTTP 403, 2045 ms {\"error\":{\"message\":\"This API key is not allowed to use the requested model.\",\"type\":\"proxy_error\",\"code\":\"model_not_all"
+    },
+    {
+      "check": "STT whisper-1 .mp4",
+      "ok": false,
+      "detail": "HTTP 403, 2457 ms {\"error\":{\"message\":\"This API key is not allowed to use the requested model.\",\"type\":\"proxy_error\",\"code\":\"model_not_all"
+    },
+    {
+      "check": "STT",
+      "ok": false,
+      "detail": "no model accepted the sample; UI falls back to browser speech / typing"
+    },
+    {
+      "check": "map style reachable",
+      "ok": true,
+      "detail": "https://tiles.openfreemap.org/styles/positron → HTTP 200"
+    }
+  ]
+}

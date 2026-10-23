@@ -10,6 +10,7 @@ const schema = z.object({
   BOXAPI_API_KEY: z.string().default(''),
   LLM_MODEL: z.string().default('gpt-5.4-mini'),
   LLM_FALLBACK_MODEL: z.string().default(''),
+  LLM_REASONING_EFFORT: z.string().default('none'),
   STT_MODEL: z.string().default('gpt-4o-mini-transcribe'),
   GEO_PROVIDER: z.enum(['placeholder', 'neshan']).default('placeholder'),
   AUTO_REPLY: z.string().default('1'),
@@ -22,7 +23,7 @@ const schema = z.object({
 });
 
 const parsed = schema.safeParse(
-  Object.fromEntries(Object.entries(process.env).map(([k, v]) => [k, v === '' && k !== 'BOXAPI_API_KEY' ? undefined : v])),
+  Object.fromEntries(Object.entries(process.env).map(([k, v]) => [k, v === '' && !['BOXAPI_API_KEY', 'STT_MODEL', 'LLM_FALLBACK_MODEL', 'LLM_REASONING_EFFORT'].includes(k) ? undefined : v])),
 );
 if (!parsed.success) console.error(JSON.stringify({ msg: 'env invalid, using defaults', issues: parsed.error.issues }));
 const e = parsed.success ? parsed.data : schema.parse({});

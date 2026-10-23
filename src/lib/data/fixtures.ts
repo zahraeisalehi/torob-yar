@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Area, Complex, ComplexResult, DataSource, Offer, OfferWithShop, Product, SearchQuery, Shop } from './types';
-import { expandTokens } from '../domain/query';
+import { expandTokens, rerank } from '../domain/query';
 import { normalizeFa } from '../domain/normalize';
 
 type FixtureBundle = {
@@ -57,9 +57,10 @@ export function createFixtureSource(): DataSource {
           for (const t of tokens) if (text.includes(t)) s += Math.log(1 + products.length / (df.get(t) || 1));
           return { p, s: s + 0.15 * Math.log(p.shopCount + 1) };
         })
-        .filter((x) => !tokens.length || x.s > 0.15 * Math.log(x.p.shopCount + 1) + 0.01)
-        .sort((a, b) => b.s - a.s);
-      return scored.slice(0, q.limit ?? 12).map((x) => x.p);
+        .filter((x) => !tokens.length || x.s > 0.15 * Math.log(x.p.shopCount + 1) + 0.01);
+      // same reranker as SQLite; token score stands in for bm25
+      const ranked = rerank(scored, q.text, (x) => ({ title: x.p.title, category: x.p.category, shopCount: x.p.shopCount, rank: -x.s }));
+      return ranked.slice(0, q.limit ?? 12).map((x) => x.p);
     },
     async getProduct(id) {
       return load().products.find((p) => p.id === id) ?? null;

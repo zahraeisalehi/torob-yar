@@ -6,19 +6,19 @@ import { normalizeFa } from '../domain/normalize';
 import { formatToman } from '../domain/format';
 import { contentTokens, modelTokens, parseBudget, wantsInstallment } from '../domain/query';
 import {
-  InterpretSchema,
   PickSchema,
+  TurnSchema,
+  type Turn,
   type ChatRequest,
   type ChatResponse,
   type ChatState,
   type Criteria,
-  type Interpret,
   type SearchFilters,
   type UIBlock,
 } from './blocks';
 import { applyFilters, buildSpecDiff, defaultPick, freshLabel, templateWhy } from './build';
 import { llmJson } from './llm';
-import { INTERPRET_SYSTEM, PICK_SYSTEM } from './prompts';
+import { PICK_SYSTEM, TURN_SYSTEM } from './prompts';
 import { detectScenario, isSpecific, matchReply, scripted, type ScriptedQuestion } from './scripted';
 
 type Pending = NonNullable<ChatState['pending']>;
@@ -91,16 +91,6 @@ function merge(a: SearchFilters, b: SearchFilters): SearchFilters {
   return out;
 }
 
-function cleanInterpFilters(i: Interpret | null): SearchFilters {
-  if (!i) return {};
-  const f: SearchFilters = {};
-  if (i.filters.minPrice && i.filters.minPrice > 0) f.minPrice = i.filters.minPrice;
-  if (i.filters.maxPrice && i.filters.maxPrice > 0) f.maxPrice = i.filters.maxPrice;
-  if (i.filters.brand) f.brand = i.filters.brand;
-  if (i.filters.category) f.category = i.filters.category;
-  return f;
-}
-
 function convo(req: ChatRequest): string {
   return req.messages
     .slice(-10)
@@ -166,26 +156,7 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
     }
   }
 
-  // ---- interpret (LLM call A) ----
-  const rulesNote = [
-    `questionsAsked=${state.questionsAsked}`,
-    isRefine ? 'کاربر گفت «دقیق‌ترش کن»: حتماً action=ask و یک سؤال تازه بپرس که با سؤال قبلی فرق کند.' : '',
-    state.lastProductIds.length ? 'قبلاً کارت کالا نشان داده‌ایم؛ پیام کاربر اصلاح یا پاسخ است: action=search.' : '',
-    state.questionsAsked >= 1 && !isRefine ? 'دیگر سؤال نپرس: action=search.' : '',
-  ]
-    .filter(Boolean)
-    .join('\n');
-  const interp = await llmJson('interpret', InterpretSchema, INTERPRET_SYSTEM, `${convo(req)}\n\n${rulesNote}`);
-  if (interp) {
-    usedLive = true;
-    state.filters = merge(state.filters, cleanInterpFilters(interp));
-    if (interp.searchText?.trim()) state.searchText = interp.searchText.trim();
-    if (interp.need && !state.needs!.includes(interp.need)) state.needs!.push(interp.need);
-    if (interp.criteriaPatch?.installment) patch.installment = true;
-    if (interp.criteriaPatch?.budgetMax && !patch.budget) patch.budget = { min: null, max: interp.criteriaPatch.budgetMax };
-  }
-
-  // ---- decide: ask or search (server rules override the LLM) ----
+  // ---- server rules decide whether a question is allowed (the LLM never overrides these) ----
   const specificByScenario = scenario ? isSpecific(scenario, userTexts.join(' ')) : false;
   let specificByFts = false;
   const mt = modelTokens(last);
@@ -193,20 +164,25 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
     const hits = await src.searchProducts({ text: last, limit: 5 });
     specificByFts = hits.some((p) => mt.some((t) => normalizeFa(p.title).includes(t)));
   }
-  let ask: boolean;
-  if (state.questionsAsked >= 2) ask = false;
-  else if (isRefine) ask = true;
-  else if (state.lastProductIds.length) ask = false;
-  else if (state.questionsAsked >= 1) ask = false;
-  else if (specificByScenario || specificByFts) ask = false;
-  else if (interp) ask = interp.action === 'ask';
-  else ask = true;
+  const specific = specificByScenario || specificByFts;
+  type Rule = 'must_ask' | 'must_show' | 'free';
+  const rule: Rule =
+    state.questionsAsked >= 2
+      ? 'must_show'
+      : isRefine
+        ? 'must_ask'
+        : state.lastProductIds.length || state.questionsAsked >= 1 || specific
+          ? 'must_show'
+          : // a bare product type ("هندزفری میخوام") always gets one question first (UI_SPEC §2.3 example)
+            contentTokens(last).length <= 2 && !budget.maxPrice && !budget.minPrice
+            ? 'must_ask'
+            : 'free';
 
   const scriptedSearchText = () => {
-    if (!scenario || specificByScenario || specificByFts) return userTexts[0] ?? last;
+    if (!scenario || specific) return userTexts[0] ?? last;
     return scenario.searchText;
   };
-  const searchText = (interp?.searchText?.trim() && state.searchText) || scriptedSearchText();
+  let searchText = state.searchText && state.searchText !== last ? state.searchText : scriptedSearchText();
   state.searchText = searchText;
 
   const findCandidates = async (f: SearchFilters, text = searchText) => {
@@ -232,26 +208,82 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
         text: `«${last.trim().slice(0, 40)}» رو توی فروشگاه‌های ثبت‌شده پیدا نکردم. کاتالوگ ما بیشتر لوازم الکترونیکی و برقیه؛ مثلاً یکی از این‌ها:`,
       });
       blocks.push({ type: 'suggestions', items: scripted().examples });
-      return { blocks, state: { ...state, searchText: undefined }, mode: usedLive ? 'live' : 'scripted' };
+      return { blocks, state: { ...state, searchText: undefined }, mode: 'scripted' };
     }
   }
 
+  // ---- candidates with progressive relaxation ----
+  const relaxed: string[] = [];
+  const gather = async () => {
+    let f = { ...state.filters };
+    if (!f.maxPrice && req.criteria.budget.max) f.maxPrice = req.criteria.budget.max;
+    let c = await findCandidates(f);
+    if (!c.length && (f.include || f.exclude || f.brand)) {
+      f = { ...f, include: undefined, exclude: undefined, brand: undefined };
+      c = await findCandidates(f);
+      relaxed.push('برند و ویژگی‌ها');
+    }
+    if (!c.length && (f.maxPrice || f.minPrice)) {
+      f = { ...f, maxPrice: f.maxPrice ? f.maxPrice * 1.5 : undefined, minPrice: f.minPrice ? f.minPrice / 1.5 : undefined };
+      c = await findCandidates(f);
+      relaxed.push('بودجه');
+    }
+    if (!c.length && f.category) {
+      f = { ...f, category: undefined };
+      c = await findCandidates(f);
+      relaxed.push('دسته‌بندی');
+    }
+    if (!c.length && (f.maxPrice || f.minPrice)) c = await findCandidates({ ...f, maxPrice: undefined, minPrice: undefined });
+    if (!c.length && searchText !== last) c = await findCandidates({}, last);
+    return c;
+  };
+  let candidates = await gather();
+
+  // ---- one combined LLM call: ask one question, or pick + explain (live mode) ----
+  let turn: Turn | null = null;
+  if (env.llmLive) {
+    const rulesNote = `قاعده‌ی سرور: ${rule}${isRefine ? ' (کاربر گفت «دقیق‌ترش کن»؛ سؤالی تازه بپرس که با قبلی فرق کند)' : ''}`;
+    turn = await llmJson(
+      'turn',
+      TurnSchema,
+      TURN_SYSTEM,
+      `گفت‌وگو:\n${convo(req)}\n\n${rulesNote}\nنیازهای گفته‌شده: ${(state.needs ?? []).join('، ') || 'هنوز نامشخص'}\nجست‌وجو برای: «${searchText}»\n\nنامزدها:\n${candidateJson(candidates)}`,
+    );
+    if (turn) {
+      usedLive = true;
+      if (turn.need && !state.needs!.includes(turn.need)) state.needs!.push(turn.need);
+      const lf: SearchFilters = {};
+      if (turn.filters?.maxPrice && turn.filters.maxPrice > 0) lf.maxPrice = turn.filters.maxPrice;
+      if (turn.filters?.minPrice && turn.filters.minPrice > 0) lf.minPrice = turn.filters.minPrice;
+      if (turn.filters?.brand) lf.brand = turn.filters.brand;
+      if (turn.criteriaPatch?.installment) patch.installment = true;
+      if (turn.criteriaPatch?.budgetMax && !patch.budget) patch.budget = { min: null, max: turn.criteriaPatch.budgetMax };
+      const filtersChanged = Object.entries(lf).some(([k, v]) => (state.filters as Record<string, unknown>)[k] !== v);
+      state.filters = merge(state.filters, lf);
+      if (turn.action === 'research' && turn.searchText?.trim()) {
+        searchText = turn.searchText.trim();
+        state.searchText = searchText;
+        candidates = await gather();
+      } else if (filtersChanged && rule !== 'must_ask') {
+        candidates = await gather();
+      }
+    }
+  }
+
+  const ask = rule === 'must_ask' || (rule === 'free' && (turn ? turn.action === 'ask' : true));
   if (ask) {
-    let pending: Pending | null = null;
-    const liveQ = interp?.action === 'ask' && interp.question && interp.replies && interp.replies.length >= 2 ? interp : null;
-    if (liveQ) {
-      pending = {
-        question: liveQ.question!,
-        replies: liveQ.replies!.slice(0, 4).map((r) => ({ label: r, need: r, filters: { ...parseBudget(r) } })),
-      };
+    let pending: Pending;
+    const q = turn?.action === 'ask' && turn.question && (turn.replies?.length ?? 0) >= 2 ? turn : null;
+    if (q && !req.messages.some((m) => m.role === 'assistant' && m.text.includes(q.question!))) {
+      pending = { question: q.question!, replies: q.replies!.slice(0, 4).map((r) => ({ label: r, need: r, filters: { ...parseBudget(r) } })) };
     } else if (scenario) {
-      pending = toPending(state.questionsAsked === 0 ? scenario.q1 : scenario.q2);
+      pending = toPending(state.questionsAsked === 0 && !isRefine ? scenario.q1 : scenario.q2);
     } else {
-      pending = genericQuestion(state.questionsAsked, await findCandidates(state.filters));
+      pending = genericQuestion(state.questionsAsked, candidates);
     }
     // A refine question must be new.
-    if (isRefine && req.messages.some((m) => m.role === 'assistant' && m.text === pending!.question)) {
-      pending = scenario ? toPending(scenario.q2) : genericQuestion(1, await findCandidates(state.filters));
+    if (isRefine && req.messages.some((m) => m.role === 'assistant' && m.text.includes(pending.question))) {
+      pending = scenario ? toPending(scenario.q2) : genericQuestion(1, candidates);
     }
     state.pending = pending;
     state.questionsAsked = Math.min(2, state.questionsAsked + 1) as 0 | 1 | 2;
@@ -260,31 +292,6 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
     return { blocks, state, mode: usedLive ? 'live' : 'scripted' };
   }
 
-  // ---- search with progressive relaxation ----
-  let f = { ...state.filters };
-  if (!f.maxPrice && req.criteria.budget.max) f.maxPrice = req.criteria.budget.max;
-  let candidates = await findCandidates(f);
-  const relaxed: string[] = [];
-  if (!candidates.length && (f.include || f.exclude || f.brand)) {
-    f = { ...f, include: undefined, exclude: undefined, brand: undefined };
-    candidates = await findCandidates(f);
-    relaxed.push('برند و ویژگی‌ها');
-  }
-  if (!candidates.length && (f.maxPrice || f.minPrice)) {
-    f = { ...f, maxPrice: f.maxPrice ? f.maxPrice * 1.5 : undefined, minPrice: f.minPrice ? f.minPrice / 1.5 : undefined };
-    candidates = await findCandidates(f);
-    relaxed.push('بودجه');
-  }
-  if (!candidates.length && f.category) {
-    f = { ...f, category: undefined };
-    candidates = await findCandidates(f);
-    relaxed.push('دسته‌بندی');
-  }
-  if (!candidates.length && (f.maxPrice || f.minPrice)) {
-    f = { ...f, maxPrice: undefined, minPrice: undefined };
-    candidates = await findCandidates(f);
-  }
-  if (!candidates.length && searchText !== last) candidates = await findCandidates({}, last);
   if (!candidates.length) {
     blocks.push({
       type: 'text',
@@ -294,35 +301,34 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
     return { blocks, state, mode: usedLive ? 'live' : 'scripted' };
   }
   if (relaxed.length) {
-    blocks.push({ type: 'text', tone: 'relaxed', text: `با این شرایط دقیق چیزی پیدا نشد؛ ${relaxed.join(' و ')} رو کمی بازتر گرفتم.` });
+    blocks.push({ type: 'text', tone: 'relaxed', text: `با این شرایط دقیق چیزی پیدا نشد؛ ${[...new Set(relaxed)].join(' و ')} رو کمی بازتر گرفتم.` });
   }
 
-  // ---- pick (LLM call B) ----
+  // ---- picks: validated LLM picks (⊆ candidates), else deterministic ----
   const top = candidates.slice(0, 12);
   let picks: Product[] = [];
   let why: Record<string, string> = {};
   let intro = '';
   let diffKeys: string[] = [];
-  const pick = await llmJson(
-    'pick',
-    PickSchema,
-    PICK_SYSTEM,
-    `گفت‌وگو:\n${convo(req)}\n\nنیازهای کاربر: ${(state.needs ?? []).join('، ') || 'نامشخص'}\n\nنامزدها:\n${JSON.stringify(
-      top.map((p) => ({
-        id: p.id,
-        title: p.title,
-        brand: p.brand,
-        price: `${p.minPrice}-${p.maxPrice}`,
-        shops: p.shopCount,
-        fresh: p.freshShare,
-        specs: p.keySpecs.slice(0, 8),
-      })),
-    )}`,
-  );
-  if (pick) {
-    const ids = [...new Set(pick.pickIds)].filter((id) => top.some((p) => p.id === id));
+  if (turn?.pickIds?.length && turn.action !== 'research') {
+    const ids = [...new Set(turn.pickIds)].filter((id) => top.some((p) => p.id === id));
     if (ids.length >= Math.min(2, top.length)) {
-      usedLive = true;
+      picks = ids.slice(0, 4).map((id) => top.find((p) => p.id === id)!);
+      why = Object.fromEntries(picks.map((p) => [p.id, turn!.why?.[p.id] ?? templateWhy(p, state.needs ?? [], picks)]));
+      intro = turn.intro ?? '';
+      diffKeys = turn.diffKeys ?? [];
+    }
+  }
+  if (!picks.length && turn && env.llmLive) {
+    // the combined call asked or re-searched where it shouldn't have: one focused pick call
+    const pick = await llmJson(
+      'pick',
+      PickSchema,
+      PICK_SYSTEM,
+      `گفت‌وگو:\n${convo(req)}\n\nنیازهای کاربر: ${(state.needs ?? []).join('، ') || 'نامشخص'}\n\nنامزدها:\n${candidateJson(top)}`,
+    );
+    const ids = pick ? [...new Set(pick.pickIds)].filter((id) => top.some((p) => p.id === id)) : [];
+    if (pick && ids.length >= Math.min(2, top.length)) {
       picks = ids.slice(0, 4).map((id) => top.find((p) => p.id === id)!);
       why = Object.fromEntries(picks.map((p) => [p.id, pick.why[p.id] ?? templateWhy(p, state.needs ?? [], picks)]));
       intro = pick.intro;
@@ -342,9 +348,9 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
         ? `برای ${needs.slice(-2).join(' و ')} این‌ها رو پیشنهاد می‌کنم:`
         : 'این‌ها بهترین گزینه‌هایی هستن که پیدا کردم:';
   }
+  if (!intro) intro = 'این‌ها رو برات پیدا کردم:';
 
   state.lastProductIds = picks.map((p) => p.id);
-  state.filters = { ...state.filters };
   blocks.push({ type: 'text', text: intro });
   blocks.push({ type: 'products', products: picks, why, freshLabel: Object.fromEntries(picks.map((p) => [p.id, freshLabel(p)])) });
   if (picks.length >= 2) {
@@ -357,4 +363,18 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
   }
   if (Object.keys(patch).length) blocks.push({ type: 'criteriaPatch', patch });
   return { blocks, state, mode: usedLive ? 'live' : 'scripted' };
+}
+
+function candidateJson(list: Product[]): string {
+  if (!list.length) return '[] (هیچ نامزدی پیدا نشد)';
+  return JSON.stringify(
+    list.slice(0, 12).map((p) => ({
+      id: p.id,
+      title: p.title,
+      brand: p.brand,
+      price: `${p.minPrice}-${p.maxPrice}`,
+      shops: p.shopCount,
+      specs: p.keySpecs.slice(0, 6).map((s) => `${s.key}: ${s.value.slice(0, 40)}`),
+    })),
+  );
 }

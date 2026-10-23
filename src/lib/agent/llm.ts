@@ -25,6 +25,8 @@ async function callOnce(model: string, system: string, prompt: string, timeoutMs
       prompt,
       maxRetries: 0,
       abortSignal: ctrl.signal,
+      // gpt-5.x on BoxAPI: 'none' cuts ~2 s per call versus the default reasoning effort
+      ...(env.LLM_REASONING_EFFORT ? { providerOptions: { boxapi: { reasoningEffort: env.LLM_REASONING_EFFORT } } } : {}),
     });
     return res.text;
   } finally {

@@ -4,7 +4,7 @@ import { env } from '../env';
 const g = globalThis as unknown as { __sttOk?: boolean | null };
 
 export function sttStatus(): boolean {
-  if (!env.BOXAPI_API_KEY || env.LLM_MODE === 'scripted') return false;
+  if (!env.BOXAPI_API_KEY || !env.STT_MODEL || env.LLM_MODE === 'scripted') return false;
   return g.__sttOk ?? true;
 }
 

@@ -110,3 +110,31 @@ export function modelTokens(text: string): string[] {
     .split(' ')
     .filter((t) => /[a-z]/.test(t) && /\d/.test(t) && t.length >= 2);
 }
+
+/**
+ * Shared reranker for both data sources (returns best first).
+ * relevance (bm25 relative to the best hit) + popularity (shops carrying it) + coverage of the
+ * user's words + a head-noun bonus: Persian titles lead with the product type, so "گوشی …"
+ * beats "باتری گوشی …" for a phone request.
+ */
+export function rerank<T>(
+  rows: T[],
+  text: string,
+  get: (r: T) => { title: string; category: string; shopCount: number; rank: number },
+): T[] {
+  const words = contentTokens(text);
+  const head = words[0];
+  const heads = head ? [head, ...(SYNONYMS.find((g) => g.map((x) => normalizeFa(x)).includes(head))?.map((x) => normalizeFa(x)) ?? [])] : [];
+  const best = Math.min(...rows.map((r) => get(r).rank), -1e-9);
+  const scored = rows.map((r) => {
+    const g = get(r);
+    const nt = normalizeFa(g.title);
+    const nc = normalizeFa(g.category);
+    const rel = best < 0 ? Math.max(0, g.rank / best) : 1;
+    const cover = words.length ? words.filter((w) => nt.includes(w) || nc.includes(w)).length / words.length : 0;
+    const headHit = heads.some((h) => nt.startsWith(h)) ? 1 : heads.some((h) => nc.includes(h)) ? 0.5 : 0;
+    const pop = Math.min(1, Math.log(g.shopCount + 1) / Math.log(40));
+    return { r, s: 2 * rel + 1.4 * pop + 1.5 * cover + 1.5 * headHit };
+  });
+  return scored.sort((a, b) => b.s - a.s).map((x) => x.r);
+}

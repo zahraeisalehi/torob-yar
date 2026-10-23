@@ -2,8 +2,7 @@ import Database from 'better-sqlite3';
 import path from 'node:path';
 import type { Area, ComplexResult, DataSource, OfferWithShop, Product, SearchQuery, Shop } from './types';
 import { offerFromRow, productFromRow, shopFromRow, type OfferRow, type ProductRow, type ShopRow } from './rows';
-import { buildFtsQuery } from '../domain/query';
-import { normalizeFa } from '../domain/normalize';
+import { buildFtsQuery, rerank } from '../domain/query';
 
 const SHOP_SELECT = `SELECT s.*, c.name AS complex_name FROM shops s LEFT JOIN complexes c ON c.id = s.complex_id`;
 
@@ -62,13 +61,13 @@ export function createSqliteSource(file: string): DataSource {
       const limit = sq.limit ?? 12;
       let rows: (ProductRow & { rank: number })[];
       if (match) {
-        rows = db
-          .prepare<(string | number)[], ProductRow & { rank: number }>(
-            `SELECT p.*, bm25(products_fts) AS rank FROM products_fts f JOIN products p ON p.rid = f.rowid
-             WHERE products_fts MATCH ? ${where.length ? 'AND ' + where.join(' AND ') : ''}
-             ORDER BY rank LIMIT 60`,
-          )
-          .all(match, ...params);
+        const base = `SELECT p.*, bm25(products_fts) AS rank FROM products_fts f JOIN products p ON p.rid = f.rowid
+             WHERE products_fts MATCH ? ${where.length ? 'AND ' + where.join(' AND ') : ''}`;
+        // best text matches ∪ most-stocked matches, so broad requests ("گوشی") still surface popular models
+        const byRank = db.prepare<(string | number)[], ProductRow & { rank: number }>(`${base} ORDER BY rank LIMIT 200`).all(match, ...params);
+        const byPop = db.prepare<(string | number)[], ProductRow & { rank: number }>(`${base} ORDER BY p.shop_count DESC LIMIT 80`).all(match, ...params);
+        const seen = new Set<number>();
+        rows = [...byRank, ...byPop].filter((r) => (seen.has(r.rid) ? false : (seen.add(r.rid), true)));
       } else {
         rows = db
           .prepare<(string | number)[], ProductRow & { rank: number }>(
@@ -77,17 +76,10 @@ export function createSqliteSource(file: string): DataSource {
           )
           .all(...params);
       }
-      // Title coverage bonus: products whose title contains more of the user's words come first.
-      const words = normalizeFa(sq.text).split(' ').filter((w) => w.length > 1);
-      const cover = (t: string) => {
-        const nt = normalizeFa(t);
-        return words.filter((w) => nt.includes(w)).length / Math.max(1, words.length);
-      };
-      return rows
-        .map((r) => ({ r, s: r.rank - 0.15 * Math.log(r.shop_count + 1) - 2 * cover(r.title) }))
-        .sort((a, b) => a.s - b.s)
+      // Rerank: bm25 + popularity + title coverage + head noun ("گوشی …" beats "باتری گوشی …").
+      return rerank(rows, sq.text, (r) => ({ title: r.title, category: r.category, shopCount: r.shop_count, rank: r.rank }))
         .slice(0, limit)
-        .map((x) => productFromRow(x.r));
+        .map(productFromRow);
     },
     async getProduct(id) {
       const r = q.product.get(id);

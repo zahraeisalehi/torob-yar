@@ -8,7 +8,7 @@ export const maxDuration = 40;
 const MAX_BYTES = 5 * 1024 * 1024;
 
 export async function POST(req: Request) {
-  if (!env.BOXAPI_API_KEY || env.LLM_MODE === 'scripted') return bad('تبدیل گفتار به متن فعال نیست', 503);
+  if (!env.BOXAPI_API_KEY || !env.STT_MODEL || env.LLM_MODE === 'scripted') return bad('تبدیل گفتار به متن فعال نیست', 503);
   const form = await req.formData().catch(() => null);
   const file = form?.get('file');
   if (!(file instanceof Blob)) return bad('فایل صوتی ارسال نشده');

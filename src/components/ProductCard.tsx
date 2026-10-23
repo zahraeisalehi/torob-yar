@@ -144,8 +144,8 @@ export function ProductCardPinned({ p, onChange, compact }: { p: Product; onChan
       layoutId={`product-${p.id}`}
       transition={SPRING}
       className={cn(
-        'flex w-full items-center gap-3 rounded-[20px] border border-line bg-canvas p-2.5 shadow-soft',
-        compact ? 'min-h-[104px]' : 'min-h-[140px] p-3',
+        'flex w-full items-center gap-3 rounded-[20px] border border-line bg-canvas shadow-soft',
+        compact ? 'min-h-[104px] p-2.5' : 'min-h-[140px] p-3',
       )}
       data-testid="pinned-product"
     >
@@ -158,15 +158,15 @@ export function ProductCardPinned({ p, onChange, compact }: { p: Product; onChan
         />
       </button>
       <div className="min-w-0 flex-1 space-y-1">
-        <button onClick={onChange} className="block text-start">
-          <h2 className="line-clamp-2 text-[14px] font-semibold leading-6 text-ink">{faText(p.title)}</h2>
+        <button onClick={onChange} className="block w-full text-start">
+          <h2 className={cn('line-clamp-2 font-semibold text-ink', compact ? 'text-[13.5px] leading-6' : 'text-[15px] leading-7')}>{faText(p.title)}</h2>
         </button>
         <SpecChips p={p} n={compact ? 2 : 3} className="max-h-6 overflow-hidden" />
-        <div className="text-[12.5px] text-ink-2">
+        <div className={cn('truncate text-ink-2', compact ? 'text-[12px]' : 'text-[13px]')}>
           از {formatRange(p.minPrice, p.maxPrice)} · در {toFaDigits(p.shopCount)} فروشگاه
         </div>
       </div>
-      <Button variant="outline" size="sm" onClick={onChange} className="shrink-0 self-start" data-testid="change-product">
+      <Button variant="outline" size="sm" onClick={onChange} className={cn('shrink-0 self-start', compact && 'h-8 px-2.5 text-[13px]')} data-testid="change-product">
         <ChevronLeft className="size-4 rotate-180" />
         تغییر
       </Button>

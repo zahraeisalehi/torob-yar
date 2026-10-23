@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node .next/standalone/server.js",
+    "start": "sh scripts/start.sh",
     "typecheck": "next typegen && tsc --noEmit",
     "lint": "eslint .",
     "test:unit": "vitest run",

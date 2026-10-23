@@ -106,3 +106,21 @@ export const PickSchema = z.object({
   diffKeys: z.array(z.string()).optional().default([]),
 });
 export type Pick = z.infer<typeof PickSchema>;
+
+/** Combined per-turn LLM output (TURN_SYSTEM). */
+export const TurnSchema = z.object({
+  action: z.enum(['ask', 'show', 'research']),
+  question: z.string().nullish(),
+  replies: z.array(z.string()).nullish(),
+  need: z.string().nullish(),
+  filters: z
+    .object({ minPrice: z.number().nullish(), maxPrice: z.number().nullish(), brand: z.string().nullish() })
+    .nullish(),
+  criteriaPatch: z.object({ installment: z.boolean().nullish(), budgetMax: z.number().nullish() }).nullish(),
+  pickIds: z.array(z.string()).nullish(),
+  why: z.record(z.string(), z.string()).nullish(),
+  intro: z.string().nullish(),
+  diffKeys: z.array(z.string()).nullish(),
+  searchText: z.string().nullish(),
+});
+export type Turn = z.infer<typeof TurnSchema>;
