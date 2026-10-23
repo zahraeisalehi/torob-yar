@@ -1,10 +1,11 @@
 #!/bin/sh
 # Preflight + liara deploy. Fails loudly on any error.
-#   sh deploy/deploy.sh                          # full preflight; app name from liara.json (torob-yar-app)
-#   SKIP_DOCKER=1 sh deploy/deploy.sh            # skip the local docker smoke build
+#   APP=<liara-app> sh deploy/deploy.sh          # full preflight, then deploy to <liara-app>
+#   APP=<liara-app> SKIP_DOCKER=1 sh deploy/deploy.sh   # skip the local docker smoke build
+# Without APP it falls back to the "app" field of liara.json.
 set -eu
 cd "$(dirname "$0")/.."
-APP="${APP:-$(node -p "require('./liara.json').app")}"
+if [ -n "${APP:-}" ]; then APP_SRC=env; else APP="$(node -p "require('./liara.json').app")"; APP_SRC=liara.json; fi
 VERSION="$(git rev-parse --short HEAD 2>/dev/null || echo dev)"
 say() { printf '\n\033[1m▶ %s\033[0m\n' "$1"; }
 
@@ -35,6 +36,7 @@ else
   say "4/4 local docker check skipped"
 fi
 
-say "liara deploy → $APP ($VERSION)"
+say "liara deploy → $APP (from $APP_SRC, $VERSION)"
 liara deploy --app "$APP" --platform docker --port 3000 --build-location iran \
   --build-arg "APP_VERSION=$VERSION" --message "deploy $VERSION" --no-app-logs
+say "deployed: https://$APP.liara.run (or your custom domain)"
