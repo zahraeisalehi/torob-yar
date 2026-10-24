@@ -31,6 +31,19 @@ Deploying is ~10 minutes once the account is charged. Follow `docs/RUNBOOK.md` �
 7. Out-of-stock beat: the alternative is opened with «باز کن» under the seller's answer.
 8. Tech line: dataset is 315k offers / 218k products (was 330k / 225k).
 
+### Search quality (2026-10-24)
+Bug: «redmi buds 8 active» could surface «باتری شیائومی POCO X3 Pro BN57». Two causes: (1) after any first search the agent kept searching the *old* text (and scenario), so a new model name typed mid-chat was ignored; (2) retrieval OR-ed every token with prefix matching and let popularity outweigh model numbers.
+Eval `npm run search-eval` (also in `npm test`, gated at top-3 ≥ 90%, top-1 ≥ 75%): 42 queries from real catalogue titles (Latin model names, Persian, mixed, typos, generic needs incl. explicit accessories) + 3 multi-turn agent checks.
+
+| | top-1 | top-3 | category in top-3 | agent multi-turn |
+|---|---|---|---|---|
+| before | 57% (24/42) | 74% (31/42) | 78% | 0/3 |
+| after | **100% (42/42)** | **100% (42/42)** | 87% | **3/3** |
+
+By kind before → after (top-1): Latin 18% → 100%, Persian 73% → 100%, mixed 57% → 100%, typos 40% → 100%, generic 100% → 100%.
+The alias lexicon was tuned while looking at these queries, so I also ran 20 held-out queries written afterwards (galaxy s24 ultra, iphone 15, redmi note 13 pro, jbl go 4, شارژر سامسونگ ۲۵ وات, poco f7, airpods 4, honor x9c, …): 19/20 right at top-1; «jbl go 4» returns Go 5 because the catalogue has no JBL Go 4.
+What changed: `src/lib/domain/search.ts` (shared by SQLite and fixtures; parity test `src/lib/data/__tests__/search-parity.test.ts`, 68 queries identical) — AND of all words first, then the best all-but-one AND, then OR; Latin words and numbers exact (no prefix); Persian↔Latin aliases for brands, series words (پرو/pro, اکتیو/active, بادز/buds…) and product types; typo correction against the lexicon only; glued forms (flip6, Watch7, 20w); score = model-token coverage in the title + exact phrase − unrequested variants − accessory/part (unless asked) − product-type mismatch, popularity only as a tie-breaker. Agent: a new model or product type mid-chat starts a fresh search session; "specific" = every model token is in a top hit's title; candidates (and so picks) are filtered to the requested type; an LLM re-search can't push the raw-text hits out; the budget question's anchors come from the cards on screen.
+
 ### Blocked / follow-ups
 1. **Liara: LIVE at https://torob-yar-app.liara.run** (2026-10-23), app `torob-yar-app` in team `6ad87ba7cf87f9a8e45d4d3a`. The requested `torob-yar` is not in that team (`liara app list --team-id` lists `torob-yar-app`, `miara-*`, `wallexer*` only), and `app create` is off-limits, so `https://torob-yar.liara.run` is not ours. Moving later is `APP=torob-yar sh deploy/deploy.sh` after the app + disk exist (RUNBOOK "Move to another app/domain").
    - Deploy attempts: 1 `healthCheck.startPeriod must be ≤ 3000` → fixed liara.json · 2 iran builder `unauthorized: authentication required` pulling node from Docker Hub → build location germany · 3 `Build timed out` (~20 min in `next build` on Liara) → prebuilt deploy (local `next build`, copy-only `deploy/Dockerfile.prebuilt`) · 4 better-sqlite3 binary missing (the CLI never uploads `node_modules`) → standalone shipped as a tar · **5 ✓**.

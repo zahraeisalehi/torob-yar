@@ -1,8 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Area, Complex, ComplexResult, DataSource, Offer, OfferWithShop, Product, SearchQuery, Shop } from './types';
-import { expandTokens, rerank } from '../domain/query';
-import { normalizeFa } from '../domain/normalize';
+import { analyzeQuery, CANDIDATE_CAP, docMatches, docTokens, rankProducts, retrieve, type Group } from '../domain/search';
 
 type FixtureBundle = {
   products: Product[];
@@ -43,24 +42,19 @@ export function createFixtureSource(): DataSource {
     kind: 'fixtures',
     async searchProducts(q: SearchQuery) {
       const { products } = load();
-      const tokens = expandTokens(q.text);
-      const df = new Map<string, number>();
-      const norm = new Map(products.map((p) => [p.id, ' ' + normalizeFa(`${p.title} ${p.brand ?? ''} ${p.category}`) + ' ']));
-      for (const t of tokens) df.set(t, products.filter((p) => norm.get(p.id)!.includes(t)).length);
-      const scored = products
+      const lc = (x: string) => x.toLowerCase();
+      // same filters as the SQLite WHERE (LIKE is case-insensitive for Latin)
+      const pool = products
         .filter((p) => (!q.maxPrice || p.minPrice <= q.maxPrice) && (!q.minPrice || p.maxPrice >= q.minPrice))
-        .filter((p) => !q.brand || p.brand === q.brand || p.title.includes(q.brand))
-        .filter((p) => !q.category || p.category.includes(q.category))
-        .map((p) => {
-          const text = norm.get(p.id)!;
-          let s = 0;
-          for (const t of tokens) if (text.includes(t)) s += Math.log(1 + products.length / (df.get(t) || 1));
-          return { p, s: s + 0.15 * Math.log(p.shopCount + 1) };
-        })
-        .filter((x) => !tokens.length || x.s > 0.15 * Math.log(x.p.shopCount + 1) + 0.01);
-      // same reranker as SQLite; token score stands in for bm25
-      const ranked = rerank(scored, q.text, (x) => ({ title: x.p.title, category: x.p.category, shopCount: x.p.shopCount, rank: -x.s }));
-      return ranked.slice(0, q.limit ?? 12).map((x) => x.p);
+        .filter((p) => !q.brand || p.brand === q.brand || lc(p.title).includes(lc(q.brand)))
+        .filter((p) => !q.category || lc(p.category).includes(lc(q.category)));
+      const byPop = [...pool].sort((x, y) => y.shopCount - x.shopCount);
+      const toks = new Map(products.map((p) => [p.id, docTokens(`${p.title} ${p.brand ?? ''} ${p.category}`)]));
+      const a = analyzeQuery(q.text);
+      const run = (groups: Group[], mode: 'and' | 'or') =>
+        groups.length ? byPop.filter((p) => docMatches(groups, mode, toks.get(p.id)!)).slice(0, CANDIDATE_CAP) : byPop.slice(0, 60);
+      const rows = retrieve(a, run, (p) => p.id);
+      return rankProducts(a, rows, (p) => p).slice(0, q.limit ?? 12);
     },
     async getProduct(id) {
       return load().products.find((p) => p.id === id) ?? null;

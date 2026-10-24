@@ -16,7 +16,9 @@
     "smoke": "tsx scripts/smoke.ts",
     "predev": "node scripts/copy-assets.mjs",
     "prebuild": "node scripts/copy-assets.mjs",
-    "demo": "sh scripts/demo.sh"
+    "demo": "sh scripts/demo.sh",
+    "test": "vitest run && npm run search-eval",
+    "search-eval": "tsx --conditions=react-server scripts/search-eval.ts"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.77",

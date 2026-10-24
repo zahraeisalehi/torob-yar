@@ -4,7 +4,8 @@ import type { Product } from '../data/types';
 import { env } from '../env';
 import { normalizeFa } from '../domain/normalize';
 import { formatToman } from '../domain/format';
-import { contentTokens, modelTokens, parseBudget, typeTokens, wantsInstallment } from '../domain/query';
+import { contentTokens, parseBudget, typeTokens, wantsInstallment } from '../domain/query';
+import { analyzeQuery, modelHit, typeMatches } from '../domain/search';
 import {
   PickSchema,
   TurnSchema,
@@ -75,6 +76,13 @@ function genericQuestion(n: number, candidates: Product[]): Pending {
   };
 }
 
+/** Drop candidates that aren't the requested kind of product (a battery for an earbuds query), unless nothing is left. */
+function keepType(list: Product[], text: string): Product[] {
+  const a = analyzeQuery(text);
+  const kept = list.filter((p) => typeMatches(a, p));
+  return kept.length ? kept : list;
+}
+
 /** Keep the dominant category of the most relevant hits so popular accessories don't crowd out the real thing. */
 function focusCategory(list: Product[]): Product[] {
   if (list.length < 3) return list;
@@ -123,10 +131,26 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
   const budget = parseBudget(last);
   if (budget.maxPrice || budget.minPrice) patch.budget = { min: budget.minPrice ?? null, max: budget.maxPrice ?? null };
 
-  // ---- scenario + answer to the pending question ----
-  const scenario = state.scenario ? scripted().scenarios.find((s) => s.id === state.scenario) ?? null : detectScenario(userTexts.join(' '));
-  state.scenario = scenario?.id ?? null;
+  // ---- a new product mid-conversation («redmi buds 8 active» after a phone search) starts a fresh search ----
   const isRefine = req.action === 'refine';
+  const lastA = analyzeQuery(last);
+  const lastHits = await src.searchProducts({ text: last, limit: 5 });
+  // the user named a concrete model: every model token (Latin word, number, series word) is in a top hit's title
+  const namesModel = lastHits.slice(0, 3).some((p) => modelHit(lastA, p));
+  const prevTypes = state.searchText ? analyzeQuery(state.searchText).types : [];
+  const newType = lastA.types.length > 0 && !lastA.types.some((t) => prevTypes.includes(t));
+  const answersPending = !!state.pending && !!matchReply({ question: state.pending.question, replies: state.pending.replies }, last);
+  const hadSearch = !!state.searchText && (state.lastProductIds.length > 0 || state.questionsAsked > 0);
+  const freshSearch = hadSearch && !isRefine && !answersPending && (namesModel || newType);
+  // texts of the current search session (scenario detection must not see the previous product)
+  const sessionTexts = freshSearch ? [last] : userTexts;
+  if (freshSearch) {
+    Object.assign(state, { questionsAsked: 0, enoughShown: false, lastProductIds: [], filters: {}, scenario: null, pending: null, needs: [], searchText: undefined });
+  }
+
+  // ---- scenario + answer to the pending question ----
+  const scenario = state.scenario ? scripted().scenarios.find((s) => s.id === state.scenario) ?? null : detectScenario(sessionTexts.join(' '));
+  state.scenario = scenario?.id ?? null;
   let answeredPending = false;
   if (state.pending && !isRefine) {
     const reply = matchReply({ question: state.pending.question, replies: state.pending.replies }, last);
@@ -159,14 +183,8 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
   }
 
   // ---- server rules decide whether a question is allowed (the LLM never overrides these) ----
-  const specificByScenario = scenario ? isSpecific(scenario, userTexts.join(' ')) : false;
-  let specificByFts = false;
-  const mt = modelTokens(last);
-  if (mt.length) {
-    const hits = await src.searchProducts({ text: last, limit: 5 });
-    specificByFts = hits.some((p) => mt.some((t) => normalizeFa(p.title).includes(t)));
-  }
-  const specific = specificByScenario || specificByFts;
+  const specificByScenario = scenario ? isSpecific(scenario, sessionTexts.join(' ')) : false;
+  const specific = specificByScenario || namesModel;
   type Rule = 'must_ask' | 'must_show' | 'free';
   const rule: Rule =
     state.questionsAsked >= 2
@@ -181,7 +199,7 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
             : 'free';
 
   const scriptedSearchText = () => {
-    if (!scenario || specific) return userTexts[0] ?? last;
+    if (!scenario || specific) return state.searchText ?? last;
     return scenario.searchText;
   };
   let searchText = state.searchText && state.searchText !== last ? state.searchText : scriptedSearchText();
@@ -196,7 +214,7 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
       category: f.category,
       limit: 40,
     });
-    return focusCategory(applyFilters(res, { include: f.include, exclude: f.exclude }));
+    return focusCategory(keepType(applyFilters(res, { include: f.include, exclude: f.exclude }), text));
   };
 
   // A request for something we don't carry (e.g. shoes): say so instead of asking questions.
@@ -267,9 +285,12 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
       const filtersChanged = Object.entries(lf).some(([k, v]) => (state.filters as Record<string, unknown>)[k] !== v);
       state.filters = merge(state.filters, lf);
       if (turn.action === 'research' && turn.searchText?.trim()) {
+        const raw = candidates;
         searchText = turn.searchText.trim();
         state.searchText = searchText;
         candidates = await gather();
+        // the user named the model: the raw-text hits stay first, the LLM's re-search only adds
+        if (specific) candidates = [...raw, ...candidates.filter((p) => !raw.some((r) => r.id === p.id))];
       } else if (filtersChanged && rule !== 'must_ask') {
         candidates = await gather();
       }
@@ -281,7 +302,9 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
     let pending: Pending;
     const q = turn?.action === 'ask' && turn.question && (turn.replies?.length ?? 0) >= 2 ? turn : null;
     if (refineToBudget) {
-      pending = genericQuestion(0, candidates);
+      // anchors from the cards on screen (what «دقیق‌ترش کن» refines), not the whole candidate pool
+      const shown = state.lastProductIds.length ? await src.getProducts(state.lastProductIds) : [];
+      pending = genericQuestion(0, shown.length >= 3 ? shown : candidates);
     } else if (q && !req.messages.some((m) => m.role === 'assistant' && m.text.includes(q.question!))) {
       pending = { question: q.question!, replies: q.replies!.slice(0, 4).map((r) => ({ label: r, need: r, filters: { ...parseBudget(r) } })) };
     } else if (scenario) {
@@ -344,8 +367,7 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
     }
   }
   if (!picks.length) {
-    const tokens = modelTokens(userTexts.join(' '));
-    const exact = tokens.length ? top.filter((p) => tokens.every((t) => normalizeFa(p.title).includes(t))) : [];
+    const exact = namesModel ? top.filter((p) => modelHit(lastA, p)) : [];
     picks = exact.length ? [...defaultPick(exact, 1), ...defaultPick(top.filter((p) => !exact.includes(p)), 2)] : defaultPick(top, 3);
     picks = picks.slice(0, 4);
     why = Object.fromEntries(picks.map((p) => [p.id, templateWhy(p, state.needs ?? [], picks)]));

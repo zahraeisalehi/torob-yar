@@ -2,7 +2,7 @@ import Database from 'better-sqlite3';
 import path from 'node:path';
 import type { Area, ComplexResult, DataSource, OfferWithShop, Product, SearchQuery, Shop } from './types';
 import { offerFromRow, productFromRow, shopFromRow, type OfferRow, type ProductRow, type ShopRow } from './rows';
-import { buildFtsQuery, rerank } from '../domain/query';
+import { analyzeQuery, CANDIDATE_CAP, ftsExpression, rankProducts, retrieve, type Group } from '../domain/search';
 
 const SHOP_SELECT = `SELECT s.*, c.name AS complex_name FROM shops s LEFT JOIN complexes c ON c.id = s.complex_id`;
 
@@ -39,7 +39,6 @@ export function createSqliteSource(file: string): DataSource {
   return {
     kind: 'sqlite',
     async searchProducts(sq: SearchQuery): Promise<Product[]> {
-      const match = buildFtsQuery(sq.text);
       const where: string[] = [];
       const params: (string | number)[] = [];
       if (sq.maxPrice) {
@@ -58,27 +57,20 @@ export function createSqliteSource(file: string): DataSource {
         where.push('p.category LIKE ?');
         params.push(`%${sq.category}%`);
       }
-      const limit = sq.limit ?? 12;
-      let rows: (ProductRow & { rank: number })[];
-      if (match) {
-        const base = `SELECT p.*, bm25(products_fts) AS rank FROM products_fts f JOIN products p ON p.rid = f.rowid
-             WHERE products_fts MATCH ? ${where.length ? 'AND ' + where.join(' AND ') : ''}`;
-        // best text matches ∪ most-stocked matches, so broad requests ("گوشی") still surface popular models
-        const byRank = db.prepare<(string | number)[], ProductRow & { rank: number }>(`${base} ORDER BY rank LIMIT 200`).all(match, ...params);
-        const byPop = db.prepare<(string | number)[], ProductRow & { rank: number }>(`${base} ORDER BY p.shop_count DESC LIMIT 80`).all(match, ...params);
-        const seen = new Set<number>();
-        rows = [...byRank, ...byPop].filter((r) => (seen.has(r.rid) ? false : (seen.add(r.rid), true)));
-      } else {
-        rows = db
-          .prepare<(string | number)[], ProductRow & { rank: number }>(
-            `SELECT p.*, 0 AS rank FROM products p ${where.length ? 'WHERE ' + where.join(' AND ') : ''}
-             ORDER BY p.shop_count DESC LIMIT 60`,
+      const a = analyzeQuery(sq.text);
+      // one boolean query; the shared retrieve() decides AND → all-but-one → OR (same as fixtures)
+      const run = (groups: Group[], mode: 'and' | 'or'): ProductRow[] => {
+        const match = ftsExpression(groups, mode);
+        const cond = [...(match ? ['p.rid IN (SELECT rowid FROM products_fts WHERE products_fts MATCH ?)'] : []), ...where];
+        return db
+          .prepare<(string | number)[], ProductRow>(
+            `SELECT p.* FROM products p ${cond.length ? 'WHERE ' + cond.join(' AND ') : ''} ORDER BY p.shop_count DESC, p.rid LIMIT ${match ? CANDIDATE_CAP : 60}`,
           )
-          .all(...params);
-      }
-      // Rerank: bm25 + popularity + title coverage + head noun ("گوشی …" beats "باتری گوشی …").
-      return rerank(rows, sq.text, (r) => ({ title: r.title, category: r.category, shopCount: r.shop_count, rank: r.rank }))
-        .slice(0, limit)
+          .all(...(match ? [match] : []), ...params);
+      };
+      const rows = retrieve(a, run, (r) => r.rid);
+      return rankProducts(a, rows, (r) => ({ title: r.title, brand: r.brand, category: r.category, shopCount: r.shop_count }))
+        .slice(0, sq.limit ?? 12)
         .map(productFromRow);
     },
     async getProduct(id) {
