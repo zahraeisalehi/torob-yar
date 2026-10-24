@@ -3,6 +3,9 @@
 #   APP=<liara-app> sh deploy/deploy.sh          # full preflight, then deploy to <liara-app>
 #   APP=<liara-app> SKIP_DOCKER=1 sh deploy/deploy.sh   # skip the local docker smoke build
 # Without APP it falls back to the "app" field of liara.json.
+# Apps in a team workspace: LIARA_TEAM_ID=<team id> (passed to liara as --team-id).
+# LIARA_BUILD_LOCATION=germany (default) | iran — the iran builder can't pull node images from Docker Hub.
+# Default: build Next locally and upload a copy-only image (deploy/Dockerfile.prebuilt). REMOTE_BUILD=1 = full Dockerfile on Liara.
 set -eu
 cd "$(dirname "$0")/.."
 if [ -n "${APP:-}" ]; then APP_SRC=env; else APP="$(node -p "require('./liara.json').app")"; APP_SRC=liara.json; fi
@@ -36,7 +39,28 @@ else
   say "4/4 local docker check skipped"
 fi
 
-say "liara deploy → $APP (from $APP_SRC, $VERSION)"
-liara deploy --app "$APP" --platform docker --port 3000 --build-location iran \
-  --build-arg "APP_VERSION=$VERSION" --message "deploy $VERSION" --no-app-logs
+set --
+[ -n "${LIARA_TEAM_ID:-}" ] && set -- --team-id "$LIARA_TEAM_ID"
+if [ "${REMOTE_BUILD:-0}" = "1" ]; then
+  # full multi-stage Dockerfile built by Liara (timed out at ~20 min in `next build` on 2026-10-23)
+  SRC=.
+else
+  say "prebuilt: next build locally, stage a copy-only image (deploy/Dockerfile.prebuilt)"
+  npm run build
+  SRC=deploy/.tmp/prebuilt
+  rm -rf "$SRC" && mkdir -p "$SRC"
+  # a tar, because the Liara CLI never uploads node_modules directories (default ignore)
+  tar -C .next/standalone --exclude='./data/rw*' --exclude='./.env*' -cf "$SRC/standalone.tar" .
+  cp -r .next/static "$SRC/static"
+  cp -r public "$SRC/public"
+  cp -r data/fixtures "$SRC/fixtures"
+  cp data/app.sqlite.gz deploy/entrypoint.sh liara.json "$SRC/"
+  cp deploy/Dockerfile.prebuilt "$SRC/Dockerfile"
+  if find "$SRC" -name '.env*' | grep -q .; then echo "refusing to upload .env files"; exit 1; fi
+  echo "staged: $(du -sh "$SRC" | cut -f1)"
+fi
+
+say "liara deploy → $APP (from $APP_SRC, $VERSION${LIARA_TEAM_ID:+, team $LIARA_TEAM_ID})"
+liara deploy --app "$APP" --platform docker --port 3000 --build-location "${LIARA_BUILD_LOCATION:-germany}" \
+  --path "$SRC" --build-arg "APP_VERSION=$VERSION" --message "deploy $VERSION" --no-app-logs "$@"
 say "deployed: https://$APP.liara.run (or your custom domain)"

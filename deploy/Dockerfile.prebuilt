@@ -1,0 +1,27 @@
+# Runtime-only image for `deploy.sh` (default): Next is built locally, so Liara's builder only copies files.
+# (The full multi-stage ../Dockerfile timed out after ~20 min in `next build` on Liara's builder.)
+# Context = the staging dir deploy.sh assembles: standalone.tar static/ public/ fixtures/ app.sqlite.gz entrypoint.sh
+# standalone is a tar because the Liara CLI never uploads node_modules directories (default ignore).
+# Node major must match the local build (better-sqlite3's native binary is copied as-is).
+FROM node:24-bookworm-slim
+WORKDIR /app
+ARG APP_VERSION=dev
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1 \
+    HOSTNAME=0.0.0.0 \
+    PORT=3000 \
+    SQLITE_PATH=/app/db/app.sqlite \
+    DATA_RW_DIR=/app/data-rw \
+    APP_VERSION=$APP_VERSION
+ADD standalone.tar ./
+COPY static ./.next/static
+COPY public ./public
+COPY fixtures ./data/fixtures
+COPY app.sqlite.gz /tmp/app.sqlite.gz
+RUN mkdir -p db && gunzip -c /tmp/app.sqlite.gz > db/app.sqlite && rm /tmp/app.sqlite.gz
+COPY entrypoint.sh ./deploy/entrypoint.sh
+RUN test -f node_modules/better-sqlite3/prebuilds/linux-x64.node || test -f node_modules/better-sqlite3/build/Release/better_sqlite3.node \
+    || (echo "better-sqlite3 native binary missing from standalone output" && exit 1)
+# Runs as root: the Liara disk is mounted root-owned at /app/data-rw (see docs/DECISIONS.md).
+EXPOSE 3000
+CMD ["sh", "deploy/entrypoint.sh"]

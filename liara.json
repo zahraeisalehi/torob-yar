@@ -3,7 +3,7 @@
   "app": "torob-yar-app",
   "port": 3000,
   "build": {
-    "location": "iran"
+    "location": "germany"
   },
   "disks": [
     {
@@ -16,6 +16,6 @@
     "interval": 30000,
     "timeout": 10000,
     "retries": 3,
-    "startPeriod": 20000
+    "startPeriod": 3000
   }
 }

@@ -151,7 +151,8 @@ test('shop inbox: «قیمت جدید» updates the user card', async ({ page, c
 
 test('unknown request gets suggestions, not a dead end', async ({ page }) => {
   await openHome(page);
-  await ask(page, 'کفش کوهنوردی');
+  // something neither the fixtures nor the full catalogue carries (the full one does sell hiking shoes)
+  await ask(page, 'بلیط هواپیما');
   await expect(page.getByText('پیدا نکردم')).toBeVisible({ timeout: 30_000 });
   await expect(page.getByRole('button', { name: 'گوشی سامسونگ S25 FE' }).last()).toBeVisible();
 });

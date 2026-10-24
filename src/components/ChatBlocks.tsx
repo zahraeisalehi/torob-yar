@@ -232,7 +232,7 @@ export function Suggestions({ items, onPick }: { items: string[]; onPick: (s: st
     <div className="flex flex-wrap gap-2">
       {items.map((s) => (
         <Chip key={s} onClick={() => onPick(s)} className="h-10">
-          {toFaDigits(s)}
+          {faText(s)}
         </Chip>
       ))}
     </div>
