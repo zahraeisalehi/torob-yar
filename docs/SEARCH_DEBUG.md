@@ -76,5 +76,5 @@ Live (release `bcb5b96`, `docs/search-traces/after/live-*.txt`): smoke 7/7 ✓, 
 | شارژر ۲۰ وات اپل | ✓ Apple 20W | ✓ |
 | یه هندزفری بی‌سیم می‌خوام | question (by design) | question |
 
-Checks after the fix: typecheck ✓, lint 0 errors, unit 102/102, search-eval 42/42 + agent 6/6, e2e 12/12, DEMO_SCRIPT walk 23/23.
+Checks after the fix: typecheck ✓, lint 0 errors, unit 102/102, search-eval 42/42 + agent 6/6, DEMO_SCRIPT walk 23/23, e2e 12/12. One earlier full e2e run had «3D mall view + floor chips» (desktop) time out waiting for `mall-exit` to become stable while the machine was loaded (5.1 min run vs ~3); that test then passed 6/6 alone and the full suite passed 12/12 on rerun. The mall code wasn't touched by this change.
 
