@@ -2,7 +2,8 @@ import Database from 'better-sqlite3';
 import path from 'node:path';
 import type { Area, ComplexResult, DataSource, OfferWithShop, Product, SearchQuery, Shop } from './types';
 import { offerFromRow, productFromRow, shopFromRow, type OfferRow, type ProductRow, type ShopRow } from './rows';
-import { analyzeQuery, CANDIDATE_CAP, ftsExpression, rankProducts, retrieve, type Group } from '../domain/search';
+import { analyzeQuery, CANDIDATE_CAP, ftsExpression, rankProducts, retrieve, scoreParts, type Group } from '../domain/search';
+import { trace, tracing } from '../trace';
 
 const SHOP_SELECT = `SELECT s.*, c.name AS complex_name FROM shops s LEFT JOIN complexes c ON c.id = s.complex_id`;
 
@@ -58,20 +59,49 @@ export function createSqliteSource(file: string): DataSource {
         params.push(`%${sq.category}%`);
       }
       const a = analyzeQuery(sq.text);
+      const stages: { mode: string; fts: string | null; rows: number }[] = [];
       // one boolean query; the shared retrieve() decides AND → all-but-one → OR (same as fixtures)
       const run = (groups: Group[], mode: 'and' | 'or'): ProductRow[] => {
         const match = ftsExpression(groups, mode);
         const cond = [...(match ? ['p.rid IN (SELECT rowid FROM products_fts WHERE products_fts MATCH ?)'] : []), ...where];
-        return db
+        const rows = db
           .prepare<(string | number)[], ProductRow>(
             `SELECT p.* FROM products p ${cond.length ? 'WHERE ' + cond.join(' AND ') : ''} ORDER BY p.shop_count DESC, p.rid LIMIT ${match ? CANDIDATE_CAP : 60}`,
           )
           .all(...(match ? [match] : []), ...params);
+        if (tracing()) stages.push({ mode: groups.length < a.groups.length ? `${mode}(all but one)` : mode, fts: match, rows: rows.length });
+        return rows;
       };
       const rows = retrieve(a, run, (r) => r.rid);
-      return rankProducts(a, rows, (r) => ({ title: r.title, brand: r.brand, category: r.category, shopCount: r.shop_count }))
-        .slice(0, sq.limit ?? 12)
-        .map(productFromRow);
+      const scorable = (r: ProductRow) => ({ title: r.title, brand: r.brand, category: r.category, shopCount: r.shop_count });
+      const ranked = rankProducts(a, rows, scorable).slice(0, sq.limit ?? 12);
+      trace('search', () => {
+        // bm25 for the shown rows under the plain AND query (display only; ranking doesn't use it)
+        const and = ftsExpression(a.groups, 'and');
+        const bm = new Map<number, number>();
+        if (and && ranked.length) {
+          try {
+            for (const x of db
+              .prepare<(string | number)[], { rowid: number; b: number }>(
+                `SELECT rowid, bm25(products_fts) AS b FROM products_fts WHERE products_fts MATCH ? AND rowid IN (${ranked.map(() => '?').join(',')})`,
+              )
+              .all(and, ...ranked.map((r) => r.rid)))
+              bm.set(x.rowid, Math.round(x.b * 100) / 100);
+          } catch {
+            /* bm25 unavailable */
+          }
+        }
+        return {
+          source: 'sqlite',
+          text: sq.text,
+          filters: { minPrice: sq.minPrice, maxPrice: sq.maxPrice, brand: sq.brand, category: sq.category },
+          groups: a.groups.map((g) => `${g.raw}${g.model ? '*' : ''}${g.type ? `:${g.type}` : ''}`),
+          types: a.types,
+          stages,
+          top: ranked.map((r) => ({ title: r.title, category: r.category, shopCount: r.shop_count, bm25: bm.get(r.rid) ?? null, ...scoreParts(a, scorable(r)) })),
+        };
+      });
+      return ranked.map(productFromRow);
     },
     async getProduct(id) {
       const r = q.product.get(id);

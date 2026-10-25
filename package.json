@@ -18,7 +18,8 @@
     "prebuild": "node scripts/copy-assets.mjs",
     "demo": "sh scripts/demo.sh",
     "test": "vitest run && npm run search-eval",
-    "search-eval": "tsx --conditions=react-server scripts/search-eval.ts"
+    "search-eval": "tsx --conditions=react-server scripts/search-eval.ts",
+    "trace": "tsx --conditions=react-server scripts/trace.ts"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.77",

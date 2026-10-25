@@ -3,6 +3,7 @@ import { generateText } from 'ai';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import type { z } from 'zod';
 import { env } from '../env';
+import { trace } from '../trace';
 
 const provider = () =>
   createOpenAICompatible({ name: 'boxapi', baseURL: env.BOXAPI_BASE_URL, apiKey: env.BOXAPI_API_KEY });
@@ -45,7 +46,10 @@ export async function llmJson<T>(
   prompt: string,
   timeoutMs = 20_000,
 ): Promise<T | null> {
-  if (!env.llmLive || !env.BOXAPI_API_KEY) return null;
+  if (!env.llmLive || !env.BOXAPI_API_KEY) {
+    trace('llm', { call: name, path: 'scripted', why: env.LLM_MODE === 'scripted' ? 'LLM_MODE=scripted' : 'no BOXAPI_API_KEY' });
+    return null;
+  }
   const models = [env.LLM_MODEL, env.LLM_FALLBACK_MODEL].filter(Boolean);
   for (const [mi, model] of models.entries()) {
     let p = prompt;
@@ -55,6 +59,16 @@ export async function llmJson<T>(
         const text = await callOnce(model, system, p, timeoutMs);
         const parsed = schema.safeParse(extractJson(text));
         log({ call: name, model, ms: Date.now() - t0, ok: parsed.success, attempt, fallback: mi > 0 });
+        trace('llm', {
+          call: name,
+          path: mi > 0 ? 'fallback model' : 'live',
+          model,
+          attempt,
+          ms: Date.now() - t0,
+          ok: parsed.success,
+          raw: parsed.success ? parsed.data : text.slice(0, 600),
+          ...(parsed.success ? {} : { why: parsed.error.issues.slice(0, 3).map((i) => `${i.path.join('.')}: ${i.message}`).join('; ') }),
+        });
         if (parsed.success) return parsed.data;
         p = `${prompt}\n\nYour previous answer was invalid: ${parsed.error.issues
           .slice(0, 4)
@@ -62,10 +76,14 @@ export async function llmJson<T>(
           .join('; ')}. Reply again with ONLY the corrected JSON object.`;
       } catch (e) {
         log({ call: name, model, ms: Date.now() - t0, ok: false, attempt, fallback: mi > 0, error: String(e).slice(0, 160) });
+        trace('llm', { call: name, path: mi > 0 ? 'fallback model' : 'live', model, attempt, ms: Date.now() - t0, ok: false, why: String(e).slice(0, 200) });
         break; // network/timeout: go to the fallback model
       }
     }
   }
+  // visible in `liara logs`: the caller now answers from the scripted path
+  console.log(JSON.stringify({ t: new Date().toISOString(), kind: 'scripted_fallback', call: name, why: 'all LLM attempts failed' }));
+  trace('llm', { call: name, path: 'scripted', why: 'all LLM attempts failed (see entries above)' });
   return null;
 }
 

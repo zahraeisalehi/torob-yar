@@ -271,7 +271,20 @@ export function modelHit(a: Analysis, p: Scorable): boolean {
   return models.length > 0 && models.every((g) => groupIn(g, tt));
 }
 
-export function scoreProduct(a: Analysis, p: Scorable): number {
+export type ScoreParts = {
+  coverage: number;
+  modelTokens: string;
+  phrase: number;
+  variant: number;
+  head: number;
+  accessory: number;
+  type: number;
+  pop: number;
+  final: number;
+};
+
+/** The score with its components (the trace shows these). */
+export function scoreParts(a: Analysis, p: Scorable): ScoreParts {
   const tt = docTokens(`${p.title} ${p.brand ?? ''}`);
   const all = [...tt, ...docTokens(p.category)];
   const g = a.groups;
@@ -280,8 +293,9 @@ export function scoreProduct(a: Analysis, p: Scorable): number {
   const cover = g.reduce((s, x) => s + (groupIn(x, all) ? w(x) : 0), 0) / total;
   const models = g.filter((x) => x.model);
   const missing = models.filter((x) => !groupIn(x, tt)).length;
-  let s = 4 * cover - 2.5 * missing + (models.length && !missing ? 3 : 0);
+  const coverage = 4 * cover - 2.5 * missing + (models.length && !missing ? 3 : 0);
   // the model words in order, contiguous («redmi buds 8 active»)
+  let phrase = 0;
   if (models.length >= 2) {
     const fits = (start: number) => {
       let i = start;
@@ -292,16 +306,36 @@ export function scoreProduct(a: Analysis, p: Scorable): number {
       }
       return true;
     };
-    if (tt.some((_, i) => fits(i))) s += 1.5;
+    if (tt.some((_, i) => fits(i))) phrase = 1.5;
   }
   // a variant the user didn't ask for («buds 8 lite» for «buds 8 active»)
-  if (models.length) s -= 0.7 * tt.filter((t) => VARIANT.has(t) && !g.some((x) => groupIn(x, [t]))).length;
+  const variant = models.length ? -0.7 * tt.filter((t) => VARIANT.has(t) && !g.some((x) => groupIn(x, [t]))).length : 0;
   // Persian titles lead with the product type: «هدفون …» beats «کاور … هدفون»
-  if (g.some((x) => x.type && groupIn(x, tt.slice(0, 1)))) s += 1;
-  if (!a.accessoryAsked && isAccessory(p, tt)) s -= 4;
-  if (a.types.length && !a.types.some((t) => TYPES[t].cat.test(p.category))) s -= 3;
-  else if (a.implied.length && !a.implied.some((t) => TYPES[t].cat.test(p.category))) s -= 1.5;
-  return s + 0.6 * Math.min(1, Math.log(p.shopCount + 1) / Math.log(40));
+  const head = g.some((x) => x.type && groupIn(x, tt.slice(0, 1))) ? 1 : 0;
+  const accessory = !a.accessoryAsked && isAccessory(p, tt) ? -4 : 0;
+  const type =
+    a.types.length && !a.types.some((t) => TYPES[t].cat.test(p.category))
+      ? -3
+      : a.implied.length && !a.implied.some((t) => TYPES[t].cat.test(p.category))
+        ? -1.5
+        : 0;
+  const pop = 0.6 * Math.min(1, Math.log(p.shopCount + 1) / Math.log(40));
+  const r = (x: number) => Math.round(x * 100) / 100;
+  return {
+    coverage: r(coverage),
+    modelTokens: `${models.length - missing}/${models.length}`,
+    phrase,
+    variant: r(variant),
+    head,
+    accessory,
+    type,
+    pop: r(pop),
+    final: r(coverage + phrase + variant + head + accessory + type + pop),
+  };
+}
+
+export function scoreProduct(a: Analysis, p: Scorable): number {
+  return scoreParts(a, p).final;
 }
 
 /** Best first; shop count breaks exact ties. */

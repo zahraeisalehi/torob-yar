@@ -6,6 +6,7 @@ import { normalizeFa } from '../domain/normalize';
 import { formatToman } from '../domain/format';
 import { contentTokens, parseBudget, typeTokens, wantsInstallment } from '../domain/query';
 import { analyzeQuery, modelHit, typeMatches } from '../domain/search';
+import { trace } from '../trace';
 import {
   PickSchema,
   TurnSchema,
@@ -109,6 +110,15 @@ function convo(req: ChatRequest): string {
 }
 
 export async function runChat(req: ChatRequest): Promise<ChatResponse> {
+  const res = await runChatInner(req);
+  // visible in the logs whenever a live-configured server answered from the scripted path
+  if (env.llmLive && res.mode === 'scripted')
+    console.log(JSON.stringify({ t: new Date().toISOString(), kind: 'scripted_answer', text: req.messages.at(-1)?.text.slice(0, 80) }));
+  trace('path', { mode: res.mode, llmConfigured: env.llmLive, blocks: res.blocks.map((b) => b.type) });
+  return res;
+}
+
+async function runChatInner(req: ChatRequest): Promise<ChatResponse> {
   const src = getSource();
   const state: ChatState = { ...req.state, needs: [...(req.state.needs ?? [])], filters: { ...req.state.filters } };
   const userTexts = req.messages.filter((m) => m.role === 'user').map((m) => m.text);
@@ -204,6 +214,19 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
   };
   let searchText = state.searchText && state.searchText !== last ? state.searchText : scriptedSearchText();
   state.searchText = searchText;
+  trace('session', {
+    last,
+    freshSearch,
+    namesModel,
+    newType,
+    answersPending,
+    specific,
+    rule,
+    scenario: scenario?.id ?? null,
+    searchText,
+    filters: state.filters,
+    criteria: req.criteria,
+  });
 
   const findCandidates = async (f: SearchFilters, text = searchText) => {
     const res = await src.searchProducts({
@@ -214,7 +237,16 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
       category: f.category,
       limit: 40,
     });
-    return focusCategory(keepType(applyFilters(res, { include: f.include, exclude: f.exclude }), text));
+    const filtered = applyFilters(res, { include: f.include, exclude: f.exclude });
+    const typed = keepType(filtered, text);
+    const out = focusCategory(typed);
+    trace('candidates', {
+      text,
+      filters: f,
+      counts: { search: res.length, afterFilters: filtered.length, afterType: typed.length, afterCategoryFocus: out.length },
+      top: out.slice(0, 12).map((p) => `${p.title.slice(0, 70)} [${p.category}]`),
+    });
+    return out;
   };
 
   // A request for something we don't carry (e.g. shoes): say so instead of asking questions.
@@ -258,6 +290,7 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
     return c;
   };
   let candidates = await gather();
+  if (relaxed.length) trace('relaxed', relaxed);
 
   // «دقیق‌ترش کن» with no budget yet → the budget question (server rule; budget is the most useful refinement)
   const budgetKnown = !!(state.filters.maxPrice || state.filters.minPrice || req.criteria.budget.max || req.criteria.budget.min);
@@ -338,6 +371,7 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
   // ---- picks: validated LLM picks (⊆ candidates), else deterministic ----
   const top = candidates.slice(0, 12);
   let picks: Product[] = [];
+  let pickSource = 'default (deterministic)';
   let why: Record<string, string> = {};
   let intro = '';
   let diffKeys: string[] = [];
@@ -345,6 +379,7 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
     const ids = [...new Set(turn.pickIds)].filter((id) => top.some((p) => p.id === id));
     if (ids.length >= Math.min(2, top.length)) {
       picks = ids.slice(0, 4).map((id) => top.find((p) => p.id === id)!);
+      pickSource = 'LLM turn';
       why = Object.fromEntries(picks.map((p) => [p.id, turn!.why?.[p.id] ?? templateWhy(p, state.needs ?? [], picks)]));
       intro = turn.intro ?? '';
       diffKeys = turn.diffKeys ?? [];
@@ -361,6 +396,7 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
     const ids = pick ? [...new Set(pick.pickIds)].filter((id) => top.some((p) => p.id === id)) : [];
     if (pick && ids.length >= Math.min(2, top.length)) {
       picks = ids.slice(0, 4).map((id) => top.find((p) => p.id === id)!);
+      pickSource = 'LLM pick call';
       why = Object.fromEntries(picks.map((p) => [p.id, pick.why[p.id] ?? templateWhy(p, state.needs ?? [], picks)]));
       intro = pick.intro;
       diffKeys = pick.diffKeys;
@@ -380,6 +416,12 @@ export async function runChat(req: ChatRequest): Promise<ChatResponse> {
   }
   if (!intro) intro = 'این‌ها رو برات پیدا کردم:';
 
+  trace('pick', {
+    llmPickIds: turn?.pickIds ?? null,
+    validLlmPicks: (turn?.pickIds ?? []).filter((id) => top.some((p) => p.id === id)).length,
+    source: pickSource,
+    final: picks.map((p) => `${p.title.slice(0, 70)} [${p.category}]`),
+  });
   state.lastProductIds = picks.map((p) => p.id);
   blocks.push({ type: 'text', text: intro });
   blocks.push({ type: 'products', products: picks, why, freshLabel: Object.fromEntries(picks.map((p) => [p.id, freshLabel(p)])) });

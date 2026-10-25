@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Area, Complex, ComplexResult, DataSource, Offer, OfferWithShop, Product, SearchQuery, Shop } from './types';
-import { analyzeQuery, CANDIDATE_CAP, docMatches, docTokens, rankProducts, retrieve, type Group } from '../domain/search';
+import { analyzeQuery, CANDIDATE_CAP, docMatches, docTokens, ftsExpression, rankProducts, retrieve, scoreParts, type Group } from '../domain/search';
+import { trace, tracing } from '../trace';
 
 type FixtureBundle = {
   products: Product[];
@@ -51,10 +52,24 @@ export function createFixtureSource(): DataSource {
       const byPop = [...pool].sort((x, y) => y.shopCount - x.shopCount);
       const toks = new Map(products.map((p) => [p.id, docTokens(`${p.title} ${p.brand ?? ''} ${p.category}`)]));
       const a = analyzeQuery(q.text);
-      const run = (groups: Group[], mode: 'and' | 'or') =>
-        groups.length ? byPop.filter((p) => docMatches(groups, mode, toks.get(p.id)!)).slice(0, CANDIDATE_CAP) : byPop.slice(0, 60);
+      const stages: { mode: string; fts: string | null; rows: number }[] = [];
+      const run = (groups: Group[], mode: 'and' | 'or') => {
+        const rows = groups.length ? byPop.filter((p) => docMatches(groups, mode, toks.get(p.id)!)).slice(0, CANDIDATE_CAP) : byPop.slice(0, 60);
+        if (tracing()) stages.push({ mode: groups.length < a.groups.length ? `${mode}(all but one)` : mode, fts: ftsExpression(groups, mode), rows: rows.length });
+        return rows;
+      };
       const rows = retrieve(a, run, (p) => p.id);
-      return rankProducts(a, rows, (p) => p).slice(0, q.limit ?? 12);
+      const ranked = rankProducts(a, rows, (p) => p).slice(0, q.limit ?? 12);
+      trace('search', () => ({
+        source: 'fixtures',
+        text: q.text,
+        filters: { minPrice: q.minPrice, maxPrice: q.maxPrice, brand: q.brand, category: q.category },
+        groups: a.groups.map((g) => `${g.raw}${g.model ? '*' : ''}${g.type ? `:${g.type}` : ''}`),
+        types: a.types,
+        stages,
+        top: ranked.map((p) => ({ title: p.title, category: p.category, shopCount: p.shopCount, bm25: null, ...scoreParts(a, p) })),
+      }));
+      return ranked;
     },
     async getProduct(id) {
       return load().products.find((p) => p.id === id) ?? null;
