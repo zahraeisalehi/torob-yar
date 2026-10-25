@@ -1,0 +1,55 @@
+{"t":"2026-10-25T09:54:05.841Z","kind":"llm","call":"turn","model":"gpt-5.4-mini","ms":9200,"ok":true,"attempt":0,"fallback":false}
+
+=== «شارژر ۲۰ وات اپل» (budget ≤ 3000000) @ local ===
+  [   28 ms] search  [sqlite] «شارژر ۲۰ وات اپل» groups=["شارژر:charger","20*","وات","اپل"] types=["charger"] filters={}
+             and              rows=   43  MATCH ("شارژر"* OR "charger" OR "اداپتور"*) AND ("20" OR "20w") AND ("وات" OR "w" OR "watt" OR "20w") AND ("apple" OR "اپل")
+              1.    8.6  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.6 shops=57 bm25=-19.88  شارژر اپل توان 20 وات سه پین [شارژر گوشی]
+              2.   8.55  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.55 shops=28 bm25=-19.88  شارژر اپل توان 20 وات سه پین [شارژر گوشی]
+              3.   8.34  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.34 shops=7 bm25=-19.33  شارژر اپل توان 20 وات دو پین گرد [شارژر گوشی]
+              4.   8.26  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.26 shops=4 bm25=-19.33  شارژر اپل توان 20 وات دو پین گرد [شارژر گوشی]
+              5.   8.23  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.23 shops=3 bm25=-16.98  شارژر اپل توان 20 وات سه پین همراه کابل تایپ سی به لایتنینگ [شارژر گوشی]
+  [   38 ms] session  {"last":"شارژر ۲۰ وات اپل","freshSearch":false,"namesModel":true,"newType":true,"answersPending":false,"specific":true,"rule":"must_show","scenario":"charger","searchText":"شارژر ۲۰ وات اپل","filters":{},"criteria":{"budget":{"min":null,"max":3000000},"distanceKm":null,"installment":false,"openNow":false}}
+  [   42 ms] search  [sqlite] «شارژر ۲۰ وات اپل» groups=["شارژر:charger","20*","وات","اپل"] types=["charger"] filters={"maxPrice":3000000}
+             and              rows=    9  MATCH ("شارژر"* OR "charger" OR "اداپتور"*) AND ("20" OR "20w") AND ("وات" OR "w" OR "watt" OR "20w") AND ("apple" OR "اپل")
+              1.    8.6  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.6 shops=57 bm25=-19.88  شارژر اپل توان 20 وات سه پین [شارژر گوشی]
+              2.   8.26  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.26 shops=4 bm25=-19.33  شارژر اپل توان 20 وات دو پین گرد [شارژر گوشی]
+              3.   8.23  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.23 shops=3 bm25=-19.33  شارژر اپل توان 20 وات دو پین تخت [شارژر گوشی]
+              4.   8.18  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.18 shops=2 bm25=-19.33  شارژر اپل توان 20 وات دو پین تخت [شارژر گوشی]
+              5.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-11.85  شارژر اپل توان 20 وات دو پین گرد اصل | به شرط تست مک بوک| |  [شارژر گوشی]
+              6.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-15.48  شارژر فندکی خودرو تایپ سی اپل PD طرح اصلی آیفون 13 پرومکس 20 [شارژر فندکی خودرو]
+              7.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-17.4  شارژر دیواری 20 وات اپل مدل سه شاخه ZE/A های کپی [شارژر گوشی]
+              8.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-15.09  ادابتور 20 وات مخصوص گوشی‌های آیفون 11 تا 15 [شارژر گوشی]
+              9.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-32.33  کلی آداپتور آیفون 20w تکی و عمده [شارژر گوشی]
+  [   58 ms] candidates  «شارژر ۲۰ وات اپل» {"search":9,"afterFilters":9,"afterType":9,"afterCategoryFocus":8} filters={"maxPrice":3000000}
+             · شارژر اپل توان 20 وات سه پین [شارژر گوشی]
+             · شارژر اپل توان 20 وات دو پین گرد [شارژر گوشی]
+             · شارژر اپل توان 20 وات دو پین تخت [شارژر گوشی]
+             · شارژر اپل توان 20 وات دو پین تخت [شارژر گوشی]
+             · شارژر اپل توان 20 وات دو پین گرد اصل | به شرط تست مک بوک| | با ضمانت ا [شارژر گوشی]
+             · شارژر دیواری 20 وات اپل مدل سه شاخه ZE/A های کپی [شارژر گوشی]
+  [ 9259 ms] llm  turn → live (gpt-5.4-mini, attempt 0, 9201 ms, ok=true)
+             raw: {"action":"show","question":null,"replies":null,"need":"شارژر ۲۰ وات اپل","filters":{"minPrice":null,"maxPrice":null,"brand":"اپل"},"criteriaPatch":{"installment":false,"budgetMax":null},"pickIds":["product_df1dfb162403cf73df70fdf3","product_d64097d889f6804711a305f9","product_9583e9b8ace4eb37786535a6"],"why":{"product_df1dfb162403cf73df70fdf3":"این گزینه دقیقاً شارژر ۲۰ وات اپل با ۳ پین است و بین فروشگاه‌های بیشتری هم پیدا می‌شود. اگر همین مدل برات اوکیه، انتخاب مطمئن‌تریه.","product_d64097d889f6804711a305f9":"این یکی هم ۲۰ وات اپله ولی دو پین تخت دارد و برای استفاده‌ی روزمره خیلی به‌درد می‌خورد. اگر دوشاخه‌ی تخت می‌خوای، این گزینه مناسب‌تره.","product_9583e9b8ace4eb37786535a6":"این مدل هم ۲
+  [ 9260 ms] search  [sqlite] «شارژر ۲۰ وات اپل» groups=["شارژر:charger","20*","وات","اپل"] types=["charger"] filters={"maxPrice":3000000,"brand":"اپل"}
+             and              rows=    9  MATCH ("شارژر"* OR "charger" OR "اداپتور"*) AND ("20" OR "20w") AND ("وات" OR "w" OR "watt" OR "20w") AND ("apple" OR "اپل")
+              1.    8.6  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.6 shops=57 bm25=-19.88  شارژر اپل توان 20 وات سه پین [شارژر گوشی]
+              2.   8.26  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.26 shops=4 bm25=-19.33  شارژر اپل توان 20 وات دو پین گرد [شارژر گوشی]
+              3.   8.23  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.23 shops=3 bm25=-19.33  شارژر اپل توان 20 وات دو پین تخت [شارژر گوشی]
+              4.   8.18  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.18 shops=2 bm25=-19.33  شارژر اپل توان 20 وات دو پین تخت [شارژر گوشی]
+              5.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-11.85  شارژر اپل توان 20 وات دو پین گرد اصل | به شرط تست مک بوک| |  [شارژر گوشی]
+              6.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-15.48  شارژر فندکی خودرو تایپ سی اپل PD طرح اصلی آیفون 13 پرومکس 20 [شارژر فندکی خودرو]
+              7.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-17.4  شارژر دیواری 20 وات اپل مدل سه شاخه ZE/A های کپی [شارژر گوشی]
+              8.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-15.09  ادابتور 20 وات مخصوص گوشی‌های آیفون 11 تا 15 [شارژر گوشی]
+              9.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-32.33  کلی آداپتور آیفون 20w تکی و عمده [شارژر گوشی]
+  [ 9275 ms] candidates  «شارژر ۲۰ وات اپل» {"search":9,"afterFilters":9,"afterType":9,"afterCategoryFocus":8} filters={"brand":"اپل","maxPrice":3000000}
+             · شارژر اپل توان 20 وات سه پین [شارژر گوشی]
+             · شارژر اپل توان 20 وات دو پین گرد [شارژر گوشی]
+             · شارژر اپل توان 20 وات دو پین تخت [شارژر گوشی]
+             · شارژر اپل توان 20 وات دو پین تخت [شارژر گوشی]
+             · شارژر اپل توان 20 وات دو پین گرد اصل | به شرط تست مک بوک| | با ضمانت ا [شارژر گوشی]
+             · شارژر دیواری 20 وات اپل مدل سه شاخه ZE/A های کپی [شارژر گوشی]
+  [ 9275 ms] pick  source=LLM turn llmPickIds=["product_df1dfb162403cf73df70fdf3","product_d64097d889f6804711a305f9","product_9583e9b8ace4eb37786535a6"] valid=3
+             → شارژر اپل توان 20 وات سه پین [شارژر گوشی]
+             → شارژر اپل توان 20 وات دو پین تخت [شارژر گوشی]
+             → شارژر اپل توان 20 وات دو پین گرد [شارژر گوشی]
+  [ 9277 ms] path  {"mode":"live","llmConfigured":true,"blocks":["text","products","specDiff","enough"]}
+  ANSWER (live): شارژر اپل توان 20 وات سه پین [شارژر گوشی] | شارژر اپل توان 20 وات دو پین تخت [شارژر گوشی] | شارژر اپل توان 20 وات دو پین گرد [شارژر گوشی]

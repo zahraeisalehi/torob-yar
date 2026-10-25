@@ -1,0 +1,63 @@
+
+=== «هندزفری شیائومی» @ https://torob-yar-app.liara.run ===
+  [   51 ms] search  [sqlite] «هندزفری شیائومی» groups=["هندزفری:audio","شیائومی"] types=["audio"] filters={}
+             and              rows=  162  MATCH ("هندزفری"* OR "هدفون"* OR "هدست"* OR "earbuds" OR "headphone" OR "headset") AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+              1.   5.54  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.54 shops=26 bm25=-20.88  هدفون بی سیم کیو سی وای مدل T13x [هدفون، هدست و هندزفری]
+              2.    5.5  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.5 shops=20 bm25=-21.37  هدفون بی سیم شیائومی کیو سی وای T13 ANC 2 [هدفون، هدست و هندزفری]
+              3.   5.48  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.48 shops=18 bm25=-21.93  هدفون بی سیم شیائومی مدل Redmi Buds 8 Lite [هدفون، هدست و هندزفری]
+              4.   5.47  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.47 shops=17 bm25=-21.93  هدفون بی سیم شیائومی کیو سی وای مدل T13 [هدفون، هدست و هندزفری]
+              5.   5.43  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.43 shops=13 bm25=-19.4  هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی سیم با قا [هدفون، هدست و هندزفری]
+  [   82 ms] session  {"last":"هندزفری شیائومی","freshSearch":false,"namesModel":false,"newType":true,"answersPending":false,"specific":false,"rule":"must_ask","scenario":"phone","searchText":"گوشی موبایل","filters":{},"criteria":{"budget":{"min":null,"max":null},"distanceKm":null,"installment":false,"openNow":false}}
+  [  239 ms] search  [sqlite] «گوشی موبایل» groups=["گوشی:phone","موبایل:phone"] types=["phone"] filters={}
+             and              rows= 1500  MATCH ("گوشی"* OR "موبایل"* OR "mobile" OR "phone") AND ("گوشی"* OR "موبایل"* OR "mobile" OR "phone")
+              1.   5.57  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.57 shops=33 bm25=-16.23  گوشی سامسونگ (ویتنام) S25 FE 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+              2.   5.54  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.54 shops=27 bm25=-16.67  گوشی سامسونگ (چین) A07 4G | حافظه 64 رم 4 گیگابایت [گوشی موبایل]
+              3.   5.53  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.53 shops=25 bm25=-17.15  گوشی سامسونگ A17 4G | حافظه 128 رم 4 گیگابایت [گوشی موبایل]
+              4.   5.53  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.53 shops=25 bm25=-17.15  گوشی سامسونگ A57 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+              5.   5.52  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.52 shops=23 bm25=-17.15  گوشی سامسونگ A17 4G | حافظه 128 رم 6 گیگابایت [گوشی موبایل]
+              6.   5.52  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.52 shops=23 bm25=-16.67  گوشی سامسونگ (چین) A07 4G | حافظه 128 رم 4 گیگابایت [گوشی موبایل]
+              7.   5.52  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.52 shops=23 bm25=-17.15  گوشی سامسونگ A56 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+              8.   5.51  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.51 shops=22 bm25=-16.67  گوشی شیائومی Redmi Note 15 | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+              9.   5.51  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.51 shops=22 bm25=-16.67  گوشی سامسونگ (چین) A07 4G | حافظه 128 رم 6 گیگابایت [گوشی موبایل]
+             10.    5.5  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.5 shops=20 bm25=-17.15  گوشی سامسونگ A37 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             11.   5.49  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.49 shops=19 bm25=-16.67  گوشی سامسونگ S26 Ultra 5G | حافظه 256 رم 12 گیگابایت [گوشی موبایل]
+             12.   5.49  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.49 shops=19 bm25=-16.67  گوشی شیائومی Redmi A5 4G | حافظه 128 رم 4 گیگابایت [گوشی موبایل]
+             13.   5.48  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.48 shops=18 bm25=-17.15  گوشی سامسونگ A17 4G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             14.   5.48  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.48 shops=18 bm25=-17.15  گوشی سامسونگ A56 5G | حافظه 128 رم 8 گیگابایت [گوشی موبایل]
+             15.   5.47  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.47 shops=17 bm25=-17.15  گوشی سامسونگ A26 5G | حافظه 128 رم 6 گیگابایت [گوشی موبایل]
+             16.   5.47  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.47 shops=17 bm25=-16.67  گوشی سامسونگ (ویتنام) A36 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             17.   5.46  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.46 shops=16 bm25=-16.23  گوشی شیائومی Redmi Note 15 Pro | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             18.   5.46  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.46 shops=16 bm25=-17.15  گوشی شیائومی Redmi 15C | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             19.   5.46  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.46 shops=16 bm25=-17.15  گوشی شیائومی Redmi 15 | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             20.   5.46  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.46 shops=16 bm25=-16.23  گوشی سامسونگ (ویتنام) S25 Ultra 5G | حافظه 256 رم 12 گیگابای [گوشی موبایل]
+             21.   5.45  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.45 shops=15 bm25=-16.67  گوشی سامسونگ (ویتنام) A56 5G | حافظه 256 رم 12 گیگابایت [گوشی موبایل]
+             22.   5.45  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.45 shops=15 bm25=-17.15  گوشی شیائومی Poco C85 | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             23.   5.45  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.45 shops=15 bm25=-17.15  گوشی شیائومی Poco C71 | حافظه 128 رم 4 گیگابایت [گوشی موبایل]
+             24.   5.45  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.45 shops=15 bm25=-17.15  گوشی سامسونگ A26 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             25.   5.44  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.44 shops=14 bm25=-16.67  گوشی سامسونگ (ویتنام) A36 5G | حافظه 128 رم 8 گیگابایت [گوشی موبایل]
+             26.   5.44  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.44 shops=14 bm25=-17.15  گوشی سامسونگ A57 5G | حافظه 256 رم 12 گیگابایت [گوشی موبایل]
+             27.   5.43  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.43 shops=13 bm25=-16.67  گوشی شیائومی Redmi Note 14S | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             28.   5.43  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.43 shops=13 bm25=-16.23  گوشی شیائومی Poco X7 Pro 5G | حافظه 512 رم 12 گیگابایت [گوشی موبایل]
+             29.   5.43  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.43 shops=13 bm25=-16.23  گوشی شیائومی Redmi Note 14 4G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             30.   5.42  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.42 shops=12 bm25=-16.23  گوشی آیفون 16 | حافظه 128 گیگابایت دو سیم‌کارت نات اکتیو [گوشی موبایل]
+             31.   5.42  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.42 shops=12 bm25=-17.15  گوشی شیائومی Poco C71 | حافظه 64 رم 3 گیگابایت [گوشی موبایل]
+             32.    5.4  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.4 shops=11 bm25=-17.15  گوشی سامسونگ A27 5G | حافظه 128 رم 6 گیگابایت [گوشی موبایل]
+             33.    5.4  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.4 shops=11 bm25=-16.23  گوشی شیائومی Poco X8 Pro 5G | حافظه 512 رم 12 گیگابایت [گوشی موبایل]
+             34.    5.4  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.4 shops=11 bm25=-17.15  گوشی سامسونگ A57 5G | حافظه 128 رم 8 گیگابایت [گوشی موبایل]
+             35.   5.39  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.39 shops=10 bm25=-16.23  گوشی آیفون 17 | حافظه 256 گیگابایت دو سیم‌کارت نات اکتیو [گوشی موبایل]
+             36.   5.39  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.39 shops=10 bm25=-17.15  گوشی سامسونگ A37 5G | حافظه 128 رم 8 گیگابایت [گوشی موبایل]
+             37.   5.39  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.39 shops=10 bm25=-17.15  گوشی سامسونگ A27 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             38.   5.39  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.39 shops=10 bm25=-16.67  گوشی شیائومی Redmi A5 4G | حافظه 64 رم 3 گیگابایت [گوشی موبایل]
+             39.   5.37  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.37 shops=9 bm25=-15.8  گوشی آیفون 16 پرو مکس | حافظه 256 گیگابایت دو سیم‌کارت استوک [گوشی موبایل]
+             40.   5.36  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.36 shops=8 bm25=-18.18  گوشی نوکیا 2023 150 | حافظه 4 مگابایت [گوشی موبایل]
+  [  620 ms] candidates  «گوشی موبایل» {"search":40,"afterFilters":40,"afterType":40,"afterCategoryFocus":40} filters={}
+             · گوشی سامسونگ (ویتنام) S25 FE 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             · گوشی سامسونگ (چین) A07 4G | حافظه 64 رم 4 گیگابایت [گوشی موبایل]
+             · گوشی سامسونگ A17 4G | حافظه 128 رم 4 گیگابایت [گوشی موبایل]
+             · گوشی سامسونگ A57 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+             · گوشی سامسونگ A17 4G | حافظه 128 رم 6 گیگابایت [گوشی موبایل]
+             · گوشی سامسونگ (چین) A07 4G | حافظه 128 رم 4 گیگابایت [گوشی موبایل]
+  [ 2754 ms] llm  turn → live (gpt-5.4-mini, attempt 0, 2134 ms, ok=true)
+             raw: {"action":"ask","question":"برای استفاده روزمره می‌خوای یا مدل/بودجه خاصی مدنظرت هست؟","replies":["روزمره","بازی","زیر ۵۰","مدل خاص"],"need":"هندزفری شیائومی","filters":{"minPrice":null,"maxPrice":null,"brand":"شیائومی"},"criteriaPatch":null,"pickIds":null,"why":null,"intro":null,"diffKeys":null,"searchText":null}
+  [ 2756 ms] path  {"mode":"live","llmConfigured":true,"blocks":["question"]}
+  ANSWER (live): question: برای استفاده روزمره می‌خوای یا مدل/بودجه خاصی مدنظرت هست؟

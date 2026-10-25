@@ -78,10 +78,14 @@ export const CASES: Case[] = [
 ];
 
 /** Multi-turn agent checks: the last turn's products must contain a hit. */
-const PIPELINE: { turns: string[]; title: RegExp; cat: RegExp }[] = [
+const PIPELINE: { turns: string[]; title: RegExp; cat: RegExp; budget?: number }[] = [
   { turns: ['گوشی سامسونگ S25 FE', 'redmi buds 8 active'], title: /redmi buds 8 active/i, cat: C.audio },
   { turns: ['گوشی شیائومی', 'اقتصادی', 'jbl flip 6'], title: /flip 6/i, cat: C.speaker },
   { turns: ['redmi buds 8 active'], title: /redmi buds 8 active/i, cat: C.audio },
+  // a budget chip left over from an earlier search must not turn a named model into junk (docs/SEARCH_DEBUG.md)
+  { turns: ['redmi buds 8 active'], title: /redmi buds 8 active/i, cat: C.audio, budget: 3_000_000 },
+  { turns: ['ردمی بادز ۸ اکتیو'], title: /redmi buds 8 active/i, cat: C.audio, budget: 1_000_000 },
+  { turns: ['galaxy s25 fe'], title: /s25 fe/i, cat: C.phones, budget: 3_000_000 },
 ];
 
 type P = { id: string; title: string; category: string };
@@ -138,7 +142,7 @@ async function main() {
       let last: P[] = [];
       for (const turn of pc.turns) {
         messages.push({ role: 'user', text: turn });
-        const r = await runChat({ messages, state, criteria: DEFAULT_CRITERIA });
+        const r = await runChat({ messages, state, criteria: { ...DEFAULT_CRITERIA, budget: { min: null, max: pc.budget ?? null } } });
         state = r.state;
         const q = r.blocks.find((b) => b.type === 'question');
         if (q && 'question' in q) messages.push({ role: 'assistant', text: q.question });
@@ -147,7 +151,7 @@ async function main() {
       }
       const ok = last.some((p) => hit({ title: [pc.title], cat: pc.cat }, p));
       pipeOk &&= ok;
-      console.log(`${ok ? '✓' : '✗'} pipeline: ${pc.turns.join(' → ')}  →  ${last.slice(0, 2).map((p) => p.title.slice(0, 40)).join(' | ') || '(no products)'}`);
+      console.log(`${ok ? '✓' : '✗'} pipeline: ${pc.turns.join(' → ')}${pc.budget ? ` (budget ≤ ${pc.budget / 1e6}M)` : ''}  →  ${last.slice(0, 2).map((p) => p.title.slice(0, 40)).join(' | ') || '(no products)'}`);
     }
   }
 

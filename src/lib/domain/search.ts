@@ -227,6 +227,8 @@ function altIn(a: Alt, toks: string[]): boolean {
   return false;
 }
 const groupIn = (g: Group, toks: string[]) => g.alts.some((a) => altIn(a, toks));
+/** Does this query word (with its aliases) occur in the given text? */
+export const groupInText = (g: Group, text: string) => groupIn(g, docTokens(text));
 
 /** JS twin of the FTS5 query, over docTokens(title + brand + category). */
 export function docMatches(groups: Group[], mode: 'and' | 'or', toks: string[]): boolean {
@@ -248,7 +250,10 @@ export function retrieve<T>(a: Analysis, match: (groups: Group[], mode: 'and' | 
       seen.add(k);
       out.push(r);
     }
-  return out.length ? out : match(g, 'or');
+  if (out.length) return out;
+  // a named model («redmi buds 8 active») that no AND variant finds is not there (or a filter excluded it):
+  // OR would return parts that merely share a number or a series word («سیم لحیم اکتیو 0.8»). Say "nothing".
+  return g.filter((x) => x.model).length >= 2 ? [] : match(g, 'or');
 }
 
 // ---------- scoring ----------

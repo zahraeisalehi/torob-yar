@@ -1,0 +1,128 @@
+{"t":"2026-10-25T09:51:58.774Z","kind":"llm","call":"turn","model":"gpt-5.4-mini","ms":8740,"ok":true,"attempt":0,"fallback":false}
+{"t":"2026-10-25T09:52:08.752Z","kind":"llm","call":"pick","model":"gpt-5.4-mini","ms":9929,"ok":true,"attempt":0,"fallback":false}
+
+=== «redmi buds 8 active» (budget ≤ 3000000) @ local ===
+  [   21 ms] search  [sqlite] «redmi buds 8 active» groups=["redmi*","buds*","8*","active*"] types=[] filters={}
+             and              rows=    1  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8") AND ("active" OR "اکتیو"*)
+              1.   8.93  cov=7 model=4/4 phrase=1.5 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=-20.5  هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی سیم با قا [هدفون، هدست و هندزفری]
+  [   23 ms] session  {"last":"redmi buds 8 active","freshSearch":false,"namesModel":true,"newType":false,"answersPending":false,"specific":true,"rule":"must_show","scenario":"phone","searchText":"redmi buds 8 active","filters":{},"criteria":{"budget":{"min":null,"max":3000000},"distanceKm":null,"installment":false,"openNow":false}}
+  [   95 ms] search  [sqlite] «redmi buds 8 active» groups=["redmi*","buds*","8*","active*"] types=[] filters={"maxPrice":3000000}
+             and              rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8") AND ("active" OR "اکتیو"*)
+             and(all but one) rows=    0  MATCH ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8") AND ("active" OR "اکتیو"*)
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("8" OR "buds8") AND ("active" OR "اکتیو"*)
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("active" OR "اکتیو"*)
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8")
+             or               rows= 1500  MATCH ("redmi" OR "ردمی"*) OR ("buds" OR "بادز"* OR "buds8") OR ("8" OR "buds8") OR ("active" OR "اکتیو"*)
+              1.  -2.68  cov=-3 model=2/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.32 shops=6 bm25=null  سیم لحیم اکتیو 0.8 میلیمتر 250 گرمی [سیم و روغن لحیم]
+              2.  -2.82  cov=-3 model=2/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سیم لحیم اکتیو 0.8 میلی متری 100 گرم ZHONGSHI [سیم و روغن لحیم]
+              3.  -2.82  cov=-3 model=2/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سیم لحیم اکتیو 50 گرم ضخامت 0.8 میلی‌متر [سیم و روغن لحیم]
+              4.  -2.82  cov=-3 model=2/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سنسور اثر انگشت شیائومی Redmi Note 8 [سنسور اثر انگشت گوشی]
+              5.   -3.3  cov=-3 model=2/4 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  هدفون بی سیم شیائومی Redmi Buds 6 Play [هدفون، هدست و هندزفری]
+              6.  -3.44  cov=-3 model=2/4 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.26 shops=4 bm25=null  خمیردندان میسویک توتال 8 پرو اکتیو 100 میل [خمیر دندان]
+              7.  -3.52  cov=-3 model=2/4 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سنسور اثر انگشت شیائومی Redmi Note 8 Pro [سنسور اثر انگشت گوشی]
+              8.  -5.98  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.52 shops=24 bm25=null  چند راهی و محافظ برق پارت الکتریک مدل PE2204 با طول کابل 1.8 [سیم سیار و چندراهی برق]
+              9.  -5.99  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.51 shops=22 bm25=null  سیم لحیم آساهی 0.8 میلی متر 100 گرم [سیم و روغن لحیم]
+             10.     -6  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.5 shops=21 bm25=null  شینه مسی ارت 8 پیچ [سایر تجهیزات جانبی برق صنعتی]
+             11.  -6.05  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.45 shops=15 bm25=null  سیم لحیم آساهی 0.8 میلیمتر 50 گرم [سیم و روغن لحیم]
+             12.  -6.06  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.44 shops=14 bm25=null  چندراهی برق پارت الکتریک مدل PE5142 با کابل 1.8 متری و 3 خرو [سیم سیار و چندراهی برق]
+             13.  -6.07  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=null  چراغ دیواری دکوراتیو 8 وات [چراغ دیواری]
+             14.  -6.07  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=null  شینه مسی نول 8 پیچ W&E [سایر تجهیزات جانبی برق صنعتی]
+             15.  -6.08  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.42 shops=12 bm25=null  درایور ال ای دی دارک انرژی 8 تا 25 وات 300 میلی آمپر [درایور ال ای دی]
+             16.   -6.1  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  کابلشو مسی سایز 16 کلاته سوراخ 8 [کابلشو و سرسیم]
+             17.   -6.1  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  چندراهی برق پارت الکتریک مدل نیک ظرفیت 6 خانه ارت دار با کاب [سیم سیار و چندراهی برق]
+             18.   -6.1  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  چند راهی رک مونت پارت الکتریک مدل PE2253 ظرفیت 6 خانه با کاب [سیم سیار و چندراهی برق]
+             19.  -6.11  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  چندراهی برق چراغ دار پارت الکتریک مدل رک مونت 8 خانه با کابل [سیم سیار و چندراهی برق]
+             20.  -6.11  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  شینه فانتزی نول 8 پیچ دبلیو اند ای [سایر تجهیزات جانبی برق صنعتی]
+             21.  -6.11  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  نوار تست قندخون اکیوچک اکتیو بسته 25 عددی [نوار تست قند خون]
+             22.  -6.11  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  ریسه نوری لان استار 12 ولت تراکم 120 عرض 8 میلی‌متر رول 5 مت [ریسه و شلنگ نوری]
+             23.  -6.13  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  آی سی آپ آمپ LM358N DIP-8 [آپ آمپ]
+             24.  -6.13  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  چندراهی برق پارت الکتریک مدل 5+1 با کابل 1.8 متری [سایر کلید و فیوز]
+             25.  -6.13  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  روکش حرارتی سایز 8 رنگی [وارنیش و مفصل حرارتی]
+             26.  -6.13  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  چندراهی برق پارت الکتریک مدل PE850 با کابل 1.8 متری بدون ارت [سیم سیار و چندراهی برق]
+             27.  -6.13  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  شمش نول 8 پیچ مسی [سایر تجهیزات جانبی برق صنعتی]
+             28.  -6.13  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  کادر 8 ماژول درب 85 لگراند 10998 [داکت و ترانکینگ]
+             29.  -6.13  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  چندراهی برق پارت الکتریک مدل شهاب 6 خانه ارت دار با کابل 1.8 [سیم سیار و چندراهی برق]
+             30.  -6.13  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  پل دیود KBU810 ظرفیت 8 آمپر 1000 ولت شانه ای [دیود]
+             31.  -6.13  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  رله فیندر مدل 40.52.8.230 دو کنتاکت 8 آمپر 230 ولت AC [رله و بیمتال]
+             32.  -6.14  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  سیم لحیم بهینکس 50 گرم 0.8 میل [سیم و روغن لحیم]
+             33.  -6.14  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  شینه فانتزی دبلیو اند ای 8 پیچ ارت سبز [سایر تجهیزات جانبی برق صنعتی]
+             34.  -6.14  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  رله امرون G2R-2 ظرفیت 5 آمپر 220 ولت 8 پایه [رله و بیمتال]
+             35.  -6.14  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  رگولاتور AMS1117-1.8 پکیج SOT-223 [آی سی رگلاتور]
+             36.  -6.16  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  بست چنگالی عایقدار 12-8 ورق [بست و براکت]
+             37.  -6.16  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  رک مونت محافظ 6 خانه پارت الکتریک مدل PE5834 با کابل 1.8 متر [سیم سیار و چندراهی برق]
+             38.  -6.16  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  رک مونت 8 خانه پارت الکتریک مدل پارسا با فیوز مینیاتوری و کا [سیم سیار و چندراهی برق]
+             39.  -6.16  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  سیم قلع کش گات مدل CP3015 وزن 8 گرم [سیم و روغن لحیم]
+             40.  -6.16  cov=-6.5 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  آی سی MAX485CSA پکیج SO-8 [سایر انواع آی سی و میکروکنترلر]
+  [  102 ms] candidates  «redmi buds 8 active» {"search":40,"afterFilters":40,"afterType":40,"afterCategoryFocus":7} filters={"maxPrice":3000000}
+             · سیم لحیم اکتیو 0.8 میلیمتر 250 گرمی [سیم و روغن لحیم]
+             · سیم لحیم اکتیو 0.8 میلی متری 100 گرم ZHONGSHI [سیم و روغن لحیم]
+             · سیم لحیم اکتیو 50 گرم ضخامت 0.8 میلی‌متر [سیم و روغن لحیم]
+             · سیم لحیم آساهی 0.8 میلی متر 100 گرم [سیم و روغن لحیم]
+             · سیم لحیم آساهی 0.8 میلیمتر 50 گرم [سیم و روغن لحیم]
+             · سیم لحیم بهینکس 50 گرم 0.8 میل [سیم و روغن لحیم]
+  [ 8842 ms] llm  turn → live (gpt-5.4-mini, attempt 0, 8740 ms, ok=true)
+             raw: {"action":"research","question":null,"replies":null,"need":"ایرباد شیائومی","filters":{"minPrice":null,"maxPrice":null,"brand":"Redmi"},"criteriaPatch":null,"pickIds":null,"why":null,"intro":null,"diffKeys":null,"searchText":"Redmi Buds 8 Active شیائومی"}
+  [ 8873 ms] search  [sqlite] «Redmi Buds 8 Active شیائومی» groups=["redmi*","buds*","8*","active*","شیائومی"] types=[] filters={"maxPrice":3000000,"brand":"Redmi"}
+             and              rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8") AND ("active" OR "اکتیو"*) AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+             and(all but one) rows=    0  MATCH ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8") AND ("active" OR "اکتیو"*) AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("8" OR "buds8") AND ("active" OR "اکتیو"*) AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("active" OR "اکتیو"*) AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8") AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8") AND ("active" OR "اکتیو"*)
+             or               rows=  531  MATCH ("redmi" OR "ردمی"*) OR ("buds" OR "بادز"* OR "buds8") OR ("8" OR "buds8") OR ("active" OR "اکتیو"*) OR ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+              1.   -2.6  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سنسور اثر انگشت شیائومی Redmi Note 8 [سنسور اثر انگشت گوشی]
+              2.  -3.07  cov=-2.78 model=2/4 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  هدفون بی سیم شیائومی Redmi Buds 6 Play [هدفون، هدست و هندزفری]
+              3.   -3.3  cov=-2.78 model=2/4 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سنسور اثر انگشت شیائومی Redmi Note 8 Pro [سنسور اثر انگشت گوشی]
+              4.  -5.99  cov=-6.17 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سنسور اثر انگشت شیائومی Redmi Note 10 [سنسور اثر انگشت گوشی]
+              5.  -5.99  cov=-6.17 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سنسور اثر انگشت شیائومی Xiaomi Redmi 12C [سنسور اثر انگشت گوشی]
+              6.  -6.05  cov=-6.17 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=null  سنسور وفلت اثر انگشت شیائومی XIAOMI REDMI NOTE 11s [سنسور اثر انگشت گوشی]
+              7.  -6.05  cov=-6.17 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=null  فینگر اثرانگشت شیائومی redmi 13c /poco c65 اورجینال [سنسور اثر انگشت گوشی]
+              8.  -6.05  cov=-6.17 model=1/4 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=null  سنسور اثر انگشت شیائومی Redmi Note 11S [سنسور اثر انگشت گوشی]
+              9.   -6.4  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.37 shops=9 bm25=null  تاچ و ال سی دی شیائومی Xiaomi Redmi Note 8 [تاچ و ال سی دی گوشی و تبلت]
+             10.  -6.52  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.26 shops=4 bm25=null  شیشه دوربین شیائومی Redmi Note 8 [شیشه دوربین گوشی و تبلت]
+             11.   -6.6  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.18 shops=2 bm25=null  تاچ و ال سی دی شیائومی Redmi 8 با فریم سایز 6.22 اینچ [تاچ و ال سی دی گوشی و تبلت]
+             12.   -6.6  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.18 shops=2 bm25=null  فلت مادربرد شیائومی Redmi Note 8 [فلت و برد گوشی]
+             13.   -6.6  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.18 shops=2 bm25=null  باتری شیائومی مدل Redmi 8 /8A BN51 [باتری گوشی موبایل]
+             14.   -6.6  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.18 shops=2 bm25=null  برد شارژ شیائومی Redmi Note 8 با IC [فلت و برد گوشی]
+             15.   -6.6  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.18 shops=2 bm25=null  شیشه لنز دوربین گوشی شیائومی Xiaomi Redmi 8 [شیشه دوربین گوشی و تبلت]
+             16.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  LCD XIAOMI REDMI 8/REDMI 8A N/F SVC [تاچ و ال سی دی گوشی و تبلت]
+             17.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  محافظ صفحه نمایش تمام صفحه مناسب برای گوشی Xiaomi Redmi Note [محافظ صفحه نمایش گوشی]
+             18.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  محافظ صفحه نمایش تمام صفحه مناسب برای گوشی Xiaomi Redmi Note [محافظ صفحه نمایش گوشی]
+             19.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  فریم ال سی دی شیائومی REDMI 8/8A [تاچ و ال سی دی گوشی و تبلت]
+             20.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  تاچ ال سی دی شیائومی ردمی نوت 8 | REDMI NOTE 8 - شرکتی 100%  [تاچ و ال سی دی گوشی و تبلت]
+             21.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  تاچ ال سی دی شیائومی ردمی XIAOMI REDMI 8/8A - شرکتی 100% اور [تاچ و ال سی دی گوشی و تبلت]
+             22.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  دکمه ولوم و پاور شیائومی Redmi Note 8 [دکمه پاور گوشی و تبلت]
+             23.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  کابل شارژ شیائومی Redmi Watch 5 Active [شارژر ساعت هوشمند]
+             24.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  تاچ ال سی دی سرویس پک شیایومی بدون فریم LCD REDMI 8/8A N/F S [تاچ و ال سی دی گوشی و تبلت]
+             25.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  کابل شارژ شیائومی مدل Redmi 2 طول 0.8 متر [کابل و تبدیل USB]
+             26.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  کاور سیلیکونی شیائومی Redmi Buds 3 [کیف و کاور هدفون و هندزفری]
+             27.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  تاچ و ال سی دی شیائومی ردمی 8 آ | LCD Xiaomi Redmi 8A AMP [تاچ و ال سی دی گوشی و تبلت]
+             28.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  تاچ و ال سی دی شیائومی ردمی 8 | LCD Xiaomi Redmi 8 AMP [تاچ و ال سی دی گوشی و تبلت]
+             29.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  تاچ و ال سی دی شیائومی ردمی نوت 8 | LCD Xiaomi Redmi Note 8  [تاچ و ال سی دی گوشی و تبلت]
+             30.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  فلت پاور و ولوم شیائومی Redmi Note 8 [فلت و برد گوشی]
+             31.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  درب پشت شیائومی Redmi 8 [قاب، شاسی و درب گوشی]
+             32.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  دوربین پشت شیائومی Redmi Note 8 [دوربین گوشی و تبلت]
+             33.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  REDMI 8 باطری شیائومی [باتری گوشی موبایل]
+             34.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  برد شارژ شیائومی Xiaomi Redmi 8 [فلت و برد گوشی]
+             35.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  باتری اصلی شیائومی Redmi 7 / Redmi Note 8 / Redmi Y3 / Redmi [باتری گوشی موبایل]
+             36.  -6.67  cov=-2.78 model=2/4 phrase=0 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=null  محافظ صفحه نمایش شیائومی Redmi Note 8 مدل Super D از جنس شیش [محافظ صفحه نمایش گوشی]
+             37.  -6.75  cov=-6.17 model=1/4 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=null  سنسور و حسگر اثرانگشت موبایل شیائومیXiaomi Redmi Note 9 Pro [سنسور اثر انگشت گوشی]
+             38.  -6.75  cov=-6.17 model=1/4 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=null  حسگر اثرانگشت شیائومی Xiaomi Redmi Note 10 Pro - مشکی [سنسور اثر انگشت گوشی]
+             39.  -6.75  cov=-6.17 model=1/4 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=null  سنسور اثر انگشت اصلی شیائومی Redmi Note 11 Pro +5G | کیفیت ر [سنسور اثر انگشت گوشی]
+             40.  -6.75  cov=-6.17 model=1/4 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=null  سنسور اثر انگشت اصلی شیائومی Redmi Note 12 Pro 5G | کیفیت رو [سنسور اثر انگشت گوشی]
+  [ 8891 ms] candidates  «Redmi Buds 8 Active شیائومی» {"search":40,"afterFilters":40,"afterType":12,"afterCategoryFocus":11} filters={"brand":"Redmi","maxPrice":3000000}
+             · سنسور اثر انگشت شیائومی Redmi Note 8 [سنسور اثر انگشت گوشی]
+             · سنسور اثر انگشت شیائومی Redmi Note 8 Pro [سنسور اثر انگشت گوشی]
+             · سنسور اثر انگشت شیائومی Redmi Note 10 [سنسور اثر انگشت گوشی]
+             · سنسور اثر انگشت شیائومی Xiaomi Redmi 12C [سنسور اثر انگشت گوشی]
+             · سنسور وفلت اثر انگشت شیائومی XIAOMI REDMI NOTE 11s [سنسور اثر انگشت گوشی]
+             · فینگر اثرانگشت شیائومی redmi 13c /poco c65 اورجینال [سنسور اثر انگشت گوشی]
+  [18821 ms] llm  pick → live (gpt-5.4-mini, attempt 0, 9930 ms, ok=true)
+             raw: {"pickIds":["product_45b1222b49eb022be2b8ac4f","product_d77e679c7daec22ec7a750a7","product_b633f4dcbcc2456efb2c835f","product_c5250d045cd47d2231f84d3c"],"why":{"product_45b1222b49eb022be2b8ac4f":"برای Redmi Note 8 خودِ شیائومی طراحی شده و از نظر سازگاری خیالت را راحت می‌کند. اگر همین مدل گوشی را داری، انتخاب مطمئن‌تری است.","product_d77e679c7daec22ec7a750a7":"این یکی برای Redmi Note 8 Pro است و به درد وقتی می‌خورد که مدل پرو داشته باشی. اورجینال بودنش هم برای جایگزینی قطعه مهم است.","product_b633f4dcbcc2456efb2c835f":"مناسب Redmi Note 10 4G است و برای کسی که همین خانواده گوشی را دارد گزینه‌ی درست‌تری است. چون سازگاری دقیق دارد، ریسک اشتباه خرید کمتر می‌شود.","product_c5250d045cd47d2231f84d3c
+  [18822 ms] pick  source=LLM pick call llmPickIds=null valid=0
+             → سنسور اثر انگشت شیائومی Redmi Note 8 [سنسور اثر انگشت گوشی]
+             → سنسور اثر انگشت شیائومی Redmi Note 8 Pro [سنسور اثر انگشت گوشی]
+             → سنسور اثر انگشت شیائومی Redmi Note 10 [سنسور اثر انگشت گوشی]
+             → سنسور اثر انگشت شیائومی Xiaomi Redmi 12C [سنسور اثر انگشت گوشی]
+  [18829 ms] path  {"mode":"live","llmConfigured":true,"blocks":["text","products","specDiff","enough"]}
+  ANSWER (live): سنسور اثر انگشت شیائومی Redmi Note 8 [سنسور اثر انگشت گوشی] | سنسور اثر انگشت شیائومی Redmi Note 8 Pro [سنسور اثر انگشت گوشی] | سنسور اثر انگشت شیائومی Redmi Note 10 [سنسور اثر انگشت گوشی] | سنسور اثر انگشت شیائومی Xiaomi Redmi 12C [سنسور اثر انگشت گوشی]

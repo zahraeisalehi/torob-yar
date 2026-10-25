@@ -1,0 +1,63 @@
+
+=== «یه هندزفری بی‌سیم می‌خوام» @ https://torob-yar-app.liara.run ===
+  [   92 ms] search  [sqlite] «یه هندزفری بی‌سیم می‌خوام» groups=["هندزفری:audio","بی سیم"] types=["audio"] filters={}
+             and              rows=  703  MATCH ("هندزفری"* OR "هدفون"* OR "هدست"* OR "earbuds" OR "headphone" OR "headset") AND ("بی سیم" OR "بیسیم"* OR "wireless")
+              1.   5.54  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.54 shops=26 bm25=-21.3  هدفون بی سیم کیو سی وای مدل T13x [هدفون، هدست و هندزفری]
+              2.    5.5  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.5 shops=20 bm25=-21.3  هدفون بی سیم انکر مدل Soundcore K20i A3994 [هدفون، هدست و هندزفری]
+              3.    5.5  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.5 shops=20 bm25=-20.11  هدفون بی سیم شیائومی کیو سی وای T13 ANC 2 [هدفون، هدست و هندزفری]
+              4.   5.49  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.49 shops=19 bm25=-21.3  هدفون بی سیم انکر مدل Soundcore R60i NC [هدفون، هدست و هندزفری]
+              5.   5.48  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.48 shops=18 bm25=-20.69  هدفون بی سیم شیائومی مدل Redmi Buds 8 Lite [هدفون، هدست و هندزفری]
+  [  114 ms] session  {"last":"یه هندزفری بی‌سیم می‌خوام","freshSearch":false,"namesModel":false,"newType":true,"answersPending":false,"specific":false,"rule":"must_ask","scenario":"earbuds","searchText":"هدفون بی سیم هندزفری","filters":{},"criteria":{"budget":{"min":null,"max":null},"distanceKm":null,"installment":false,"openNow":false}}
+  [  192 ms] search  [sqlite] «هدفون بی سیم هندزفری» groups=["هدفون:audio","بی سیم","هندزفری:audio"] types=["audio"] filters={}
+             and              rows=  703  MATCH ("هندزفری"* OR "هدفون"* OR "هدست"* OR "earbuds" OR "headphone" OR "headset") AND ("بی سیم" OR "بیسیم"* OR "wireless") AND ("هندزفری"* OR "هدفون"* OR "هدست"* OR "earbuds" OR "headphone" OR "headset")
+              1.   5.54  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.54 shops=26 bm25=-37.9  هدفون بی سیم کیو سی وای مدل T13x [هدفون، هدست و هندزفری]
+              2.    5.5  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.5 shops=20 bm25=-37.9  هدفون بی سیم انکر مدل Soundcore K20i A3994 [هدفون، هدست و هندزفری]
+              3.    5.5  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.5 shops=20 bm25=-35.82  هدفون بی سیم شیائومی کیو سی وای T13 ANC 2 [هدفون، هدست و هندزفری]
+              4.   5.49  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.49 shops=19 bm25=-37.9  هدفون بی سیم انکر مدل Soundcore R60i NC [هدفون، هدست و هندزفری]
+              5.   5.48  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.48 shops=18 bm25=-36.83  هدفون بی سیم شیائومی مدل Redmi Buds 8 Lite [هدفون، هدست و هندزفری]
+              6.   5.47  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.47 shops=17 bm25=-36.83  هدفون بی سیم شیائومی کیو سی وای مدل T13 [هدفون، هدست و هندزفری]
+              7.   5.45  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.45 shops=15 bm25=-40.57  هدفون بیسیم اپل ایرپاد 4 نویزکنسلینگ فعال [هدفون، هدست و هندزفری]
+              8.   5.43  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.43 shops=13 bm25=-35.82  هدفون بی سیم اپل مدل ایرپاد پرو 2 نویز کنسلینگ [هدفون، هدست و هندزفری]
+              9.   5.43  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.43 shops=13 bm25=-36.83  هدفون بی سیم انکر مدل Soundcore Liberty 4 pro [هدفون، هدست و هندزفری]
+             10.   5.43  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.43 shops=13 bm25=-32.3  هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی سیم با قا [هدفون، هدست و هندزفری]
+             11.   5.43  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.43 shops=13 bm25=-39.03  هدفون بی سیم انکر مدل Soundcore V20i [هدفون، هدست و هندزفری]
+             12.   5.42  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.42 shops=12 bm25=-37.9  هدفون بی سیم ناتینگ Cmf buds pro 2 [هدفون، هدست و هندزفری]
+             13.   5.42  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.42 shops=12 bm25=-35.82  هدفون بی سیم شیائومی کیو سی وای مدل T13 Plus [هدفون، هدست و هندزفری]
+             14.    5.4  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.4 shops=11 bm25=-37.9  هدفون بی سیم اپل مدل ایرپاد پرو 3 [هدفون، هدست و هندزفری]
+             15.    5.4  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.4 shops=11 bm25=-37.9  هدفون بی سیم شیائومی Redmi Buds 6 Play [هدفون، هدست و هندزفری]
+             16.    5.4  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.4 shops=11 bm25=-39.03  هدفون بی سیم انکر مدل A3025_Q20 [هدفون، هدست و هندزفری]
+             17.    5.4  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.4 shops=11 bm25=-34.87  هدفون بی سیم جی بی ال مدل Tune 780NC [هدفون، هدست و هندزفری]
+             18.    5.4  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.4 shops=11 bm25=-34.87  هدفون بی سیم جی بی ال مدل Tune 530 [هدفون، هدست و هندزفری]
+             19.    5.4  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.4 shops=11 bm25=-37.9  هدفون بی سیم ناتینگ مدل CMF Buds 2a [هدفون، هدست و هندزفری]
+             20.   5.39  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.39 shops=10 bm25=-35.82  هدفون بی سیم شیائومی کیو سی وای T13 ANC 2 [هدفون، هدست و هندزفری]
+             21.   5.39  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.39 shops=10 bm25=-36.83  هدفون بی سیم کیو سی وای مدل T13 ANC [هدفون، هدست و هندزفری]
+             22.   5.37  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.37 shops=9 bm25=-39.03  هدفون بی سیم انکر مدل Q20i_A3004 [هدفون، هدست و هندزفری]
+             23.   5.37  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.37 shops=9 bm25=-40.24  هدفون بی سیم انکر Soundcore Q11i [هدفون، هدست و هندزفری]
+             24.   5.37  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.37 shops=9 bm25=-34.87  هدفون بی سیم جی بی ال مدل Tune 730BT [هدفون، هدست و هندزفری]
+             25.   5.36  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.36 shops=8 bm25=-39.03  هدفون بی سیم اپل مدل ایرپاد 4 [هدفون، هدست و هندزفری]
+             26.   5.36  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.36 shops=8 bm25=-37.9  هدفون بی سیم انکر Soundcore Space One pro [هدفون، هدست و هندزفری]
+             27.   5.36  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.36 shops=8 bm25=-33.11  هدفون بی سیم جی بی ال مدل Tune 520 BT اصل [هدفون، هدست و هندزفری]
+             28.   5.36  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.36 shops=8 bm25=-37.27  هدست بیسیم شیائومی مدل Neo با باتری 600 میلی‌آمپر [هدفون، هدست و هندزفری]
+             29.   5.36  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.36 shops=8 bm25=-37.9  هدفون بی سیم انکر مدل Soundcore P41i A3937 [هدفون، هدست و هندزفری]
+             30.   5.36  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.36 shops=8 bm25=-39.03  هدفون بی سیم انکر مدل V30i_A3873 [هدفون، هدست و هندزفری]
+             31.   5.36  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.36 shops=8 bm25=-35.82  هدفون بی سیم شیائومی کیو سی وای Buds ANC_HT15 [هدفون، هدست و هندزفری]
+             32.   5.34  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.34 shops=7 bm25=-40.57  هدفون بیسیم شیائومی مدل Buds 6 Active [هدفون، هدست و هندزفری]
+             33.   5.34  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.34 shops=7 bm25=-36.83  هدفون بی سیم سامسونگ مدل Galaxy Buds 4 pro [هدفون، هدست و هندزفری]
+             34.   5.34  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.34 shops=7 bm25=-40.57  هدفون بیسیم شیائومی مدل Redmi Buds 6 [هدفون، هدست و هندزفری]
+             35.   5.34  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.34 shops=7 bm25=-40.24  هدفون بی سیم انکر مدل H30I [هدفون، هدست و هندزفری]
+             36.   5.34  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.34 shops=7 bm25=-36.83  هدفون بی سیم ناتینگ مدل CMF Buds 2 Plus [هدفون، هدست و هندزفری]
+             37.   5.34  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.34 shops=7 bm25=-36.83  هدفون بی سیم شیائومی کیو سی وای Buds_QT43 [هدفون، هدست و هندزفری]
+             38.   5.34  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.34 shops=7 bm25=-32.3  هدفون بی سیم انکر مدل D1200 با قابلیت حذف نویز و ضد آب IP55 [هدفون، هدست و هندزفری]
+             39.   5.34  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.34 shops=7 bm25=-39.03  هدفون بی سیم انکر مدل Soundcore V40i [هدفون، هدست و هندزفری]
+             40.   5.32  cov=4 model=0/0 phrase=0 var=0 head=1 acc=0 type=0 pop=0.32 shops=6 bm25=-40.24  هدفون بی سیم سنهایزر HD200 Pro [هدفون، هدست و هندزفری]
+  [  435 ms] candidates  «هدفون بی سیم هندزفری» {"search":40,"afterFilters":40,"afterType":40,"afterCategoryFocus":40} filters={}
+             · هدفون بی سیم کیو سی وای مدل T13x [هدفون، هدست و هندزفری]
+             · هدفون بی سیم انکر مدل Soundcore K20i A3994 [هدفون، هدست و هندزفری]
+             · هدفون بی سیم شیائومی کیو سی وای T13 ANC 2 [هدفون، هدست و هندزفری]
+             · هدفون بی سیم انکر مدل Soundcore R60i NC [هدفون، هدست و هندزفری]
+             · هدفون بی سیم شیائومی مدل Redmi Buds 8 Lite [هدفون، هدست و هندزفری]
+             · هدفون بی سیم شیائومی کیو سی وای مدل T13 [هدفون، هدست و هندزفری]
+  [ 2552 ms] llm  turn → live (gpt-5.4-mini, attempt 0, 2117 ms, ok=true)
+             raw: {"action":"ask","question":"برای چه استفاده‌ای می‌خوای؟","replies":["مکالمه","ورزش","گیم","روزمره"],"need":"هندزفری بی‌سیم","filters":{"minPrice":null,"maxPrice":null,"brand":null},"criteriaPatch":null,"pickIds":null,"why":null,"intro":null,"diffKeys":null,"searchText":null}
+  [ 2552 ms] path  {"mode":"live","llmConfigured":true,"blocks":["question"]}
+  ANSWER (live): question: برای چه استفاده‌ای می‌خوای؟

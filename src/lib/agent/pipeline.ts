@@ -2,10 +2,10 @@ import 'server-only';
 import { getSource } from '../data/source';
 import type { Product } from '../data/types';
 import { env } from '../env';
-import { normalizeFa } from '../domain/normalize';
+import { faText, normalizeFa } from '../domain/normalize';
 import { formatToman } from '../domain/format';
 import { contentTokens, parseBudget, typeTokens, wantsInstallment } from '../domain/query';
-import { analyzeQuery, modelHit, typeMatches } from '../domain/search';
+import { analyzeQuery, groupInText, modelHit, typeMatches } from '../domain/search';
 import { trace } from '../trace';
 import {
   PickSchema,
@@ -75,6 +75,12 @@ function genericQuestion(n: number, candidates: Product[]): Pending {
       { label: 'فرقی نمی‌کنه', need: '', filters: {} },
     ],
   };
+}
+
+/** Title up to ~55 chars, cut at a word boundary and before the «| حافظه …» spec tail. */
+function shortTitle(t: string): string {
+  const head = t.split('|')[0].trim();
+  return head.length <= 55 ? head : head.slice(0, 55).replace(/\s+\S*$/, '') + '…';
 }
 
 /** Drop candidates that aren't the requested kind of product (a battery for an earbuds query), unless nothing is left. */
@@ -266,10 +272,24 @@ async function runChatInner(req: ChatRequest): Promise<ChatResponse> {
 
   // ---- candidates with progressive relaxation ----
   const relaxed: string[] = [];
+  // the named model, as the unfiltered probe found it (accessories don't count)
+  const wanted = (list: Product[]) => list.find((p) => modelHit(lastA, p) && typeMatches(lastA, p)) ?? null;
+  let overBudget: { title: string; min: number; budget: number } | null = null;
   const gather = async () => {
     let f = { ...state.filters };
     if (!f.maxPrice && req.criteria.budget.max) f.maxPrice = req.criteria.budget.max;
     let c = await findCandidates(f);
+    // the user named a model and the budget filter removed it: show it anyway and say so, instead of
+    // whatever happens to fit the budget (cases for «galaxy s25 fe», parts for «redmi buds 8 active»)
+    const named = namesModel ? wanted(lastHits) : null;
+    if (named && !wanted(c) && (f.maxPrice || f.minPrice)) {
+      const unpriced = await findCandidates({ ...f, maxPrice: undefined, minPrice: undefined });
+      if (wanted(unpriced)) {
+        overBudget = { title: named.title, min: named.minPrice, budget: f.maxPrice ?? f.minPrice ?? 0 };
+        trace('budget-excluded-named-model', overBudget);
+        return unpriced;
+      }
+    }
     if (!c.length && (f.include || f.exclude || f.brand)) {
       f = { ...f, include: undefined, exclude: undefined, brand: undefined };
       c = await findCandidates(f);
@@ -320,6 +340,14 @@ async function runChatInner(req: ChatRequest): Promise<ChatResponse> {
       if (turn.action === 'research' && turn.searchText?.trim()) {
         const raw = candidates;
         searchText = turn.searchText.trim();
+        // the LLM may translate or drop model words («active» → nothing): put back what the user typed
+        if (specific) {
+          const missing = lastA.groups.filter((g) => g.model && !groupInText(g, searchText)).map((g) => g.raw);
+          if (missing.length) {
+            trace('research-model-tokens-restored', { llm: searchText, missing });
+            searchText = `${searchText} ${missing.join(' ')}`;
+          }
+        }
         state.searchText = searchText;
         candidates = await gather();
         // the user named the model: the raw-text hits stay first, the LLM's re-search only adds
@@ -364,7 +392,14 @@ async function runChatInner(req: ChatRequest): Promise<ChatResponse> {
     blocks.push({ type: 'suggestions', items: scripted().examples });
     return { blocks, state, mode: usedLive ? 'live' : 'scripted' };
   }
-  if (relaxed.length) {
+  if (overBudget) {
+    const ob = overBudget as { title: string; min: number; budget: number };
+    blocks.push({
+      type: 'text',
+      tone: 'relaxed',
+      text: `«${faText(shortTitle(ob.title))}» از ${formatToman(ob.min)} شروع می‌شه که با بودجه‌ی انتخابی‌ت (${formatToman(ob.budget)}) جور نیست؛ با این حال نشونت می‌دم.`,
+    });
+  } else if (relaxed.length) {
     blocks.push({ type: 'text', tone: 'relaxed', text: `با این شرایط دقیق چیزی پیدا نشد؛ ${[...new Set(relaxed)].join(' و ')} رو کمی بازتر گرفتم.` });
   }
 
@@ -416,6 +451,16 @@ async function runChatInner(req: ChatRequest): Promise<ChatResponse> {
   }
   if (!intro) intro = 'این‌ها رو برات پیدا کردم:';
 
+  // the user named a model and it's among the candidates: it leads, whatever the LLM picked
+  // (only when the leading pick isn't itself that model — the LLM may rightly prefer the genuine one over a replica)
+  const isNamed = (p?: Product) => !!p && modelHit(lastA, p) && typeMatches(lastA, p);
+  const namedTop = namesModel && !isNamed(picks[0]) ? (picks.find(isNamed) ?? wanted(top)) : null;
+  if (namedTop) {
+    const was = picks.includes(namedTop);
+    picks = [namedTop, ...picks.filter((p) => p.id !== namedTop.id)].slice(0, 4);
+    why[namedTop.id] ??= templateWhy(namedTop, state.needs ?? [], picks);
+    pickSource += was ? ' → server reorder (named model first)' : ' → server override (named model was missing)';
+  }
   trace('pick', {
     llmPickIds: turn?.pickIds ?? null,
     validLlmPicks: (turn?.pickIds ?? []).filter((id) => top.some((p) => p.id === id)).length,

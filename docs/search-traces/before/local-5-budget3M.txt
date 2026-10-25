@@ -1,0 +1,69 @@
+{"t":"2026-10-25T09:53:43.322Z","kind":"llm","call":"turn","model":"gpt-5.4-mini","ms":10854,"ok":true,"attempt":0,"fallback":false}
+
+=== «ایرپاد پرو» (budget ≤ 3000000) @ local ===
+  [   25 ms] search  [sqlite] «ایرپاد پرو» groups=["ایرپاد:audio","پرو*"] types=["audio"] filters={}
+             and              rows=   82  MATCH ("airpods" OR "ایرپاد"* OR "ایربادز"* OR "airpod") AND ("pro" OR "پرو")
+              1.   8.18  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.18 shops=2 bm25=-12.28  ایرپاد پرو 2 طرح پرچم آمریکا [هدفون، هدست و هندزفری]
+              2.   8.18  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.18 shops=2 bm25=-11.85  ایرپاد پرو طرح پرچم آمریکا های کپی [هدفون، هدست و هندزفری]
+              3.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-12.74  ایرپاد پرو 2 دست دوم [هدفون، هدست و هندزفری]
+              4.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-23.3  ایرپاد پرو 3 اصلی اپل Airpod Pro 3 Original Apple [هدفون، هدست و هندزفری]
+              5.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-12.74  ایرپاد پرو 3 اپل [هدفون، هدست و هندزفری]
+  [   29 ms] session  {"last":"ایرپاد پرو","freshSearch":false,"namesModel":true,"newType":true,"answersPending":false,"specific":true,"rule":"must_show","scenario":"earbuds","searchText":"ایرپاد پرو","filters":{},"criteria":{"budget":{"min":null,"max":3000000},"distanceKm":null,"installment":false,"openNow":false}}
+  [   31 ms] search  [sqlite] «ایرپاد پرو» groups=["ایرپاد:audio","پرو*"] types=["audio"] filters={"maxPrice":3000000}
+             and              rows=   49  MATCH ("airpods" OR "ایرپاد"* OR "ایربادز"* OR "airpod") AND ("pro" OR "پرو")
+              1.   8.18  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.18 shops=2 bm25=-12.28  ایرپاد پرو 2 طرح پرچم آمریکا [هدفون، هدست و هندزفری]
+              2.   8.18  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.18 shops=2 bm25=-11.85  ایرپاد پرو طرح پرچم آمریکا های کپی [هدفون، هدست و هندزفری]
+              3.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  ایرپاد پرو 2 طرح پرچم آمریکا تایپ سی [هدفون، هدست و هندزفری]
+              4.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-10.73  ایرپاد پرو طرح کیفیت درجه 1 و هلوگرام سبز عربستان [هدفون، هدست و هندزفری]
+              5.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-13.93  ایرپاد پرو high-quality مدل +PRO-A با 18 ماه گارانتی شرکتی [هدفون، هدست و هندزفری]
+              6.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-10.4  ایرپاد پرو 2 (+ANC) نسخه +++A با 18 ماه گارانتی شرکتی [هدفون، هدست و هندزفری]
+              7.   7.43  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=-10.4  هدفون بی سیم اپل مدل ایرپاد پرو 2 نویز کنسلینگ [هدفون، هدست و هندزفری]
+              8.   7.29  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.29 shops=5 bm25=-11.45  هدفون بی سیم اپل مدل ایرپاد پرو [هدفون، هدست و هندزفری]
+              9.   7.26  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.26 shops=4 bm25=-11.08  هدفون بی سیم اپل مدل ایرپاد پرو 2 [هدفون، هدست و هندزفری]
+             10.   7.23  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.23 shops=3 bm25=-10.4  هدفون بی سیم اپل مدل ایرپاد پرو نویز کنسلینگ فعال [هدفون، هدست و هندزفری]
+             11.   7.23  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.23 shops=3 bm25=-10.4  هدفون بی سیم اپل مدل ایرپاد پرو 2 تایپ سی [هدفون، هدست و هندزفری]
+             12.   7.18  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=-9.52  هدفون بی سیم اپل مدل ایرپاد پرو 2 تایپ سی نویز کنسلینگ فعال [هدفون، هدست و هندزفری]
+             13.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.85  هدفون بی سیم ایرپاد پرو 4 [هدفون، هدست و هندزفری]
+             14.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  هدفون بی سیم مدل ایرپاد پرو 5s [هدفون، هدست و هندزفری]
+             15.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  هدفون بی سیم مدل ایرپاد پرو 6S [هدفون، هدست و هندزفری]
+             16.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-12.65  هدفون بی سیم ورنا Airpods pro K14 [هدفون، هدست و هندزفری]
+             17.   6.41  cov=7 model=1/1 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-10.4  هندزفری بلوتوثی طرح ایرپاد پرو برند کینگ پلاس مدل HK-60 [هدفون، هدست و هندزفری]
+             18.   4.18  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=-3 pop=0.18 shops=2 bm25=-17.58  سری سیلیکونی ایرپاد پرو آها استایل مدیوم Medium AhaStyle WG8 [سایر لوازم جانبی هدفون و هندزفری]
+             19.   0.18  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.18 shops=2 bm25=-13.62  کاور اپل ایرپاد پرو 2 مدل Eggshell [کاور و لوازم جانبی ایرپاد]
+             20.   0.18  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.18 shops=2 bm25=-11.8  کاور کی دو K.DOO مدل CRASHGUARD مناسب ایرپاد 1/2 و پرو [کاور و لوازم جانبی ایرپاد]
+             21.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-23.29  کاور مدل Eggshell مناسب برای کیس اپل ایرپاد پرو 2 / Airpod P [کاور و لوازم جانبی ایرپاد]
+             22.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-24.51  کاور مدل Eggshell مناسب برای کیس اپل ایرپاد پرو / Airpod Pro [کاور و لوازم جانبی ایرپاد]
+             23.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-23.29  کاور مدل Eggshell مناسب برای کیس اپل ایرپاد پرو 3 / Airpod P [کاور و لوازم جانبی ایرپاد]
+             24.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-10.83  کاور سیلیکونی شیائومی مدل Haylou X1 Pro [کاور و لوازم جانبی ایرپاد]
+             25.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-13.62  کاور اپل ایرپاد پرو 3 یونیک Glase [کاور و لوازم جانبی ایرپاد]
+             26.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-12.07  گارد کیس اپل ایرپاد پرو 2 مدل تمپل TEMPLE شوجی SH-1062 [کاور و لوازم جانبی ایرپاد]
+             27.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-12.07  گارد کیس اپل ایرپاد پرو 2 مدل ورمیلیون VERMILION شوجی SH-106 [کاور و لوازم جانبی ایرپاد]
+             28.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-12.07  گارد کیس اپل ایرپاد پرو 2 مدل پوکمون POKEMON شوجی SH-1064 [کاور و لوازم جانبی ایرپاد]
+             29.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-12.07  گارد کیس اپل ایرپاد پرو 2 مدل تیلالوک TLALOC شوجی SH-1063 [کاور و لوازم جانبی ایرپاد]
+             30.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-12.07  گارد کیس اپل ایرپاد پرو 2 مدل کیدودو KIDODO شوجی SH-1065 [کاور و لوازم جانبی ایرپاد]
+             31.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-11.54  گارد کیس اپل ایرپاد پرو 2 مدل "وای اس ال" YSL شوجی SH-1071 [کاور و لوازم جانبی ایرپاد]
+             32.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-12.35  گارد کیس ایرپاد پرو 2 مدل نینتندو NINTENDO شوجی SH-1073 [کاور و لوازم جانبی ایرپاد]
+             33.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-11.54  گارد کیس اپل ایرپاد پرو 2 مدل باب اسفنجی SPONGE BOB شوجی SH- [کاور و لوازم جانبی ایرپاد]
+             34.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-12.07  گارد کیس اپل ایرپاد پرو 2 مدل اورئو OREO شوجی SH-1070 [کاور و لوازم جانبی ایرپاد]
+             35.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-12.07  گارد کیس اپل ایرپاد پرو 2 مدل لگو LEGO شوجی SH-1067 [کاور و لوازم جانبی ایرپاد]
+             36.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-12.07  گارد کیس اپل ایرپاد پرو 2 مدل شنل CHANEL شوجی SH-1069 [کاور و لوازم جانبی ایرپاد]
+             37.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-12.07  گارد کیس اپل ایرپاد پرو 2 مدل کروئلا CRUELLA شوجی SH-1068 [کاور و لوازم جانبی ایرپاد]
+             38.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-11.8  گارد کیس اپل ایرپاد پرو 2 شفاف مدل تاراوا TARAVA شوجی SH-106 [کاور و لوازم جانبی ایرپاد]
+             39.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-13.62  کاور ایرپاد پرو طرح سوپر ماریو اپل [کاور و لوازم جانبی ایرپاد]
+             40.   0.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=-4 type=-3 pop=0.11 shops=1 bm25=-17.07  کاور ژله ای ایرپاد برند Spigen طرح X همراه با آویز مناسب برا [کاور و لوازم جانبی ایرپاد]
+  [   47 ms] candidates  «ایرپاد پرو» {"search":40,"afterFilters":40,"afterType":17,"afterCategoryFocus":17} filters={"maxPrice":3000000}
+             · ایرپاد پرو 2 طرح پرچم آمریکا [هدفون، هدست و هندزفری]
+             · ایرپاد پرو طرح پرچم آمریکا های کپی [هدفون، هدست و هندزفری]
+             · ایرپاد پرو 2 طرح پرچم آمریکا تایپ سی [هدفون، هدست و هندزفری]
+             · ایرپاد پرو طرح کیفیت درجه 1 و هلوگرام سبز عربستان [هدفون، هدست و هندزفری]
+             · ایرپاد پرو high-quality مدل +PRO-A با 18 ماه گارانتی شرکتی [هدفون، هدست و هندزفری]
+             · ایرپاد پرو 2 (+ANC) نسخه +++A با 18 ماه گارانتی شرکتی [هدفون، هدست و هندزفری]
+  [10902 ms] llm  turn → live (gpt-5.4-mini, attempt 0, 10854 ms, ok=true)
+             raw: {"action":"show","question":null,"replies":null,"need":"ایرپاد پرو","filters":{"minPrice":null,"maxPrice":null,"brand":null},"criteriaPatch":null,"pickIds":["product_87275da84ee308b9814d5085","product_ab91610df7418e078c7a6151","product_0734485299f461001613fc4d","product_60bcba27dda2656a2514a63b"],"why":{"product_87275da84ee308b9814d5085":"این یکی توی فروشگاه‌های بیشتری پیدا می‌شه و برای خرید حضوری دستت رو بازتر می‌ذاره. اگر نسخه‌ی ایرپاد پرو ۲ با نویز کنسلینگ می‌خوای، گزینه‌ی قابل‌توجهیه.","product_ab91610df7418e078c7a6151":"اگر دنبال ایرپاد پرو ۲ هستی و اتصال جدیدتر برات مهمه، این مدل انتخاب خوبیه. بین گزینه‌ها هم موجودی فروشگاهی بدی ندارد.","product_0734485299f461001613fc4d":"این مدل تایپ‌
+  [10902 ms] pick  source=LLM turn llmPickIds=["product_87275da84ee308b9814d5085","product_ab91610df7418e078c7a6151","product_0734485299f461001613fc4d","product_60bcba27dda2656a2514a63b"] valid=4
+             → هدفون بی سیم اپل مدل ایرپاد پرو 2 نویز کنسلینگ [هدفون، هدست و هندزفری]
+             → هدفون بی سیم اپل مدل ایرپاد پرو 2 [هدفون، هدست و هندزفری]
+             → هدفون بی سیم اپل مدل ایرپاد پرو 2 تایپ سی [هدفون، هدست و هندزفری]
+             → ایرپاد پرو 2 (+ANC) نسخه +++A با 18 ماه گارانتی شرکتی [هدفون، هدست و هندزفری]
+  [10904 ms] path  {"mode":"live","llmConfigured":true,"blocks":["text","products","specDiff","enough"]}
+  ANSWER (live): هدفون بی سیم اپل مدل ایرپاد پرو 2 نویز کنسلینگ [هدفون، هدست و هندزفری] | هدفون بی سیم اپل مدل ایرپاد پرو 2 [هدفون، هدست و هندزفری] | هدفون بی سیم اپل مدل ایرپاد پرو 2 تایپ سی [هدفون، هدست و هندزفری] | ایرپاد پرو 2 (+ANC) نسخه +++A با 18 ماه گارانتی شر [هدفون، هدست و هندزفری]

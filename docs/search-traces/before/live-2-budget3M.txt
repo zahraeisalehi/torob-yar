@@ -1,0 +1,125 @@
+
+=== «ردمی بادز ۸ اکتیو» (budget ≤ 3000000) @ https://torob-yar-app.liara.run ===
+  [   61 ms] search  [sqlite] «ردمی بادز ۸ اکتیو» groups=["ردمی","بادز*","8*","اکتیو*"] types=[] filters={}
+             and              rows=    1  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"*) AND ("8") AND ("active" OR "اکتیو"*)
+              1.   8.93  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=-20.5  هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی سیم با قا [هدفون، هدست و هندزفری]
+  [   67 ms] session  {"last":"ردمی بادز ۸ اکتیو","freshSearch":false,"namesModel":true,"newType":false,"answersPending":false,"specific":true,"rule":"must_show","scenario":"phone","searchText":"ردمی بادز ۸ اکتیو","filters":{},"criteria":{"budget":{"min":null,"max":3000000},"distanceKm":null,"installment":false,"openNow":false}}
+  [  415 ms] search  [sqlite] «ردمی بادز ۸ اکتیو» groups=["ردمی","بادز*","8*","اکتیو*"] types=[] filters={"maxPrice":3000000}
+             and              rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"*) AND ("8") AND ("active" OR "اکتیو"*)
+             and(all but one) rows=    0  MATCH ("buds" OR "بادز"*) AND ("8") AND ("active" OR "اکتیو"*)
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("8") AND ("active" OR "اکتیو"*)
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"*) AND ("active" OR "اکتیو"*)
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"*) AND ("8")
+             or               rows= 1500  MATCH ("redmi" OR "ردمی"*) OR ("buds" OR "بادز"*) OR ("8") OR ("active" OR "اکتیو"*)
+              1.    0.1  cov=-0.21 model=2/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.32 shops=6 bm25=null  سیم لحیم اکتیو 0.8 میلیمتر 250 گرمی [سیم و روغن لحیم]
+              2.  -0.04  cov=-0.21 model=2/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سیم لحیم اکتیو 0.8 میلی متری 100 گرم ZHONGSHI [سیم و روغن لحیم]
+              3.  -0.04  cov=-0.21 model=2/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سیم لحیم اکتیو 50 گرم ضخامت 0.8 میلی‌متر [سیم و روغن لحیم]
+              4.  -0.65  cov=-0.21 model=2/3 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.26 shops=4 bm25=null  خمیردندان میسویک توتال 8 پرو اکتیو 100 میل [خمیر دندان]
+              5.  -3.11  cov=-3.29 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سنسور اثر انگشت شیائومی Redmi Note 8 [سنسور اثر انگشت گوشی]
+              6.  -3.33  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.52 shops=24 bm25=null  چند راهی و محافظ برق پارت الکتریک مدل PE2204 با طول کابل 1.8 [سیم سیار و چندراهی برق]
+              7.  -3.35  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.51 shops=22 bm25=null  سیم لحیم آساهی 0.8 میلی متر 100 گرم [سیم و روغن لحیم]
+              8.  -3.35  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.5 shops=21 bm25=null  شینه مسی ارت 8 پیچ [سایر تجهیزات جانبی برق صنعتی]
+              9.  -3.41  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.45 shops=15 bm25=null  سیم لحیم آساهی 0.8 میلیمتر 50 گرم [سیم و روغن لحیم]
+             10.  -3.42  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.44 shops=14 bm25=null  چندراهی برق پارت الکتریک مدل PE5142 با کابل 1.8 متری و 3 خرو [سیم سیار و چندراهی برق]
+             11.  -3.43  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=null  چراغ دیواری دکوراتیو 8 وات [چراغ دیواری]
+             12.  -3.43  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=null  شینه مسی نول 8 پیچ W&E [سایر تجهیزات جانبی برق صنعتی]
+             13.  -3.44  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.42 shops=12 bm25=null  درایور ال ای دی دارک انرژی 8 تا 25 وات 300 میلی آمپر [درایور ال ای دی]
+             14.  -3.45  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  کابلشو مسی سایز 16 کلاته سوراخ 8 [کابلشو و سرسیم]
+             15.  -3.45  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  چندراهی برق پارت الکتریک مدل نیک ظرفیت 6 خانه ارت دار با کاب [سیم سیار و چندراهی برق]
+             16.  -3.45  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  چند راهی رک مونت پارت الکتریک مدل PE2253 ظرفیت 6 خانه با کاب [سیم سیار و چندراهی برق]
+             17.  -3.47  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  چندراهی برق چراغ دار پارت الکتریک مدل رک مونت 8 خانه با کابل [سیم سیار و چندراهی برق]
+             18.  -3.47  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  شینه فانتزی نول 8 پیچ دبلیو اند ای [سایر تجهیزات جانبی برق صنعتی]
+             19.  -3.47  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  نوار تست قندخون اکیوچک اکتیو بسته 25 عددی [نوار تست قند خون]
+             20.  -3.47  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  ریسه نوری لان استار 12 ولت تراکم 120 عرض 8 میلی‌متر رول 5 مت [ریسه و شلنگ نوری]
+             21.  -3.48  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  آی سی آپ آمپ LM358N DIP-8 [آپ آمپ]
+             22.  -3.48  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  چندراهی برق پارت الکتریک مدل 5+1 با کابل 1.8 متری [سایر کلید و فیوز]
+             23.  -3.48  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  روکش حرارتی سایز 8 رنگی [وارنیش و مفصل حرارتی]
+             24.  -3.48  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  چندراهی برق پارت الکتریک مدل PE850 با کابل 1.8 متری بدون ارت [سیم سیار و چندراهی برق]
+             25.  -3.48  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  شمش نول 8 پیچ مسی [سایر تجهیزات جانبی برق صنعتی]
+             26.  -3.48  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  کادر 8 ماژول درب 85 لگراند 10998 [داکت و ترانکینگ]
+             27.  -3.48  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  چندراهی برق پارت الکتریک مدل شهاب 6 خانه ارت دار با کابل 1.8 [سیم سیار و چندراهی برق]
+             28.  -3.48  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  پل دیود KBU810 ظرفیت 8 آمپر 1000 ولت شانه ای [دیود]
+             29.  -3.48  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  رله فیندر مدل 40.52.8.230 دو کنتاکت 8 آمپر 230 ولت AC [رله و بیمتال]
+             30.   -3.5  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  سیم لحیم بهینکس 50 گرم 0.8 میل [سیم و روغن لحیم]
+             31.   -3.5  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  شینه فانتزی دبلیو اند ای 8 پیچ ارت سبز [سایر تجهیزات جانبی برق صنعتی]
+             32.   -3.5  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  رله امرون G2R-2 ظرفیت 5 آمپر 220 ولت 8 پایه [رله و بیمتال]
+             33.   -3.5  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  رگولاتور AMS1117-1.8 پکیج SOT-223 [آی سی رگلاتور]
+             34.  -3.52  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  بست چنگالی عایقدار 12-8 ورق [بست و براکت]
+             35.  -3.52  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  رک مونت محافظ 6 خانه پارت الکتریک مدل PE5834 با کابل 1.8 متر [سیم سیار و چندراهی برق]
+             36.  -3.52  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  رک مونت 8 خانه پارت الکتریک مدل پارسا با فیوز مینیاتوری و کا [سیم سیار و چندراهی برق]
+             37.  -3.52  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  سیم قلع کش گات مدل CP3015 وزن 8 گرم [سیم و روغن لحیم]
+             38.  -3.52  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  آی سی MAX485CSA پکیج SO-8 [سایر انواع آی سی و میکروکنترلر]
+             39.  -3.52  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  چندراهی برق پارت الکتریک مدل PE8760 با کابل 1.8 متر و 3 پریز [سیم سیار و چندراهی برق]
+             40.  -3.52  cov=-3.86 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  هدفون بی سیم شیائومی کیو سی وای Buds_QT43 [هدفون، هدست و هندزفری]
+  [  449 ms] candidates  «ردمی بادز ۸ اکتیو» {"search":40,"afterFilters":40,"afterType":40,"afterCategoryFocus":7} filters={"maxPrice":3000000}
+             · سیم لحیم اکتیو 0.8 میلیمتر 250 گرمی [سیم و روغن لحیم]
+             · سیم لحیم اکتیو 0.8 میلی متری 100 گرم ZHONGSHI [سیم و روغن لحیم]
+             · سیم لحیم اکتیو 50 گرم ضخامت 0.8 میلی‌متر [سیم و روغن لحیم]
+             · سیم لحیم آساهی 0.8 میلی متر 100 گرم [سیم و روغن لحیم]
+             · سیم لحیم آساهی 0.8 میلیمتر 50 گرم [سیم و روغن لحیم]
+             · سیم لحیم بهینکس 50 گرم 0.8 میل [سیم و روغن لحیم]
+  [ 2581 ms] llm  turn → live (gpt-5.4-mini, attempt 0, 2132 ms, ok=true)
+             raw: {"action":"research","question":null,"replies":null,"need":"ردمی بادز ۸ اکتیو","filters":{"minPrice":null,"maxPrice":null,"brand":null},"criteriaPatch":null,"pickIds":null,"why":null,"intro":null,"diffKeys":null,"searchText":"ردمی بادز ۸ اکتیو شیائومی"}
+  [ 2886 ms] search  [sqlite] «ردمی بادز ۸ اکتیو شیائومی» groups=["ردمی","بادز*","8*","اکتیو*","شیائومی"] types=[] filters={"maxPrice":3000000}
+             and              rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"*) AND ("8") AND ("active" OR "اکتیو"*) AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+             and(all but one) rows=    0  MATCH ("buds" OR "بادز"*) AND ("8") AND ("active" OR "اکتیو"*) AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("8") AND ("active" OR "اکتیو"*) AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"*) AND ("active" OR "اکتیو"*) AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"*) AND ("8") AND ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+             and(all but one) rows=    0  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"*) AND ("8") AND ("active" OR "اکتیو"*)
+             or               rows= 1500  MATCH ("redmi" OR "ردمی"*) OR ("buds" OR "بادز"*) OR ("8") OR ("active" OR "اکتیو"*) OR ("شیائومی"* OR "شیاومی"* OR "xiaomi")
+              1.  -0.18  cov=-0.5 model=2/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.32 shops=6 bm25=null  سیم لحیم اکتیو 0.8 میلیمتر 250 گرمی [سیم و روغن لحیم]
+              2.  -0.32  cov=-0.5 model=2/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سیم لحیم اکتیو 0.8 میلی متری 100 گرم ZHONGSHI [سیم و روغن لحیم]
+              3.  -0.32  cov=-0.5 model=2/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سیم لحیم اکتیو 50 گرم ضخامت 0.8 میلی‌متر [سیم و روغن لحیم]
+              4.  -0.94  cov=-0.5 model=2/3 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.26 shops=4 bm25=null  خمیردندان میسویک توتال 8 پرو اکتیو 100 میل [خمیر دندان]
+              5.  -2.82  cov=-3 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سنسور اثر انگشت شیائومی Redmi Note 8 [سنسور اثر انگشت گوشی]
+              6.  -3.16  cov=-3.5 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  هدفون بی سیم شیائومی کیو سی وای Buds_QT43 [هدفون، هدست و هندزفری]
+              7.   -3.3  cov=-3 model=1/3 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  هدفون بی سیم شیائومی Redmi Buds 6 Play [هدفون، هدست و هندزفری]
+              8.  -3.48  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.52 shops=24 bm25=null  چند راهی و محافظ برق پارت الکتریک مدل PE2204 با طول کابل 1.8 [سیم سیار و چندراهی برق]
+              9.  -3.49  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.51 shops=22 bm25=null  سیم لحیم آساهی 0.8 میلی متر 100 گرم [سیم و روغن لحیم]
+             10.   -3.5  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.5 shops=21 bm25=null  شینه مسی ارت 8 پیچ [سایر تجهیزات جانبی برق صنعتی]
+             11.  -3.52  cov=-3 model=1/3 phrase=0 var=-0.7 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=null  سنسور اثر انگشت شیائومی Redmi Note 8 Pro [سنسور اثر انگشت گوشی]
+             12.  -3.55  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.45 shops=15 bm25=null  سیم لحیم آساهی 0.8 میلیمتر 50 گرم [سیم و روغن لحیم]
+             13.  -3.56  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.44 shops=14 bm25=null  چندراهی برق پارت الکتریک مدل PE5142 با کابل 1.8 متری و 3 خرو [سیم سیار و چندراهی برق]
+             14.  -3.57  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=null  چراغ دیواری دکوراتیو 8 وات [چراغ دیواری]
+             15.  -3.57  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=null  شینه مسی نول 8 پیچ W&E [سایر تجهیزات جانبی برق صنعتی]
+             16.  -3.58  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.42 shops=12 bm25=null  درایور ال ای دی دارک انرژی 8 تا 25 وات 300 میلی آمپر [درایور ال ای دی]
+             17.   -3.6  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  کابلشو مسی سایز 16 کلاته سوراخ 8 [کابلشو و سرسیم]
+             18.   -3.6  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  چندراهی برق پارت الکتریک مدل نیک ظرفیت 6 خانه ارت دار با کاب [سیم سیار و چندراهی برق]
+             19.   -3.6  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=null  چند راهی رک مونت پارت الکتریک مدل PE2253 ظرفیت 6 خانه با کاب [سیم سیار و چندراهی برق]
+             20.  -3.61  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  چندراهی برق چراغ دار پارت الکتریک مدل رک مونت 8 خانه با کابل [سیم سیار و چندراهی برق]
+             21.  -3.61  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  شینه فانتزی نول 8 پیچ دبلیو اند ای [سایر تجهیزات جانبی برق صنعتی]
+             22.  -3.61  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  نوار تست قندخون اکیوچک اکتیو بسته 25 عددی [نوار تست قند خون]
+             23.  -3.61  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.39 shops=10 bm25=null  ریسه نوری لان استار 12 ولت تراکم 120 عرض 8 میلی‌متر رول 5 مت [ریسه و شلنگ نوری]
+             24.  -3.63  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  آی سی آپ آمپ LM358N DIP-8 [آپ آمپ]
+             25.  -3.63  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  چندراهی برق پارت الکتریک مدل 5+1 با کابل 1.8 متری [سایر کلید و فیوز]
+             26.  -3.63  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  روکش حرارتی سایز 8 رنگی [وارنیش و مفصل حرارتی]
+             27.  -3.63  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  چندراهی برق پارت الکتریک مدل PE850 با کابل 1.8 متری بدون ارت [سیم سیار و چندراهی برق]
+             28.  -3.63  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  شمش نول 8 پیچ مسی [سایر تجهیزات جانبی برق صنعتی]
+             29.  -3.63  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  کادر 8 ماژول درب 85 لگراند 10998 [داکت و ترانکینگ]
+             30.  -3.63  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  چندراهی برق پارت الکتریک مدل شهاب 6 خانه ارت دار با کابل 1.8 [سیم سیار و چندراهی برق]
+             31.  -3.63  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  پل دیود KBU810 ظرفیت 8 آمپر 1000 ولت شانه ای [دیود]
+             32.  -3.63  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.37 shops=9 bm25=null  رله فیندر مدل 40.52.8.230 دو کنتاکت 8 آمپر 230 ولت AC [رله و بیمتال]
+             33.  -3.64  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  سیم لحیم بهینکس 50 گرم 0.8 میل [سیم و روغن لحیم]
+             34.  -3.64  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  شینه فانتزی دبلیو اند ای 8 پیچ ارت سبز [سایر تجهیزات جانبی برق صنعتی]
+             35.  -3.64  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  رله امرون G2R-2 ظرفیت 5 آمپر 220 ولت 8 پایه [رله و بیمتال]
+             36.  -3.64  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.36 shops=8 bm25=null  رگولاتور AMS1117-1.8 پکیج SOT-223 [آی سی رگلاتور]
+             37.  -3.66  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  بست چنگالی عایقدار 12-8 ورق [بست و براکت]
+             38.  -3.66  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  رک مونت محافظ 6 خانه پارت الکتریک مدل PE5834 با کابل 1.8 متر [سیم سیار و چندراهی برق]
+             39.  -3.66  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  رک مونت 8 خانه پارت الکتریک مدل پارسا با فیوز مینیاتوری و کا [سیم سیار و چندراهی برق]
+             40.  -3.66  cov=-4 model=1/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.34 shops=7 bm25=null  سیم قلع کش گات مدل CP3015 وزن 8 گرم [سیم و روغن لحیم]
+  [ 2925 ms] candidates  «ردمی بادز ۸ اکتیو شیائومی» {"search":40,"afterFilters":40,"afterType":40,"afterCategoryFocus":7} filters={"maxPrice":3000000}
+             · سیم لحیم اکتیو 0.8 میلیمتر 250 گرمی [سیم و روغن لحیم]
+             · سیم لحیم اکتیو 0.8 میلی متری 100 گرم ZHONGSHI [سیم و روغن لحیم]
+             · سیم لحیم اکتیو 50 گرم ضخامت 0.8 میلی‌متر [سیم و روغن لحیم]
+             · سیم لحیم آساهی 0.8 میلی متر 100 گرم [سیم و روغن لحیم]
+             · سیم لحیم آساهی 0.8 میلیمتر 50 گرم [سیم و روغن لحیم]
+             · سیم لحیم بهینکس 50 گرم 0.8 میل [سیم و روغن لحیم]
+  [ 5680 ms] llm  pick → live (gpt-5.4-mini, attempt 0, 2754 ms, ok=true)
+             raw: {"pickIds":["product_0e44f44a1ff5f030d2794321","product_03eaf7c8f0bec2406dfc74dc","product_f9a387849f7662bb319afd98"],"why":{"product_0e44f44a1ff5f030d2794321":"این گزینه بین نامزدها بیشترین تنوع فروشگاه را دارد و برای کسی که دنبال همین مدل بادز ۸ اکتیو است، گزینه‌ای مطمئن‌تر به نظر می‌رسد. مشخصاتش هم به‌روزتر و قابل‌اعتمادتر از بقیه ثبت شده.","product_03eaf7c8f0bec2406dfc74dc":"اگر نسخه‌ی جمع‌وجورتر می‌خواهی، این مدل ۵۰ گرمی انتخاب مناسبی است و از برند آساهی هم هست. برای مقایسه‌ی سریع با مدل اصلی، هم‌خانواده و قابل‌اعتماد به حساب می‌آید.","product_f9a387849f7662bb319afd98":"این یکی هم از برند بهینکس و با وزن کمتر است و برای مقایسه‌ی قیمت و حجم خرید بد نیست. اگر دنبال گزینه‌ای متفاوت از آساه
+  [ 5680 ms] pick  source=LLM pick call llmPickIds=null valid=0
+             → سیم لحیم آساهی 0.8 میلی متر 100 گرم [سیم و روغن لحیم]
+             → سیم لحیم آساهی 0.8 میلیمتر 50 گرم [سیم و روغن لحیم]
+             → سیم لحیم بهینکس 50 گرم 0.8 میل [سیم و روغن لحیم]
+  [ 5686 ms] path  {"mode":"live","llmConfigured":true,"blocks":["text","products","specDiff","enough"]}
+  ANSWER (live): سیم لحیم آساهی 0.8 میلی متر 100 گرم [سیم و روغن لحیم] | سیم لحیم آساهی 0.8 میلیمتر 50 گرم [سیم و روغن لحیم] | سیم لحیم بهینکس 50 گرم 0.8 میل [سیم و روغن لحیم]

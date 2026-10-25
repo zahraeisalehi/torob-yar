@@ -1,0 +1,73 @@
+
+=== «galaxy s25 fe» (budget ≤ 3000000) @ https://torob-yar-app.liara.run ===
+  [    3 ms] search  [sqlite] «galaxy s25 fe» groups=["galaxy*","s25*","fe*"] types=[] filters={}
+             and              rows=   24  MATCH ("samsung" OR "سامسونگ"* OR "galaxy" OR "گلکسی"*) AND ("s25") AND ("fe")
+              1.   7.57  cov=7 model=3/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.57 shops=33 bm25=-19.09  گوشی سامسونگ (ویتنام) S25 FE 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+              2.   7.11  cov=7 model=3/3 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-19.09  گوشی سامسونگ (هند) S25 FE 5G | حافظه 256 رم 8 گیگابایت [گوشی موبایل]
+              3.   4.68  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.18 shops=2 bm25=-24.88  گلس آنتی استاتیک میتوبل سامسونگ Galaxy S25 FE [محافظ صفحه نمایش گوشی]
+              4.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-23.77  قاب ژله ای اسپیس مدل TPU سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+              5.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-26.01  قاب سیلیکونی سامسونگ اورجینال Samsung S25 FE [کیف و کاور گوشی]
+  [    9 ms] session  {"last":"galaxy s25 fe","freshSearch":false,"namesModel":true,"newType":false,"answersPending":false,"specific":true,"rule":"must_show","scenario":"phone","searchText":"galaxy s25 fe","filters":{},"criteria":{"budget":{"min":null,"max":3000000},"distanceKm":null,"installment":false,"openNow":false}}
+  [   12 ms] search  [sqlite] «galaxy s25 fe» groups=["galaxy*","s25*","fe*"] types=[] filters={"maxPrice":3000000}
+             and              rows=   18  MATCH ("samsung" OR "سامسونگ"* OR "galaxy" OR "گلکسی"*) AND ("s25") AND ("fe")
+              1.   4.68  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.18 shops=2 bm25=-24.88  گلس آنتی استاتیک میتوبل سامسونگ Galaxy S25 FE [محافظ صفحه نمایش گوشی]
+              2.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-23.77  قاب ژله ای اسپیس مدل TPU سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+              3.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-26.01  قاب سیلیکونی سامسونگ اورجینال Samsung S25 FE [کیف و کاور گوشی]
+              4.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-26.01  کیف فلیپ کاور سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+              5.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-22.19  کاور سامورایی مدل Stone مناسب برای گوشی موبایل سامسونگ Galax [کیف و کاور گوشی]
+              6.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-21.92  گلس محافظ صفحه نمایش مناسب برای گوشی Galaxy S25 fe [محافظ صفحه نمایش گوشی]
+              7.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-25.58  کاور مدل بتمنی ضد ضربه مناسب برای گوشی Samsung Galaxy S25 FE [کیف و کاور گوشی]
+              8.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-24.15  کیف کلاسوری سامسونگ مناسب Galaxy S25 FE طرح سوزنی [کیف و کاور گوشی]
+              9.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-24.18  قاب شفاف شاین طرح دار قلبی برجسته مناسب برای گوشی Samsung Ga [کیف و کاور گوشی]
+             10.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-24.18  قاب شفاف شاین طرح دار پاپیونی برجسته مناسب برای گوشی Samsung [کیف و کاور گوشی]
+             11.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-20.91  قاب سیلیکونی سامسونگ S25 FE - بنفش [کیف و کاور گوشی]
+             12.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-20.08  کاور نیلکین مدل CamShield Pro مناسب برای گوشی موبایل سامسونگ [کیف و کاور گوشی]
+             13.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-20.66  قاب نیلکین سامسونگ Galaxy S25 FE مدل Super Frosted Shield Pr [کیف و کاور گوشی]
+             14.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-21.92  قاب نیلکین سامسونگ Galaxy S25 FE مدل CamShield Pro Magnetic [کیف و کاور گوشی]
+             15.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-21.27  گلس نیلکین سامسونگ Galaxy S25 FE مدل H+ Pro tempered glass [محافظ صفحه نمایش گوشی]
+             16.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-21.27  قاب نیلکین CamShield Pro مناسب برای گوشی سامسونگ Galaxy S25  [کیف و کاور گوشی]
+             17.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-18.52  قاب گوشی نیلکین مدل Super Frosted Shield Pro مناسب سامسونگ G [کیف و کاور گوشی]
+             18.   1.01  cov=7 model=3/3 phrase=0 var=-2.1 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-17.22  قاب سواروسکی نگین دار سامسونگ مناسب گلکسی A14/A15/A16/A25/A2 [کیف و کاور گوشی]
+  [   42 ms] candidates  «galaxy s25 fe» {"search":18,"afterFilters":18,"afterType":18,"afterCategoryFocus":15} filters={"maxPrice":3000000}
+             · قاب ژله ای اسپیس مدل TPU سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+             · قاب سیلیکونی سامسونگ اورجینال Samsung S25 FE [کیف و کاور گوشی]
+             · کیف فلیپ کاور سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+             · کاور سامورایی مدل Stone مناسب برای گوشی موبایل سامسونگ Galaxy S25 FE [کیف و کاور گوشی]
+             · کاور مدل بتمنی ضد ضربه مناسب برای گوشی Samsung Galaxy S25 FE [کیف و کاور گوشی]
+             · کیف کلاسوری سامسونگ مناسب Galaxy S25 FE طرح سوزنی [کیف و کاور گوشی]
+  [ 3094 ms] llm  turn → live (gpt-5.4-mini, attempt 0, 3052 ms, ok=true)
+             raw: {"action":"show","question":null,"replies":null,"need":"قاب و کاور برای Galaxy S25 FE","filters":{"minPrice":null,"maxPrice":null,"brand":"سامسونگ"},"criteriaPatch":null,"pickIds":["product_0850c8c27e2672d4fd4117a6","product_34f8e8ffdc605ca9e16431ba","product_2e5f79540ec8f56e7a0b5c45","product_1b6957e6042d88fe1a5c6263"],"why":{"product_0850c8c27e2672d4fd4117a6":"یه گزینه ساده و اقتصادیه اگه فقط یه محافظ سبک و دم‌دستی برای گوشی‌ت می‌خوای.","product_34f8e8ffdc605ca9e16431ba":"اگر ظاهر تمیز و اورجینال برات مهمه، این مدل انتخاب مطمئن‌تریه و حس خود گوشی رو هم خوب نگه می‌داره.","product_2e5f79540ec8f56e7a0b5c45":"برای کسی که کاور تاشو و محافظت بیشتر از صفحه رو می‌خواد، این مدل خیلی کاربردیه.","pro
+  [ 3099 ms] search  [sqlite] «galaxy s25 fe» groups=["galaxy*","s25*","fe*"] types=[] filters={"maxPrice":3000000,"brand":"سامسونگ"}
+             and              rows=   18  MATCH ("samsung" OR "سامسونگ"* OR "galaxy" OR "گلکسی"*) AND ("s25") AND ("fe")
+              1.   4.68  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.18 shops=2 bm25=-24.88  گلس آنتی استاتیک میتوبل سامسونگ Galaxy S25 FE [محافظ صفحه نمایش گوشی]
+              2.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-23.77  قاب ژله ای اسپیس مدل TPU سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+              3.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-26.01  قاب سیلیکونی سامسونگ اورجینال Samsung S25 FE [کیف و کاور گوشی]
+              4.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-26.01  کیف فلیپ کاور سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+              5.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-22.19  کاور سامورایی مدل Stone مناسب برای گوشی موبایل سامسونگ Galax [کیف و کاور گوشی]
+              6.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-21.92  گلس محافظ صفحه نمایش مناسب برای گوشی Galaxy S25 fe [محافظ صفحه نمایش گوشی]
+              7.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-25.58  کاور مدل بتمنی ضد ضربه مناسب برای گوشی Samsung Galaxy S25 FE [کیف و کاور گوشی]
+              8.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-24.15  کیف کلاسوری سامسونگ مناسب Galaxy S25 FE طرح سوزنی [کیف و کاور گوشی]
+              9.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-24.18  قاب شفاف شاین طرح دار قلبی برجسته مناسب برای گوشی Samsung Ga [کیف و کاور گوشی]
+             10.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-24.18  قاب شفاف شاین طرح دار پاپیونی برجسته مناسب برای گوشی Samsung [کیف و کاور گوشی]
+             11.   4.61  cov=7 model=3/3 phrase=1.5 var=0 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-20.91  قاب سیلیکونی سامسونگ S25 FE - بنفش [کیف و کاور گوشی]
+             12.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-20.08  کاور نیلکین مدل CamShield Pro مناسب برای گوشی موبایل سامسونگ [کیف و کاور گوشی]
+             13.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-20.66  قاب نیلکین سامسونگ Galaxy S25 FE مدل Super Frosted Shield Pr [کیف و کاور گوشی]
+             14.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-21.92  قاب نیلکین سامسونگ Galaxy S25 FE مدل CamShield Pro Magnetic [کیف و کاور گوشی]
+             15.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-21.27  گلس نیلکین سامسونگ Galaxy S25 FE مدل H+ Pro tempered glass [محافظ صفحه نمایش گوشی]
+             16.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-21.27  قاب نیلکین CamShield Pro مناسب برای گوشی سامسونگ Galaxy S25  [کیف و کاور گوشی]
+             17.   3.91  cov=7 model=3/3 phrase=1.5 var=-0.7 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-18.52  قاب گوشی نیلکین مدل Super Frosted Shield Pro مناسب سامسونگ G [کیف و کاور گوشی]
+             18.   1.01  cov=7 model=3/3 phrase=0 var=-2.1 head=0 acc=-4 type=0 pop=0.11 shops=1 bm25=-17.22  قاب سواروسکی نگین دار سامسونگ مناسب گلکسی A14/A15/A16/A25/A2 [کیف و کاور گوشی]
+  [ 3159 ms] candidates  «galaxy s25 fe» {"search":18,"afterFilters":18,"afterType":18,"afterCategoryFocus":15} filters={"brand":"سامسونگ","maxPrice":3000000}
+             · قاب ژله ای اسپیس مدل TPU سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+             · قاب سیلیکونی سامسونگ اورجینال Samsung S25 FE [کیف و کاور گوشی]
+             · کیف فلیپ کاور سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+             · کاور سامورایی مدل Stone مناسب برای گوشی موبایل سامسونگ Galaxy S25 FE [کیف و کاور گوشی]
+             · کاور مدل بتمنی ضد ضربه مناسب برای گوشی Samsung Galaxy S25 FE [کیف و کاور گوشی]
+             · کیف کلاسوری سامسونگ مناسب Galaxy S25 FE طرح سوزنی [کیف و کاور گوشی]
+  [ 3159 ms] pick  source=LLM turn llmPickIds=["product_0850c8c27e2672d4fd4117a6","product_34f8e8ffdc605ca9e16431ba","product_2e5f79540ec8f56e7a0b5c45","product_1b6957e6042d88fe1a5c6263"] valid=4
+             → قاب ژله ای اسپیس مدل TPU سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+             → قاب سیلیکونی سامسونگ اورجینال Samsung S25 FE [کیف و کاور گوشی]
+             → کیف فلیپ کاور سامسونگ Samsung S25 FE [کیف و کاور گوشی]
+             → کاور نیلکین مدل CamShield Pro مناسب برای گوشی موبایل سامسونگ Galaxy S2 [کیف و کاور گوشی]
+  [ 3159 ms] path  {"mode":"live","llmConfigured":true,"blocks":["text","products","specDiff","enough"]}
+  ANSWER (live): قاب ژله ای اسپیس مدل TPU سامسونگ Samsung S25 FE [کیف و کاور گوشی] | قاب سیلیکونی سامسونگ اورجینال Samsung S25 FE [کیف و کاور گوشی] | کیف فلیپ کاور سامسونگ Samsung S25 FE [کیف و کاور گوشی] | کاور نیلکین مدل CamShield Pro مناسب برای گوشی موبا [کیف و کاور گوشی]
