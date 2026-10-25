@@ -63,3 +63,18 @@ Eval (`npm run search-eval`, in `npm test`) gained three budget cases. Before �
 ## After the fix
 
 Local (`docs/search-traces/after/`): all 7 queries answer the right product (or the by-design question) both without a budget and at ≤ 3M; «redmi buds 8 active», «ردمی بادز ۸ اکتیو» and «galaxy s25 fe» under the budget now show the model with the over-budget note.
+
+Live (release `bcb5b96`, `docs/search-traces/after/live-*.txt`): smoke 7/7 ✓, and the same matrix:
+
+| query | no budget | budget ≤ 3M |
+|---|---|---|
+| redmi buds 8 active | ✓ Redmi Buds 8 Active | ✓ Redmi Buds 8 Active + over-budget note |
+| ردمی بادز ۸ اکتیو | ✓ | ✓ + note |
+| هندزفری شیائومی | question (by design) | question |
+| galaxy s25 fe | ✓ S25 FE phones | ✓ S25 FE phones + note (from 184M) |
+| ایرپاد پرو | ✓ AirPods Pro 2 | ✓ |
+| شارژر ۲۰ وات اپل | ✓ Apple 20W | ✓ |
+| یه هندزفری بی‌سیم می‌خوام | question (by design) | question |
+
+Checks after the fix: typecheck ✓, lint 0 errors, unit 102/102, search-eval 42/42 + agent 6/6, e2e 12/12, DEMO_SCRIPT walk 23/23.
+

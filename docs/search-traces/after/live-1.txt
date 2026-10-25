@@ -1,0 +1,22 @@
+
+=== «redmi buds 8 active» @ https://torob-yar-app.liara.run ===
+  [    6 ms] search  [sqlite] «redmi buds 8 active» groups=["redmi*","buds*","8*","active*"] types=[] filters={}
+             and              rows=    1  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8") AND ("active" OR "اکتیو"*)
+              1.   8.93  cov=7 model=4/4 phrase=1.5 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=-20.5  هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی سیم با قا [هدفون، هدست و هندزفری]
+  [   15 ms] session  {"last":"redmi buds 8 active","freshSearch":false,"namesModel":true,"newType":false,"answersPending":false,"specific":true,"rule":"must_show","scenario":"phone","searchText":"redmi buds 8 active","filters":{},"criteria":{"budget":{"min":null,"max":null},"distanceKm":null,"installment":false,"openNow":false}}
+  [   18 ms] search  [sqlite] «redmi buds 8 active» groups=["redmi*","buds*","8*","active*"] types=[] filters={}
+             and              rows=    1  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8") AND ("active" OR "اکتیو"*)
+              1.   8.93  cov=7 model=4/4 phrase=1.5 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=-20.5  هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی سیم با قا [هدفون، هدست و هندزفری]
+  [   21 ms] candidates  «redmi buds 8 active» {"search":1,"afterFilters":1,"afterType":1,"afterCategoryFocus":1} filters={}
+             · هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی سیم با قابلیت حذف ن [هدفون، هدست و هندزفری]
+  [ 2796 ms] llm  turn → live (gpt-5.4-mini, attempt 0, 2775 ms, ok=true)
+             raw: {"action":"show","question":null,"replies":null,"need":"هندزفری بلوتوثی","filters":{"minPrice":null,"maxPrice":null,"brand":"شیائومی"},"criteriaPatch":null,"pickIds":["product_7e5b414601f84774977ae02f"],"why":{"product_7e5b414601f84774977ae02f":"همون مدل Redmi Buds 8 Active خودته و از بین فروشگاه‌های بیشتری هم موجوده. برای مکالمه، ورزش و استفاده روزمره گزینه‌ی مناسبیه و شارژ USB-C هم داره."},"intro":"اینم همون مدل در دسترس بازار، یه نگاهی بنداز.","diffKeys":["نوع اتصال","مناسب برای","نوع گوشی","ظرفیت باتری","درگاه شارژ","قطر درایور"],"searchText":null}
+  [ 2803 ms] search  [sqlite] «redmi buds 8 active» groups=["redmi*","buds*","8*","active*"] types=[] filters={"brand":"شیائومی"}
+             and              rows=    1  MATCH ("redmi" OR "ردمی"*) AND ("buds" OR "بادز"* OR "buds8") AND ("8" OR "buds8") AND ("active" OR "اکتیو"*)
+              1.   8.93  cov=7 model=4/4 phrase=1.5 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=-20.5  هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی سیم با قا [هدفون، هدست و هندزفری]
+  [ 2805 ms] candidates  «redmi buds 8 active» {"search":1,"afterFilters":1,"afterType":1,"afterCategoryFocus":1} filters={"brand":"شیائومی"}
+             · هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی سیم با قابلیت حذف ن [هدفون، هدست و هندزفری]
+  [ 2806 ms] pick  source=LLM turn llmPickIds=["product_7e5b414601f84774977ae02f"] valid=1
+             → هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی سیم با قابلیت حذف ن [هدفون، هدست و هندزفری]
+  [ 2806 ms] path  {"mode":"live","llmConfigured":true,"blocks":["text","products","enough"]}
+  ANSWER (live): هندزفری بلوتوثی شیائومی مدل Redmi Buds 8 Active بی [هدفون، هدست و هندزفری]

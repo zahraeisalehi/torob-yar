@@ -1,0 +1,68 @@
+
+=== «ایرپاد پرو» @ https://torob-yar-app.liara.run ===
+  [   14 ms] search  [sqlite] «ایرپاد پرو» groups=["ایرپاد:audio","پرو*"] types=["audio"] filters={}
+             and              rows=   82  MATCH ("airpods" OR "ایرپاد"* OR "ایربادز"* OR "airpod") AND ("pro" OR "پرو")
+              1.   8.18  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.18 shops=2 bm25=-12.28  ایرپاد پرو 2 طرح پرچم آمریکا [هدفون، هدست و هندزفری]
+              2.   8.18  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.18 shops=2 bm25=-11.85  ایرپاد پرو طرح پرچم آمریکا های کپی [هدفون، هدست و هندزفری]
+              3.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-12.74  ایرپاد پرو 2 دست دوم [هدفون، هدست و هندزفری]
+              4.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-23.3  ایرپاد پرو 3 اصلی اپل Airpod Pro 3 Original Apple [هدفون، هدست و هندزفری]
+              5.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-12.74  ایرپاد پرو 3 اپل [هدفون، هدست و هندزفری]
+  [   23 ms] session  {"last":"ایرپاد پرو","freshSearch":false,"namesModel":true,"newType":true,"answersPending":false,"specific":true,"rule":"must_show","scenario":"earbuds","searchText":"ایرپاد پرو","filters":{},"criteria":{"budget":{"min":null,"max":null},"distanceKm":null,"installment":false,"openNow":false}}
+  [   39 ms] search  [sqlite] «ایرپاد پرو» groups=["ایرپاد:audio","پرو*"] types=["audio"] filters={}
+             and              rows=   82  MATCH ("airpods" OR "ایرپاد"* OR "ایربادز"* OR "airpod") AND ("pro" OR "پرو")
+              1.   8.18  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.18 shops=2 bm25=-12.28  ایرپاد پرو 2 طرح پرچم آمریکا [هدفون، هدست و هندزفری]
+              2.   8.18  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.18 shops=2 bm25=-11.85  ایرپاد پرو طرح پرچم آمریکا های کپی [هدفون، هدست و هندزفری]
+              3.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-12.74  ایرپاد پرو 2 دست دوم [هدفون، هدست و هندزفری]
+              4.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-23.3  ایرپاد پرو 3 اصلی اپل Airpod Pro 3 Original Apple [هدفون، هدست و هندزفری]
+              5.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-12.74  ایرپاد پرو 3 اپل [هدفون، هدست و هندزفری]
+              6.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-16.65  ایربادز 4 پرو سامسونگ buds 4pro [هدفون، هدست و هندزفری]
+              7.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-12.94  ایرپاد3 pro آیفون [هدفون، هدست و هندزفری]
+              8.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  ایرپاد پرو 2 طرح پرچم آمریکا تایپ سی [هدفون، هدست و هندزفری]
+              9.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-10.73  ایرپاد پرو طرح کیفیت درجه 1 و هلوگرام سبز عربستان [هدفون، هدست و هندزفری]
+             10.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-13.93  ایرپاد پرو high-quality مدل +PRO-A با 18 ماه گارانتی شرکتی [هدفون، هدست و هندزفری]
+             11.   8.11  cov=7 model=1/1 phrase=0 var=0 head=1 acc=0 type=0 pop=0.11 shops=1 bm25=-10.4  ایرپاد پرو 2 (+ANC) نسخه +++A با 18 ماه گارانتی شرکتی [هدفون، هدست و هندزفری]
+             12.   7.43  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.43 shops=13 bm25=-10.4  هدفون بی سیم اپل مدل ایرپاد پرو 2 نویز کنسلینگ [هدفون، هدست و هندزفری]
+             13.    7.4  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.4 shops=11 bm25=-11.08  هدفون بی سیم اپل مدل ایرپاد پرو 3 [هدفون، هدست و هندزفری]
+             14.   7.29  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.29 shops=5 bm25=-11.45  هدفون بی سیم اپل مدل ایرپاد پرو [هدفون، هدست و هندزفری]
+             15.   7.26  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.26 shops=4 bm25=-11.08  هدفون بی سیم اپل مدل ایرپاد پرو 3 [هدفون، هدست و هندزفری]
+             16.   7.26  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.26 shops=4 bm25=-11.08  هدفون بی سیم اپل مدل ایرپاد پرو 2 [هدفون، هدست و هندزفری]
+             17.   7.23  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.23 shops=3 bm25=-10.4  هدفون بی سیم اپل مدل ایرپاد پرو نویز کنسلینگ فعال [هدفون، هدست و هندزفری]
+             18.   7.23  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.23 shops=3 bm25=-10.4  هدفون بی سیم اپل مدل ایرپاد پرو 2 تایپ سی [هدفون، هدست و هندزفری]
+             19.   7.23  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.23 shops=3 bm25=-10.4  هدفون بی سیم اپل مدل ایرپاد پرو 2 تایپ سی [هدفون، هدست و هندزفری]
+             20.   7.18  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.18 shops=2 bm25=-9.52  هدفون بی سیم اپل مدل ایرپاد پرو 2 تایپ سی نویز کنسلینگ فعال [هدفون، هدست و هندزفری]
+             21.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-10.09  گوش ایرپاد پرو 2 لایتنینگ و تایپ c - گوش سمت راست لایتنینگ [هدفون، هدست و هندزفری]
+             22.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-9.8  گوش ایرپاد پرو 2 لایتنینگ و تایپ c - گوش سمت راست تایپ C [هدفون، هدست و هندزفری]
+             23.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-9.8  گوش ایرپاد پرو 2 لایتنینگ و تایپ c - گوش سمت چپ تایپ C [هدفون، هدست و هندزفری]
+             24.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.85  گوش چپ ایرپاد پرو 3 Apple [هدفون، هدست و هندزفری]
+             25.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  تک گوش سمت راست ایرپاد پرو 3 [هدفون، هدست و هندزفری]
+             26.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  گوش چپ ایرپاد پرو نسل 1 Apple [هدفون، هدست و هندزفری]
+             27.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  گوش راست ایرپاد پرو نسل 1 Apple [هدفون، هدست و هندزفری]
+             28.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  گوش چپ ایرپاد پرو 2 لایتنینگ Apple [هدفون، هدست و هندزفری]
+             29.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-13.09  هندزفری بلوتوثی AirPods PRO 2 2nd generation [هدفون، هدست و هندزفری]
+             30.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-10.73  هندزفری بلوتوثی اپل مدل ایرپادز پرو 3 طرح اصلی [هدفون، هدست و هندزفری]
+             31.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.85  هدفون بی سیم ایرپاد پرو 4 [هدفون، هدست و هندزفری]
+             32.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  هدفون بی سیم مدل ایرپاد پرو 5s [هدفون، هدست و هندزفری]
+             33.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  هدفون بی سیم مدل ایرپاد پرو 6S [هدفون، هدست و هندزفری]
+             34.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.45  هدفون بی سیم اپل مدل ایرپاد پرو [هدفون، هدست و هندزفری]
+             35.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-10.52  هدفون بی سیم اپل مدل AirPods Pro گوش چپ با قابلیت حذف نویز [هدفون، هدست و هندزفری]
+             36.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-11.08  هدفون بی سیم اپل مدل ایرپاد پرو 2 [هدفون، هدست و هندزفری]
+             37.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-9.8  گوش راست هدفون بی سیم اپل مدل ایرپاد پرو 2 تایپ سی [هدفون، هدست و هندزفری]
+             38.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-10.4  هدفون بی سیم ایرپاد پرو 2 تایپ سی گوش چپ [هدفون، هدست و هندزفری]
+             39.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-10.73  هدفون بی سیم اپل مدل ایرپاد پرو گوش راست [هدفون، هدست و هندزفری]
+             40.   7.11  cov=7 model=1/1 phrase=0 var=0 head=0 acc=0 type=0 pop=0.11 shops=1 bm25=-12.65  هدفون بی سیم ورنا Airpods pro K14 [هدفون، هدست و هندزفری]
+  [  107 ms] candidates  «ایرپاد پرو» {"search":40,"afterFilters":40,"afterType":40,"afterCategoryFocus":40} filters={}
+             · ایرپاد پرو 2 طرح پرچم آمریکا [هدفون، هدست و هندزفری]
+             · ایرپاد پرو طرح پرچم آمریکا های کپی [هدفون، هدست و هندزفری]
+             · ایرپاد پرو 2 دست دوم [هدفون، هدست و هندزفری]
+             · ایرپاد پرو 3 اصلی اپل Airpod Pro 3 Original Apple [هدفون، هدست و هندزفری]
+             · ایرپاد پرو 3 اپل [هدفون، هدست و هندزفری]
+             · ایربادز 4 پرو سامسونگ buds 4pro [هدفون، هدست و هندزفری]
+  [ 3776 ms] llm  turn → live (gpt-5.4-mini, attempt 0, 3668 ms, ok=true)
+             raw: {"action":"show","question":null,"replies":null,"need":"ایرپاد پرو","filters":{"minPrice":null,"maxPrice":null,"brand":null},"criteriaPatch":null,"pickIds":["product_87275da84ee308b9814d5085","product_60bcba27dda2656a2514a63b","product_10ac0733f2afd365ed3abb51","product_bfce04fd7287a314e164149a"],"why":{"product_87275da84ee308b9814d5085":"این یکی از بین گزینه‌ها فروشگاه‌های بیشتری داره و برای کسی که ایرپاد پرو می‌خواد، انتخاب مطمئن‌تریه. نویز کنسلینگ هم داره و به تجربه‌ی نزدیک‌تر به مدل پرو کمک می‌کنه.","product_60bcba27dda2656a2514a63b":"اگر دنبال نسخه‌ای با امکانات شبیه پرو و نویز کنسلینگ هستی، این گزینه به‌دردبخوره. برای مقایسه، این مدل روی ANC هم تاکید داره و می‌تونه انتخاب اقتصادی‌تری ن
+  [ 3777 ms] pick  source=LLM turn llmPickIds=["product_87275da84ee308b9814d5085","product_60bcba27dda2656a2514a63b","product_10ac0733f2afd365ed3abb51","product_bfce04fd7287a314e164149a"] valid=4
+             → هدفون بی سیم اپل مدل ایرپاد پرو 2 نویز کنسلینگ [هدفون، هدست و هندزفری]
+             → ایرپاد پرو 2 (+ANC) نسخه +++A با 18 ماه گارانتی شرکتی [هدفون، هدست و هندزفری]
+             → ایرپاد پرو 2 طرح پرچم آمریکا تایپ سی [هدفون، هدست و هندزفری]
+             → ایرپاد پرو 2 طرح پرچم آمریکا [هدفون، هدست و هندزفری]
+  [ 3777 ms] path  {"mode":"live","llmConfigured":true,"blocks":["text","products","enough"]}
+  ANSWER (live): هدفون بی سیم اپل مدل ایرپاد پرو 2 نویز کنسلینگ [هدفون، هدست و هندزفری] | ایرپاد پرو 2 (+ANC) نسخه +++A با 18 ماه گارانتی شر [هدفون، هدست و هندزفری] | ایرپاد پرو 2 طرح پرچم آمریکا تایپ سی [هدفون، هدست و هندزفری] | ایرپاد پرو 2 طرح پرچم آمریکا [هدفون، هدست و هندزفری]
